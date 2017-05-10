@@ -66,23 +66,30 @@ if_ge_a16: MACRO
 	la a, [\1 + 1]
 	cp [\2 + 1]
 	jr c, \3
-	jr nz, .break@
+	jr nz, .break\@
 	ld a, [\1]
 	cp [\2]
 	jr c, \3
 	jr z, \3
-.break@
+.break\@
 ENDM
 
 ; Comparisons between a 16-bit number pointed to by a 16-bit address (\1), and a 8/16-bit direct number (\2).
 ; Uses register a. If the direct number is a full 16-bit, registers bc are also used, and the routine is slower.
 cp_d16: MACRO
 	ld a, [\1 + 1]
+IF \2 > $FF
 	ld bc, \2
 	cp c
 	jr nz, .break\@
 	ld a, [\1]
 	cp b
+ELSE
+	cp 0
+	jr nz, .break\@
+	ld a, [\1]
+	cp \2
+ENDC
 .break\@
 ENDM
 
@@ -127,7 +134,7 @@ IF \2 > $FF
 	ld bc, \2
 	cp c
 	jr c, \3
-	jr nz, .break@
+	jr nz, .break\@
 	ld a, [\1]
 	cp b
 ELSE
@@ -137,7 +144,7 @@ ELSE
 	cp \2
 ENDC
 	jr c, \3
-.break@
+.break\@
 ENDM
 
 if_le_d16: MACRO
@@ -145,18 +152,18 @@ if_le_d16: MACRO
 IF \2 > $FF
 	ld bc, \2
 	cp c
-	jr c, .break@
+	jr c, .break\@
 	jr nz, \3
 	ld a, [\1]
 	cp b
 ELSE
 	and a
-	jr nz, .break@
+	jr nz, .break\@
 	ld a, [\1]
 	cp \2
 ENDC
 	jr nc, \3
-.break@
+.break\@
 ENDM
 
 if_lt_d16: MACRO
@@ -164,19 +171,19 @@ if_lt_d16: MACRO
 IF \2 > $FF
 	ld bc, \2
 	cp c
-	jr c, .break@
+	jr c, .break\@
 	jr nz, \3
 	ld a, [\1]
 	cp b
 ELSE
 	and a
-	jr nz, .break@
+	jr nz, .break\@
 	ld a, [\1]
 	cp \2
 ENDC
-	jr c, .break@
+	jr c, .break\@
 	jr nz, \3
-.break@
+.break\@
 ENDM
 
 if_ge_d16: MACRO
@@ -185,7 +192,7 @@ IF \2 > $FF
 	ld bc, \2
 	cp c
 	jr c, \3
-	jr nz, .break@
+	jr nz, .break\@
 	ld a, [\1]
 	cp b
 ELSE
@@ -196,5 +203,5 @@ ELSE
 ENDC
 	jr c, \3
 	jr z, \3
-.break@
+.break\@
 ENDM
