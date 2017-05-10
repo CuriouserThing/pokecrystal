@@ -53,7 +53,7 @@ compare: pokecrystal.gbc pokecrystal11.gbc
 
 pokecrystal11.gbc: $(crystal11_obj)
 	rgblink -n pokecrystal11.sym -m pokecrystal11.map -o $@ $^
-	rgbfix -Cjv -i BYTE -k 01 -l 0x33 -m 0x1B -n 1 -p 0 -r 4 -t PM_CRYSTAL $@
+	rgbfix -Cjv -i BYTE -k 01 -l 0x33 -m 0x1B -n 1 -p 0 -r 4 -t PM_TIMELESS $@
 
 pokecrystal.gbc: $(crystal_obj)
 	rgblink -n pokecrystal.sym -m pokecrystal.map -o $@ $^
