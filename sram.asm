@@ -235,7 +235,7 @@ SECTION "Boxes 1-7",  SRAM, BANK [2]
 	box sBox6
 	box sBox7
 
-SECTION "Boxes 8-14", SRAM, BANK [3]
+SECTION "Boxes 8-14", SRAM, BANK [4]
 	box sBox8
 	box sBox9
 	box sBox10
