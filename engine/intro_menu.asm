@@ -295,15 +295,15 @@ InitializeNPCNames: ; 5ce9
 	call .Copy
 
 	ld hl, .Mom
-	ld de, MomsName
+	ld de, .Mom
 	call .Copy
 
 	ld hl, .Red
-	ld de, RedsName
+	ld de, .Red
 	call .Copy
 
 	ld hl, .Green
-	ld de, GreensName
+	ld de, .Green
 
 .Copy:
 	ld bc, NAME_LENGTH
