@@ -75,11 +75,14 @@ if_ge_a16: MACRO
 ENDM
 
 ; Comparisons between a 16-bit number pointed to by a 16-bit address (\1), and a 8/16-bit direct number (\2).
-; Uses register a. If the direct number is only 8-bit, the routine is a hair faster.
-
+; Uses register a. If the direct number is only 8-bit, the routine is a hair smaller and potentially (but unlikely) faster.
 cp_d16: MACRO
 	ld a, [\1 + 1]
+IF \2 > $FF
 	cp HIGH(\2)
+ELSE
+	and a
+ENDC
 	jr nz, .break\@
 	ld a, [\1]
 	cp LOW(\2)
