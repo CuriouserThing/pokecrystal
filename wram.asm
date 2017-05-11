@@ -2610,8 +2610,6 @@ wMountMoonSquareTrigger::                    ds 1 ; d9be
 wMobileTradeRoomMobileTrigger::              ds 1 ; d9bf
 wMobileBattleRoomTrigger::                   ds 1 ; d9c0
 
-	ds 49
-
 
 ;SECTION "Events", WRAMX, BANK [1]
 
@@ -2639,8 +2637,6 @@ wVanceFightCount::   ds 1
 wWiltonFightCount::  ds 1
 wParryFightCount::   ds 1
 wErinFightCount::    ds 1
-; da0e
-	ds 100
 
 EventFlags:: ; da72
 	flag_array NUM_EVENTS
