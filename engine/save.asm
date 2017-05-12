@@ -880,189 +880,46 @@ endr
 	ret
 ; 150f9
 
-SaveBoxAddress: ; 150f9
-; Save box via wMisc.
-; We do this in three steps because the size of wMisc is less than
-; the size of sBox.
-	push hl
-; Load the first part of the active box.
-	push af
-	push de
-	ld a, BANK(sBox)
-	call GetSRAMBank
-	ld hl, sBox
-	ld de, wMisc
-	ld bc, (wMiscEnd - wMisc)
-	call CopyBytes
-	call CloseSRAM
-	pop de
-	pop af
-; Save it to the target box.
-	push af
-	push de
-	call GetSRAMBank
-	ld hl, wMisc
-	ld bc, (wMiscEnd - wMisc)
-	call CopyBytes
-	call CloseSRAM
-
-; Load the second part of the active box.
-	ld a, BANK(sBox)
-	call GetSRAMBank
-	ld hl, sBox + (wMiscEnd - wMisc)
-	ld de, wMisc
-	ld bc, (wMiscEnd - wMisc)
-	call CopyBytes
-	call CloseSRAM
-	pop de
-	pop af
-
-	ld hl, (wMiscEnd - wMisc)
-	add hl, de
-	ld e, l
-	ld d, h
-; Save it to the next part of the target box.
-	push af
-	push de
-	call GetSRAMBank
-	ld hl, wMisc
-	ld bc, (wMiscEnd - wMisc)
-	call CopyBytes
-	call CloseSRAM
-
-; Load the third and final part of the active box.
-	ld a, BANK(sBox)
-	call GetSRAMBank
-	ld hl, sBox + (wMiscEnd - wMisc) * 2
-	ld de, wMisc
-	ld bc, sBoxEnd - (sBox + (wMiscEnd - wMisc) * 2) ; $8e
-	call CopyBytes
-	call CloseSRAM
-	pop de
-	pop af
-
-	ld hl, (wMiscEnd - wMisc)
-	add hl, de
-	ld e, l
-	ld d, h
-; Save it to the final part of the target box.
-	call GetSRAMBank
-	ld hl, wMisc
-	ld bc, sBoxEnd - (sBox + (wMiscEnd - wMisc) * 2) ; $8e
-	call CopyBytes
-	call CloseSRAM
-
-	pop hl
-	ret
-; 1517d
-
-
-LoadBoxAddress: ; 1517d (5:517d)
-; Load box via wMisc.
-; We do this in three steps because the size of wMisc is less than
-; the size of sBox.
-	push hl
-	ld l, e
-	ld h, d
-; Load part 1
-	push af
-	push hl
-	call GetSRAMBank
-	ld de, wMisc
-	ld bc, (wMiscEnd - wMisc)
-	call CopyBytes
-	call CloseSRAM
-	ld a, BANK(sBox)
-	call GetSRAMBank
-	ld hl, wMisc
-	ld de, sBox
-	ld bc, (wMiscEnd - wMisc)
-	call CopyBytes
-	call CloseSRAM
-	pop hl
-	pop af
-
-	ld de, (wMiscEnd - wMisc)
-	add hl, de
-; Load part 2
-	push af
-	push hl
-	call GetSRAMBank
-	ld de, wMisc
-	ld bc, (wMiscEnd - wMisc)
-	call CopyBytes
-	call CloseSRAM
-	ld a, BANK(sBox)
-	call GetSRAMBank
-	ld hl, wMisc
-	ld de, sBox + (wMiscEnd - wMisc)
-	ld bc, (wMiscEnd - wMisc)
-	call CopyBytes
-	call CloseSRAM
-	pop hl
-	pop af
-; Load part 3
-	ld de, (wMiscEnd - wMisc)
-	add hl, de
-	call GetSRAMBank
-	ld de, wMisc
-	ld bc, sBoxEnd - (sBox + (wMiscEnd - wMisc) * 2) ; $8e
-	call CopyBytes
-	call CloseSRAM
-	ld a, BANK(sBox)
-	call GetSRAMBank
-	ld hl, wMisc
-	ld de, sBox + (wMiscEnd - wMisc) * 2
-	ld bc, sBoxEnd - (sBox + (wMiscEnd - wMisc) * 2) ; $8e
-	call CopyBytes
-	call CloseSRAM
-
-	pop hl
+SaveBoxAddress:
+	save_box_address_chunks 4
 	ret
 
+LoadBoxAddress:
+	load_box_address_chunks 4
+	ret
 
 EraseBoxes: ; 151fb
 	ld hl, BoxAddresses
 	ld c, NUM_BOXES
 .next
 	push bc
-	; Switch to BANK(sBoxN)
 	ld a, [hli]
 	call GetSRAMBank
-	; de <- sBoxN
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
 	ld d, a
-	; [sBoxN] <- $00
 	xor a
 	ld [de], a
-	; [sBoxN + 1] <- $FF
 	inc de
 	ld a, -1
 	ld [de], a
-	; de <- sBoxN + 2
 	inc de
-	; bc <- size of box - 2
 	ld bc, sBoxEnd - (sBox + 2)
 .clear
-	; [de] <- 0, dec bc counter
 	xor a
 	ld [de], a
 	inc de
 	dec bc
-	; if bc == 0, loop
 	ld a, b
 	or c
 	jr nz, .clear
-	; [sBoxNEnd] <- $FF
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
 	ld d, a
 	ld a, -1
 	ld [de], a
-	; [sBoxNEnd + 1] <- $00
 	inc de
 	xor a
 	ld [de], a

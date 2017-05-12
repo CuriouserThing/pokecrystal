@@ -17,6 +17,7 @@ INCLUDE "macros/trainer.asm"
 INCLUDE "macros/trade_anim.asm"
 INCLUDE "macros/pals.asm"
 
+INCLUDE "macros/boxing.asm"
 INCLUDE "macros/comparison.asm"
 
 RGB: MACRO
