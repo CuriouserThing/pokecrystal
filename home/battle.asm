@@ -242,7 +242,7 @@ FarCopyRadioText:: ; 3a90
 	ld d, a
 	ld a, [hli]
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 	ld a, e
 	ld l, a
 	ld a, d
@@ -252,7 +252,7 @@ FarCopyRadioText:: ; 3a90
 	call CopyBytes
 	pop af
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 	ret
 ; 3ab2
 

@@ -817,7 +817,7 @@ Text_TX_FAR:: ; 1455
 	ld a, [hli]
 
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 
 	push hl
 	ld h, d
@@ -827,7 +827,7 @@ Text_TX_FAR:: ; 1455
 
 	pop af
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 	ret
 ; 1470
 

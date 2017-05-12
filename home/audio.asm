@@ -11,13 +11,13 @@ MapSetup_Sound_Off:: ; 3b4e
 	push af
 	ld a, BANK(_MapSetup_Sound_Off)
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 
 	call _MapSetup_Sound_Off
 
 	pop af
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 
 	pop af
 	pop bc
@@ -38,13 +38,13 @@ UpdateSound:: ; 3b6a
 	push af
 	ld a, BANK(_UpdateSound)
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 
 	call _UpdateSound
 
 	pop af
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 
 	pop af
 	pop bc
@@ -59,14 +59,14 @@ _LoadMusicByte:: ; 3b86
 GLOBAL LoadMusicByte
 
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 
 	ld a, [de]
 	ld [CurMusicByte], a
 	ld a, BANK(LoadMusicByte)
 
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 	ret
 ; 3b97
 
@@ -83,7 +83,7 @@ PlayMusic:: ; 3b97
 	push af
 	ld a, BANK(_PlayMusic) ; and BANK(_MapSetup_Sound_Off)
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 
 	ld a, e
 	and a
@@ -98,7 +98,7 @@ PlayMusic:: ; 3b97
 .end
 	pop af
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 	pop af
 	pop bc
 	pop de
@@ -119,7 +119,7 @@ PlayMusic2:: ; 3bbc
 	push af
 	ld a, BANK(_PlayMusic)
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 
 	push de
 	ld de, MUSIC_NONE
@@ -130,7 +130,7 @@ PlayMusic2:: ; 3bbc
 
 	pop af
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 
 	pop af
 	pop bc
@@ -155,7 +155,7 @@ PlayCryHeader:: ; 3be3
 	; Cry headers are stuck in one bank.
 	ld a, BANK(CryHeaders)
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 
 	ld hl, CryHeaders
 rept 6
@@ -178,13 +178,13 @@ endr
 
 	ld a, BANK(_PlayCryHeader)
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 
 	call _PlayCryHeader
 
 	pop af
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 
 	pop af
 	pop bc
@@ -217,7 +217,7 @@ PlaySFX:: ; 3c23
 	push af
 	ld a, BANK(_PlaySFX)
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 
 	ld a, e
 	ld [CurSFX], a
@@ -225,7 +225,7 @@ PlaySFX:: ; 3c23
 
 	pop af
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 
 .done
 	pop af

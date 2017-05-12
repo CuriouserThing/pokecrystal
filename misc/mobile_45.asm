@@ -132,7 +132,7 @@ String_114232: ; 114232
 
 Function114243:: ; 114243
 	ld a, SRAM_ENABLE
-	ld [MBC3SRamEnable], a
+	ld [MBC5SRamEnable], a
 	ld a, [hFF8C]
 	push af ; if [$dc02] == 0, this is popped to pc.
 	push de
@@ -155,7 +155,7 @@ Function11425c: ; 11425c
 	pop af
 	ld [hFF8C], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ret
 
 ; 114268
@@ -173,7 +173,7 @@ Function114269: ; 114269
 	ld a, [hli]
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -374,7 +374,7 @@ Function11433c: ; 11433c
 	ld a, [$dc03]
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	call Function114c0b
 	ld hl, String_114004
 .asm_114394
@@ -434,7 +434,7 @@ Function1143b7: ; 1143b7
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -493,7 +493,7 @@ Function114412: ; 114412
 	ld a, c
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld hl, Unknown_11417f
 	ld a, b
 	add a
@@ -684,7 +684,7 @@ Function1144d1: ; 1144d1
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -701,7 +701,7 @@ Function1144d1: ; 1144d1
 	ld a, [hl]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld hl, $dc09
 	ld e, [hl]
 	inc hl
@@ -763,7 +763,7 @@ Function114576: ; 114576
 	ld a, h
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	push hl
 	push de
 	push bc
@@ -781,7 +781,7 @@ Function114576: ; 114576
 	ld a, h
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld hl, String_114218
 	call Function114acf
 
@@ -957,7 +957,7 @@ Function11463c: ; 11463c
 	pop af
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	xor a
 	ld [Carpet], a
 	ld a, $1
@@ -982,7 +982,7 @@ Function1146a4: ; 1146a4
 	ld a, [hli]
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -996,7 +996,7 @@ Function1146a4: ; 1146a4
 	ld a, [hli]
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -1041,7 +1041,7 @@ Function1146fa: ; 1146fa
 	ld a, [hli]
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -1055,7 +1055,7 @@ Function1146fa: ; 1146fa
 	ld [$dc0e], a
 	ld a, [$dc00]
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld a, $1
 	ld [RightOrnament], a
 	call Function1147cd
@@ -1082,7 +1082,7 @@ Function1146fa: ; 1146fa
 	ld a, [hli]
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -1136,7 +1136,7 @@ Function1146fa: ; 1146fa
 	ld a, [hli]
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	call Function114a7a
 	and a
 	jr z, .asm_1147cb
@@ -1252,7 +1252,7 @@ Function114843: ; 114843
 	push af
 	push de
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	call Function114a18
 	and a
 	jr nz, .asm_11485f
@@ -1277,7 +1277,7 @@ Function114867: ; 114867
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -1346,7 +1346,7 @@ Function1148c2: ; 1148c2
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -1448,7 +1448,7 @@ Function11494d: ; 11494d
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -1542,7 +1542,7 @@ Function1149cc: ; 1149cc
 	ld a, [hl]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	push de
 	ld hl, $dc09
 	ld e, [hl]
@@ -1905,7 +1905,7 @@ endr
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -1945,7 +1945,7 @@ Function114bbc: ; 114bbc
 	ld a, h
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	call Function114c0b
 	ld hl, $dc24
 	call Function114c5e
@@ -1956,7 +1956,7 @@ Function114bbc: ; 114bbc
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
@@ -2170,7 +2170,7 @@ Function114cd9: ; 114cd9
 	ld a, h
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld hl, $dc24
 	call Function114d39
 	ld hl, $dc24
@@ -2189,7 +2189,7 @@ endr
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -2499,7 +2499,7 @@ Function114ea0: ; 114ea0
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -2709,7 +2709,7 @@ Function114f59: ; 114f59
 	ld a, [hli]
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -2789,7 +2789,7 @@ Function115020: ; 115020
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -2850,7 +2850,7 @@ Function115062: ; 115062
 	ld a, [hli]
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -3005,7 +3005,7 @@ Function115136: ; 115136
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -3062,7 +3062,7 @@ Function115179: ; 115179
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -3184,7 +3184,7 @@ Function115217: ; 115217
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -3281,7 +3281,7 @@ Function11528f: ; 11528f
 	ld a, [hli]
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld a, [hli]
 	ld e, a
 	ld a, [hli]
@@ -3540,7 +3540,7 @@ Function1153d2: ; 1153d2
 	ld a, [hli]
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -3674,7 +3674,7 @@ Function1153d2: ; 1153d2
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -3915,7 +3915,7 @@ Function11560a: ; 11560a
 	ld a, [$dc17]
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld hl, $dc1a
 	ld c, [hl]
 	inc hl
@@ -3988,7 +3988,7 @@ Function11560a: ; 11560a
 	pop bc
 	ld a, [wCurrentMapSignpostCount]
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld hl, wCurrMapTriggerCount
 	ld e, [hl]
 	inc hl
@@ -4304,7 +4304,7 @@ Function11581e: ; 11581e
 	ld a, [hli]
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -4358,7 +4358,7 @@ Function11581e: ; 11581e
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -4837,7 +4837,7 @@ Function115b00: ; 115b00
 	ld a, [hli]
 	ld [$dc00], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -4925,7 +4925,7 @@ Function115b00: ; 115b00
 	ld a, [hli]
 	ld [wCurrentMapSignpostCount], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -5334,7 +5334,7 @@ Function115d80: ; 115d80
 	inc a
 	ld [bc], a
 	ld [hFF8C], a
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	ld a, e
 	ld d, $a0
 	ld e, $0

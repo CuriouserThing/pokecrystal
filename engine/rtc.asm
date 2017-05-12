@@ -58,9 +58,9 @@ StageRTCTimeForSave: ; 14056
 
 SaveRTC: ; 1406a
 	ld a, $a
-	ld [MBC3SRamEnable], a
+	ld [MBC5SRamEnable], a
 	ld a, BANK(sRTCStatusFlags)
-	ld [MBC3SRamBank], a
+	ld [MBC5SRamBank], a
 	xor a
 	ld [sRTCStatusFlags], a
 	call CloseSRAM

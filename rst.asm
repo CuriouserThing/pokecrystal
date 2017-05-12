@@ -9,7 +9,7 @@ SECTION "rst8",ROM0[FarCall]
 
 SECTION "rst10",ROM0[Bankswitch]
 	ld [hROMBank], a
-	ld [MBC3RomBank], a
+	ld [MBC5RomBank], a
 	ret
 
 SECTION "rst18",ROM0[$18]

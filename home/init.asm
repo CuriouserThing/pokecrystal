@@ -149,7 +149,7 @@ Init:: ; 17d
 	farcall StartClock
 
 	xor a
-	ld [MBC3SRamEnable], a
+	ld [MBC5SRamEnable], a
 
 	ld a, [hCGB]
 	and a
