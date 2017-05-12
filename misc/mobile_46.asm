@@ -33,8 +33,8 @@ asm_11800b
 .skip
 	call Function1184a5
 	call Function11a8fa
-	callba Function115dd3
-	callba Function11619d
+	farcall Function115dd3
+	farcall Function11619d
 	call DelayFrame
 	ld a, [wcf66]
 	ld hl, wcd33
@@ -74,8 +74,8 @@ Function11805f: ; 11805f
 .asm_118090
 	call Function11857c
 	call Function11a8fa
-	callba Function115dd3
-	callba Function11619d
+	farcall Function115dd3
+	farcall Function11619d
 	call DelayFrame
 	ld a, [wcf66]
 	ld hl, wcd33
@@ -120,8 +120,8 @@ Function1180b8: ; 1180b8
 .asm_1180f2
 	call Function1184ec
 	call Function11a8fa
-	callba Function115dd3
-	callba Function11619d
+	farcall Function115dd3
+	farcall Function11619d
 	call DelayFrame
 	ld a, [wcf66]
 	ld hl, wcd33
@@ -165,8 +165,8 @@ Function118125: ; 118125
 .skip
 	call Function11854d
 	call Function11a8fa
-	callba Function115dd3
-	callba Function11619d
+	farcall Function115dd3
+	farcall Function11619d
 	call DelayFrame
 	ld a, [wcf66]
 	ld hl, wcd33
@@ -203,12 +203,12 @@ Function118180: ; 118180
 
 	ld de, w3_d202
 	ld c, $96
-	callba CheckStringForErrors_IgnoreTerminator
+	farcall CheckStringForErrors_IgnoreTerminator
 	jr c, .return_d3
 
 	ld de, w3_d202
 	lb bc, 1, $96
-	callba CheckStringContainsLessThanBNextCharacters
+	farcall CheckStringContainsLessThanBNextCharacters
 	jr c, .return_d3
 
 	ld hl, w3_d202
@@ -254,8 +254,8 @@ Function1181da: ; 1181da
 .asm_11820b
 	call Function1185c3
 	call Function11a8fa
-	callba Function115dd3
-	callba Function11619d
+	farcall Function115dd3
+	farcall Function11619d
 	call DelayFrame
 	ld a, [wcf66]
 	ld hl, wcd33
@@ -292,8 +292,8 @@ Function118233: ; 118233
 .asm_11825f
 	call Function118624
 	call Function11a8fa
-	callba Function115dd3
-	callba Function11619d
+	farcall Function115dd3
+	farcall Function11619d
 	call DelayFrame
 	ld a, [wcf66]
 	ld hl, wcd33
@@ -328,8 +328,8 @@ Function118284: ; 118284
 .asm_1182b0
 	call Function1186f5
 	call Function11a8fa
-	callba Function115dd3
-	callba Function11619d
+	farcall Function115dd3
+	farcall Function11619d
 	call DelayFrame
 	ld a, [wcf66]
 	ld hl, wcd33
@@ -366,8 +366,8 @@ Function1182d5: ; 1182d5
 .asm_118301
 	call Function118746
 	call Function11a8fa
-	callba Function115dd3
-	callba Function11619d
+	farcall Function115dd3
+	farcall Function11619d
 	call DelayFrame
 	ld a, [wcf66]
 	ld hl, wcd33
@@ -404,8 +404,8 @@ Function118329: ; 118329
 .asm_118355
 	call Function118671
 	call Function11a8fa
-	callba Function115dd3
-	callba Function11619d
+	farcall Function115dd3
+	farcall Function11619d
 	call DelayFrame
 	ld a, [wcf66]
 	ld hl, wcd33
@@ -441,8 +441,8 @@ Function11837a: ; 11837a
 .asm_1183a6
 	call Function1186b2
 	call Function11a8fa
-	callba Function115dd3
-	callba Function11619d
+	farcall Function115dd3
+	farcall Function11619d
 	call DelayFrame
 	ld a, [wcf66]
 	ld hl, wcd33
@@ -487,10 +487,10 @@ Function1183cb: ; 1183cb
 	ld [hMobileReceive], a
 	ld [hMobile], a
 	ei
-	callba MobileFunc_106462
-	callba Function106464
-	callba Function115d99
-	callba Function11615a
+	farcall MobileFunc_106462
+	farcall Function106464
+	farcall Function115d99
+	farcall Function11615a
 	ld a, $5
 	call GetSRAMBank
 	xor a
@@ -1154,7 +1154,7 @@ Function118903: ; 118903 (46:4903)
 	ld a, [wc3f0]
 	ld [$c319], a
 	ld c, $1
-	callba Function115e18
+	farcall Function115e18
 	ld a, $8
 	ld [wcd3c], a
 	call Function119ed8
@@ -1583,8 +1583,8 @@ Function118d35: ; 118d35
 	ld a, b
 	ld [$b2fb], a
 	call CloseSRAM
-	callba Function170be4
-	callba Function1700c4
+	farcall Function170be4
+	farcall Function1700c4
 	jr .asm_118d78
 
 .asm_118d6e
@@ -1673,7 +1673,7 @@ Function118ded: ; 118ded
 	push af
 	ld a, $1
 	ld [rSVBK], a
-	callba Function11b93b
+	farcall Function11b93b
 	pop af
 	ld [rSVBK], a
 
@@ -3257,7 +3257,7 @@ Function119800: ; 119800
 	ld a, $1
 	ld [rSVBK], a
 	call FadeToMenu
-	callba Function10803d
+	farcall Function10803d
 	call Function11a9ce
 	call RestartMapMusic
 	ld a, $3
@@ -3270,7 +3270,7 @@ Function119800: ; 119800
 	ld [wcf64], a
 	pop af
 	ld [wJumptableIndex], a
-	callba Function115dc3
+	farcall Function115dc3
 	jp Function119e2e
 ; 11984e
 
@@ -3281,7 +3281,7 @@ Function11984e: ; 11984e
 	ld a, [wcd38]
 	and a
 	jr nz, .asm_1198a8
-	callba Function170000
+	farcall Function170000
 	ld a, [wJumptableIndex]
 	push af
 	ld a, [wcf64]
@@ -3293,7 +3293,7 @@ Function11984e: ; 11984e
 	ld a, $1
 	ld [rSVBK], a
 	call FadeToMenu
-	callba MobileTradeAnimation_SendGivemonToGTS
+	farcall MobileTradeAnimation_SendGivemonToGTS
 	call Function11a9ce
 	call RestartMapMusic
 	ld a, $3
@@ -3306,7 +3306,7 @@ Function11984e: ; 11984e
 	ld [wcf64], a
 	pop af
 	ld [wJumptableIndex], a
-	callba Function115dc3
+	farcall Function115dc3
 	jp Function119e2e
 
 .asm_1198a0
@@ -3315,7 +3315,7 @@ Function11984e: ; 11984e
 	jp Function119e2e
 
 .asm_1198a8
-	callba Function17005a
+	farcall Function17005a
 	ld a, [wJumptableIndex]
 	push af
 	ld a, [wcf64]
@@ -3327,7 +3327,7 @@ Function11984e: ; 11984e
 	ld a, $1
 	ld [rSVBK], a
 	call FadeToMenu
-	callba MobileTradeAnimation_RetrieveGivemonFromGTS
+	farcall MobileTradeAnimation_RetrieveGivemonFromGTS
 	call Function11a9ce
 	call RestartMapMusic
 	ld a, $3
@@ -3340,7 +3340,7 @@ Function11984e: ; 11984e
 	ld [wcf64], a
 	pop af
 	ld [wJumptableIndex], a
-	callba Function115dc3
+	farcall Function115dc3
 	jp Function119e2e
 ; 1198ee
 
@@ -3384,7 +3384,7 @@ Function1198f7:
 ; 119937
 
 Function119937: ; 119937
-	callba Function1707f4
+	farcall Function1707f4
 	jp Function119e2e
 ; 119940
 
@@ -4360,8 +4360,8 @@ Function119f98: ; 119f98
 	and a
 	jr z, .asm_119fd4
 	call ExitMenu
-	callba ReloadMapPart
-	callba Function115dc3
+	farcall ReloadMapPart
+	farcall Function115dc3
 	ld a, [wcd33]
 	ld [wcf66], a
 	ld a, $a
@@ -4377,17 +4377,17 @@ Function119f98: ; 119f98
 	ld [wc30d], a
 	ld a, $1
 	ld [wc314], a
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	and a
 	ret
 
 .asm_119fef
 	call ExitMenu
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	ld a, [wMobileInactivityTimerSeconds]
 	ld [wcf66], a
-	callba Function115dc3
+	farcall Function115dc3
 	ld a, $a
 	ld [wc300], a
 	scf
@@ -4428,7 +4428,7 @@ Function11a00e: ; 11a00e
 	ld a, $1
 	ld [rSVBK], a
 	call FadeToMenu
-	callba Function11765d
+	farcall Function11765d
 	call Function11a9ce
 	ld a, $3
 	ld [rSVBK], a
@@ -4438,9 +4438,9 @@ Function11a00e: ; 11a00e
 	call CopyBytes
 	ld a, $1
 	ld [rSVBK], a
-	callba Function115d99
+	farcall Function115d99
 	ld c, $0
-	callba Function115e18
+	farcall Function115e18
 	ld a, $1
 	ld [wc305], a
 	ret
@@ -4454,15 +4454,15 @@ Function11a00e: ; 11a00e
 	ld a, $5
 	ld [wMenuBorderBottomCoord], a
 	call PushWindow
-	callba Function11765d
-	callba Function117ab4
-	callba MobileFunc_106462
-	callba Function106464
+	farcall Function11765d
+	farcall Function117ab4
+	farcall MobileFunc_106462
+	farcall Function106464
 	call ExitMenu
-	callba ReloadMapPart
-	callba Function115d99
+	farcall ReloadMapPart
+	farcall Function115d99
 	ld c, $0
-	callba Function115e18
+	farcall Function115e18
 	ld a, $1
 	ld [wc305], a
 	ret
@@ -4477,15 +4477,15 @@ Function11a0ca: ; 11a0ca
 	ld a, $11
 	ld [wMenuBorderBottomCoord], a
 	call PushWindow
-	callba Function11765d
-	callba Function17d3f6
-	callba MobileFunc_106462
-	callba Function106464
+	farcall Function11765d
+	farcall Function17d3f6
+	farcall MobileFunc_106462
+	farcall Function106464
 	call ExitMenu
-	callba ReloadMapPart
-	callba Function115d99
+	farcall ReloadMapPart
+	farcall Function115d99
 	ld c, $0
-	callba Function115e18
+	farcall Function115e18
 	ld a, $1
 	ld [wc305], a
 	ret
@@ -4494,7 +4494,7 @@ Function11a0ca: ; 11a0ca
 Function11a113: ; 11a113
 	call Function11a63c
 	ld c, $1
-	callba Function115e18
+	farcall Function115e18
 	hlcoord 4, 2
 	ld de, String_11a6c8
 	call PlaceString
@@ -4574,7 +4574,7 @@ Function11a192: ; 11a192
 	and a
 	jr nz, .asm_11a1b6
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	call Function11a63c
 	hlcoord 4, 2
 	ld de, String_11a6d2
@@ -4584,7 +4584,7 @@ Function11a192: ; 11a192
 
 .asm_11a1b6
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	ld a, [wMobileInactivityTimerSeconds]
 	ld [wcf66], a
 	ld [wcd80], a
@@ -4715,7 +4715,7 @@ Function11a235: ; 11a235
 	and a
 	jr nz, .asm_11a2c4
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	ld a, [wMobileInactivityTimerFrames]
 	cp $0
 	jr z, .asm_11a2b4
@@ -4737,7 +4737,7 @@ Function11a235: ; 11a235
 
 .asm_11a2c4
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	and a
 	ret
 ; 11a2cf
@@ -4769,7 +4769,7 @@ MenuDataHeader_11a2de: ; 11a2de
 Function11a2e6: ; 11a2e6
 	call Function11a63c
 	ld c, $2
-	callba Function115e18
+	farcall Function115e18
 	hlcoord 4, 2
 	ld de, String_11a71e
 	call PlaceString
@@ -4816,8 +4816,8 @@ Function11a33a: ; 11a33a
 
 .asm_11a346
 	call ExitMenu
-	callba ReloadMapPart
-	callba Function115dc3
+	farcall ReloadMapPart
+	farcall Function115dc3
 	and a
 	ret
 ; 11a357
@@ -4860,7 +4860,7 @@ Function11a38d: ; 11a38d
 	and a
 	jr nz, .asm_11a3b1
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	call Function11a63c
 	hlcoord 4, 2
 	ld de, String_11a6d2
@@ -4870,7 +4870,7 @@ Function11a38d: ; 11a38d
 
 .asm_11a3b1
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	ld a, [wMobileInactivityTimerSeconds]
 	ld [wcf66], a
 	ld [wcd80], a
@@ -4935,7 +4935,7 @@ Function11a41b: ; 11a41b
 	and a
 	jr nz, .asm_11a43f
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	call Function11a63c
 	hlcoord 4, 2
 	ld de, String_11a6d2
@@ -4945,7 +4945,7 @@ Function11a41b: ; 11a41b
 
 .asm_11a43f
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	ld a, $1c
 	ld [wcf66], a
 	ld [wcd80], a
@@ -5006,7 +5006,7 @@ Function11a49e: ; 11a49e
 	and a
 	jr nz, .asm_11a4c7
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	call Function11a63c
 	hlcoord 4, 2
 	ld de, String_11a6d2
@@ -5018,7 +5018,7 @@ Function11a49e: ; 11a49e
 
 .asm_11a4c7
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	ld a, [wMobileInactivityTimerFrames]
 	ld [wcf66], a
 	ld [wcd80], a
@@ -5053,7 +5053,7 @@ Function11a4fe: ; 11a4fe
 	and a
 	jr nz, .asm_11a522
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	call Function11a63c
 	hlcoord 4, 2
 	ld de, String_11a6d2
@@ -5063,7 +5063,7 @@ Function11a4fe: ; 11a4fe
 
 .asm_11a522
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	ld a, [wMobileInactivityTimerSeconds]
 	ld [wcf66], a
 	ld [wcd80], a
@@ -5092,7 +5092,7 @@ Function11a536: ; 11a536
 	call Function11a9f0
 	jr nz, .asm_11a562
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 
 .asm_11a562
 	scf
@@ -5168,10 +5168,10 @@ Function11a5b9: ; 11a5b9
 	ld b, $4
 	ld c, $12
 	call Function3eea
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	call UpdateSprites
 	ld c, $0
-	callba Function115e18
+	farcall Function115e18
 	ld a, $1
 	ld [wc305], a
 	ret
@@ -5203,7 +5203,7 @@ Function11a5f5: ; 11a5f5
 	hlcoord 15, 7
 	ld a, $ed
 	ld [hl], a
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	ret
 ; 11a63c
 
@@ -5572,10 +5572,10 @@ Function11a9ce: ; 11a9ce
 	call ClearBGPalettes
 	call ReloadTilesetAndPalettes
 	call Call_ExitMenu
-	callba MobileFunc_106462
-	callba Function106464
+	farcall MobileFunc_106462
+	farcall Function106464
 	call ret_d90
-	callba FinishExitMenu
+	farcall FinishExitMenu
 	call UpdateSprites
 	ret
 ; 11a9f0
@@ -5727,7 +5727,7 @@ Text_ThisBattleRoomPleaseWait: ; 0x11ac1f
 Function11ac3e: ; 11ac3e
 	call SpeechTextBox
 	call FadeToMenu
-	callab ClearSpriteAnims2
+	farcall ClearSpriteAnims2
 	call Function11ac51
 	call CloseSubmenu
 	ret
@@ -5767,8 +5767,8 @@ Function11ac51: ; 11ac51
 	call Function11ad6e
 	ld a, 30 * 4
 	ld [wCurrSpriteOAMAddr], a
-	callba DoNextFrameForAllSprites
-	callba ReloadMapPart
+	farcall DoNextFrameForAllSprites
+	farcall ReloadMapPart
 	jr .loop
 
 .asm_11aca8
@@ -5839,7 +5839,7 @@ Function11ad1b: ; 11ad1b
 	call ClearBGPalettes
 	call ClearSprites
 	call ClearTileMap
-	callba Function17c000
+	farcall Function17c000
 	ld a, [wMenuCursorY]
 	ld [wcd82], a
 	dec a
@@ -5866,7 +5866,7 @@ Function11ad1b: ; 11ad1b
 	ld [wcd30], a
 	ld a, $2
 	ld [wc7d4], a
-	callba Pokedex_OrderMonsByMode
+	farcall Pokedex_OrderMonsByMode
 	ret
 ; 11ad6e
 
@@ -5911,7 +5911,7 @@ Function11ad95: ; 11ad95
 	hlcoord 10, 10, AttrMap
 	lb bc, 8, 8
 	call Function11afd6
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	call Function11ad8a
 	ld a, $1
 	ld [wMenuCursorY], a
@@ -5990,7 +5990,7 @@ Function11adc4:
 
 .asm_11ae2e
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	ret
 ; 11ae38
 
@@ -6028,7 +6028,7 @@ Function11ae4e: ; 11ae4e
 	hlcoord 9, 12, AttrMap
 	lb bc, 6, 11
 	call Function11afd6
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	call Function11ad8a
 	ld a, $1
 	ld [wMenuCursorY], a
@@ -6096,7 +6096,7 @@ Function11ae98:
 .asm_11aef7
 	call ExitMenu
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	ret
 ; 11af04
 
@@ -6119,7 +6119,7 @@ Function11af04: ; 11af04
 	hlcoord 9, 12, AttrMap
 	lb bc, 6, 11
 	call Function11afd6
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	call Function11ad8a
 	ld a, $2
 	ld [wMenuCursorY], a
@@ -6187,7 +6187,7 @@ Function11af4e:
 .asm_11afaa
 	call ExitMenu
 	call ExitMenu
-	callba ReloadMapPart
+	farcall ReloadMapPart
 	ret
 ; 11afb7
 
@@ -6691,7 +6691,7 @@ Function11b242: ; 11b242
 	call PlaceString
 	xor a
 	ld [MonType], a
-	callba GetGender
+	farcall GetGender
 	hlcoord 1, 4
 	ld a, [CurPartySpecies]
 	ld bc, wcd2f
@@ -6765,7 +6765,7 @@ Function11b295: ; 11b295
 	ld hl, $0003
 	add hl, bc
 	ld e, [hl]
-	callba FlyFunction_GetMonIcon
+	farcall FlyFunction_GetMonIcon
 	hlcoord 4, 14
 	push hl
 	call GetPokemonName
@@ -7329,9 +7329,9 @@ Function11b5c0: ; 11b5c0
 	ld [CurPartyMon], a
 	xor a
 	ld [wPokemonWithdrawDepositParameter], a
-	callba RemoveMonFromPartyOrBox
-	callba Function170807
-	callba SaveAfterLinkTrade
+	farcall RemoveMonFromPartyOrBox
+	farcall Function170807
+	farcall SaveAfterLinkTrade
 	jp Function11ad8a
 ; 11b5e0
 
@@ -7419,7 +7419,7 @@ Function11b66d: ; 11b66d
 	jr .asm_11b6b0
 
 .asm_11b691
-	callba Function17081d
+	farcall Function17081d
 	ld a, [ScriptVar]
 	and a
 	jr z, .asm_11b6b0
@@ -7480,63 +7480,63 @@ Function11b6b4: ; 11b6b4
 
 	ld de, $c63d
 	ld c, 5
-	callba CheckStringForErrors
+	farcall CheckStringForErrors
 	jr nc, .length_check_OT
-	callba Mobile_CopyDefaultOTName
+	farcall Mobile_CopyDefaultOTName
 
 .length_check_OT
 	ld de, $c63d
 	lb bc, 1, 5
-	callba CheckStringContainsLessThanBNextCharacters
+	farcall CheckStringContainsLessThanBNextCharacters
 	jr nc, .error_check_nick
-	callba Mobile_CopyDefaultOTName
+	farcall Mobile_CopyDefaultOTName
 
 .error_check_nick
 	ld de, $c642
 	ld c, 5
-	callba CheckStringForErrors
+	farcall CheckStringForErrors
 	jr nc, .length_check_nick
-	callba Mobile_CopyDefaultNickname
+	farcall Mobile_CopyDefaultNickname
 
 .length_check_nick
 	ld de, $c642
 	lb bc, 1, 5
-	callba CheckStringContainsLessThanBNextCharacters
+	farcall CheckStringContainsLessThanBNextCharacters
 	jr nc, .error_check_mail
-	callba Mobile_CopyDefaultNickname
+	farcall Mobile_CopyDefaultNickname
 
 .error_check_mail
 	ld de, $c647
 	ld c, MAIL_MSG_LENGTH + 1
-	callba CheckStringForErrors
+	farcall CheckStringForErrors
 	jr nc, .length_check_mail
-	callba Mobile_CopyDefaultMail
+	farcall Mobile_CopyDefaultMail
 
 .length_check_mail
 	ld de, $c647
 	lb bc, 2, MAIL_MSG_LENGTH + 1
-	callba CheckStringContainsLessThanBNextCharacters
+	farcall CheckStringContainsLessThanBNextCharacters
 	jr c, .fix_mail
 	ld a, b
 	cp $2
 	jr nz, .mail_ok
 
 .fix_mail
-	callba Mobile_CopyDefaultMail
+	farcall Mobile_CopyDefaultMail
 
 .mail_ok
 	ld de, $c668
 	ld c, $5
-	callba CheckStringForErrors
+	farcall CheckStringForErrors
 	jr nc, .length_check_author
-	callba Mobile_CopyDefaultMailAuthor
+	farcall Mobile_CopyDefaultMailAuthor
 
 .length_check_author
 	ld de, $c668
 	lb bc, 1, 5
-	callba CheckStringContainsLessThanBNextCharacters
+	farcall CheckStringContainsLessThanBNextCharacters
 	jr nc, .author_okay
-	callba Mobile_CopyDefaultMailAuthor
+	farcall Mobile_CopyDefaultMailAuthor
 
 .author_okay
 	ld a, [$c60e]
@@ -7602,21 +7602,21 @@ Function11b7e5: ; 11b7e5
 	ld a, [hl]
 	ld [wOTTrademonDVs + 1], a
 	ld bc, $c60d ; pokemon_data_start
-	callba GetCaughtGender
+	farcall GetCaughtGender
 	ld a, c
 	ld [wOTTrademonCaughtData], a
 	call SpeechTextBox
 	call FadeToMenu
-	callba MobileTradeAnimation_ReceiveGetmonFromGTS
-	callba Function17d1f1
+	farcall MobileTradeAnimation_ReceiveGetmonFromGTS
+	farcall Function17d1f1
 	ld a, $1
 	ld [wForceEvolution], a
 	ld a, $2
 	ld [wLinkMode], a
-	callba EvolvePokemon
+	farcall EvolvePokemon
 	xor a
 	ld [wLinkMode], a
-	callba SaveAfterLinkTrade
+	farcall SaveAfterLinkTrade
 	ld a, $5
 	call GetSRAMBank
 	ld a, $5
@@ -7640,7 +7640,7 @@ Function11b7e5: ; 11b7e5
 ; 11b879
 
 Function11b879: ; 11b879
-	callba BattleTower_CheckSaveFileExistsAndIsYours
+	farcall BattleTower_CheckSaveFileExistsAndIsYours
 	ld a, [ScriptVar]
 	and a
 	ret z
@@ -7781,7 +7781,7 @@ Function11b93b: ; 11b93b
 	ld a, $c64b / $100
 	ld [wMobileMonMailPointerBuffer + 1], a
 	call AddMobileMonToParty
-	callba SaveAfterLinkTrade
+	farcall SaveAfterLinkTrade
 	ret
 ; 11b98f
 
@@ -7890,7 +7890,7 @@ AddMobileMonToParty: ; 11b98f
 ; 11ba38
 
 Function11ba38: ; 11ba38
-	callba CheckCurPartyMonFainted
+	farcall CheckCurPartyMonFainted
 	ret c
 	xor a
 	ld [ScriptVar], a

@@ -5,7 +5,7 @@ GetMysteryGift_MobileAdapterLayout: ; 4930f (mobile)
 	ld a, [SGBPredef]
 .not_ram
 	push af
-	callba ResetBGPals
+	farcall ResetBGPals
 	pop af
 	ld l, a
 	ld h, 0
@@ -70,8 +70,8 @@ MG_Mobile_Layout00: ; 4936e (12:536e)
 	call MG_Mobile_Layout_LoadPals
 	call MG_Mobile_Layout_WipeAttrMap
 	call MG_Mobile_Layout_CreatePalBoxes
-	callba ApplyAttrMap
-	callba ApplyPals
+	farcall ApplyAttrMap
+	farcall ApplyPals
 	ret
 
 MG_Mobile_Layout_CreatePalBoxes: ; 49384 (12:5384)
@@ -190,8 +190,8 @@ MG_Mobile_Layout01: ; 4942f
 	call Function49496
 
 .asm_49467
-	callba ApplyAttrMap
-	callba ApplyPals
+	farcall ApplyAttrMap
+	farcall ApplyPals
 	ld a, $1
 	ld [hCGBPalUpdate], a
 	ret
@@ -437,9 +437,9 @@ MG_Mobile_Layout02: ; 49706
 	ld bc, 1 palettes
 	ld a, $5
 	call FarCopyWRAM
-	callba ApplyPals
+	farcall ApplyPals
 	call MG_Mobile_Layout_WipeAttrMap
-	callba ApplyAttrMap
+	farcall ApplyAttrMap
 	ld hl, Palette_4973a
 	ld de, UnknOBPals
 	ld bc, 1 palettes
@@ -468,7 +468,7 @@ Function49742: ; 49742
 	ld bc, $40
 	ld a, $5
 	call FarCopyWRAM
-	callba ApplyPals
+	farcall ApplyPals
 	ret
 ; 49757
 
@@ -572,7 +572,7 @@ LoadTradeRoomBGPals: ; 49811
 	ld bc, $30
 	ld a, $5
 	call FarCopyWRAM
-	callba ApplyPals
+	farcall ApplyPals
 	ret
 ; 49826
 

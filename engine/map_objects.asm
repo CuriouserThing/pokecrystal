@@ -1684,7 +1684,7 @@ StepType0f: ; 4ecd
 	add hl, bc
 	ld a, [hl]
 	ld b, a
-	callba CopyDECoordsToMapObject
+	farcall CopyDECoordsToMapObject
 	pop bc
 	ld hl, OBJECT_FLAGS2
 	add hl, bc
@@ -2162,7 +2162,7 @@ InitTempObject: ; 55ac
 	ret nc
 	ld d, h
 	ld e, l
-	callba CopyTempObjectToObjectStruct
+	farcall CopyTempObjectToObjectStruct
 	ret
 ; 55b9
 
@@ -2291,7 +2291,7 @@ Function565c: ; 565c
 	call Function56a3
 	jr c, SetFacing_Standing
 	call Function5688
-	callba Function4440
+	farcall Function4440
 	xor a
 	ret
 ; 5673
@@ -2299,7 +2299,7 @@ Function565c: ; 565c
 Function5673: ; 5673
 	call Function56a3
 	jr c, SetFacing_Standing
-	callba Function4440 ; no need to farcall
+	farcall Function4440 ; no need to farcall
 	xor a
 	ret
 ; 5680
@@ -2325,7 +2325,7 @@ Function5688: ; 5688
 	ld hl, OBJECT_NEXT_TILE
 	add hl, bc
 	ld [hl], a
-	callba UpdateTallGrassFlags ; no need to farcall
+	farcall UpdateTallGrassFlags ; no need to farcall
 	ret
 ; 56a3
 
@@ -2512,7 +2512,7 @@ RefreshPlayerSprite: ; 579d
 	ld [wPlayerTurningDirection], a
 	ld [PlayerObjectStepFrame], a
 	call .TryResetPlayerAction
-	callba CheckWarpFacingDown
+	farcall CheckWarpFacingDown
 	call c, SpawnInFacingDown
 	call .SpawnInCustomFacing
 	ret
@@ -2581,7 +2581,7 @@ StartFollow:: ; 5803
 	ret c
 	ld a, c
 	call SetFollowerIfVisible
-	callba QueueFollowerFirstStep
+	farcall QueueFollowerFirstStep
 	ret
 ; 5815
 
@@ -2627,7 +2627,7 @@ ResetFollower: ; 5847
 	cp -1
 	ret z
 	call GetObjectStruct
-	callba Function58e3 ; no need to bankswitch
+	farcall Function58e3 ; no need to bankswitch
 	ld a, -1
 	ld [wObjectFollow_Follower], a
 	ret

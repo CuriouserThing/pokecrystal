@@ -838,7 +838,7 @@ ValidateTempWildMonSpecies: ; 2a4a0
 
 RandomPhoneRareWildMon: ; 2a4ab
 ; Related to the phone?
-	callba GetCallerLocation
+	farcall GetCallerLocation
 	ld d, b
 	ld e, c
 	ld hl, JohtoGrassWildMons
@@ -911,7 +911,7 @@ RandomPhoneRareWildMon: ; 2a4ab
 ; 0x2a51f
 
 RandomPhoneWildMon: ; 2a51f
-	callba GetCallerLocation
+	farcall GetCallerLocation
 	ld d, b
 	ld e, c
 	ld hl, JohtoGrassWildMons
@@ -952,7 +952,7 @@ RandomPhoneWildMon: ; 2a51f
 
 RandomPhoneMon: ; 2a567
 ; Get a random monster owned by the trainer who's calling.
-	callba GetCallerLocation
+	farcall GetCallerLocation
 	ld hl, TrainerGroups
 	ld a, d
 	dec a

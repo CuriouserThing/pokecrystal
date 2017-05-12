@@ -547,7 +547,7 @@ LoadEDTile:: ; 323d
 ; 323f
 
 ; XXX
-	callba HDMATransferAttrMapAndTileMapToWRAMBank3
+	farcall HDMATransferAttrMapAndTileMapToWRAMBank3
 	ret
 ; 3246
 
@@ -974,7 +974,7 @@ GetTMHMName:: ; 3487
 	push de
 	ld a, [wd265]
 	ld c, a
-	callab GetTMHMNumber
+	farcall GetTMHMNumber
 	pop de
 
 ; HM numbers start from 51, not 1
@@ -1165,7 +1165,7 @@ HandleStoneQueue:: ; 3567
 	call .IsObjectInStoneTable
 	jr nc, .nope
 	call CallMapScript
-	callba EnableScriptMode
+	farcall EnableScriptMode
 	scf
 	ret
 
@@ -1772,7 +1772,7 @@ GetNick:: ; 38a2
 	call CopyBytes
 	pop de
 
-	callab CheckNickErrors
+	farcall CheckNickErrors
 
 	pop bc
 	pop hl
