@@ -2222,23 +2222,8 @@ GetBoxPointer: ; e3396 (38:7396)
 	ret
 ; e33a6 (38:73a6)
 
-.boxes ; e33a6
-	;  bank, address
-	dba sBox1
-	dba sBox2
-	dba sBox3
-	dba sBox4
-	dba sBox5
-	dba sBox6
-	dba sBox7
-	dba sBox8
-	dba sBox9
-	dba sBox10
-	dba sBox11
-	dba sBox12
-	dba sBox13
-	dba sBox14
-; e33d0
+.boxes
+	boxes_dba
 
 BillsPC_ApplyPalettes: ; e33d0 (38:73d0)
 	ld b, a
@@ -2461,22 +2446,8 @@ GetBoxCount: ; e366c (38:766c)
 	ret
 ; e36a5 (38:76a5)
 
-.boxbanks ; e36a5
-	dba sBox1
-	dba sBox2
-	dba sBox3
-	dba sBox4
-	dba sBox5
-	dba sBox6
-	dba sBox7
-	dba sBox8
-	dba sBox9
-	dba sBox10
-	dba sBox11
-	dba sBox12
-	dba sBox13
-	dba sBox14
-; e36cf
+.boxbanks
+	boxes_dba
 
 BillsPC_PrintBoxName: ; e36cf (38:76cf)
 	hlcoord 0, 0

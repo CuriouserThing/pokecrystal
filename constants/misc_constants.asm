@@ -32,8 +32,8 @@ HP_RED    EQU 2
 
 ; boxes
 MONS_PER_BOX	EQU 30
-CHUNKS_PER_BOX	EQU 4
-NUM_BOXES		EQU 14
+CHUNKS_PER_BOX	EQU 4 ; round up the size of a box divided by (wMiscEnd - wMisc)
+NUM_BOXES		EQU 32
 
 ; mail
 MAIL_STRUCT_LENGTH EQU $2f
@@ -43,7 +43,7 @@ MAIL_MSG_LENGTH    EQU $20
 ; hall of fame
 HOF_MON_LENGTH = 1 + 2 + 2 + 1 + (PKMN_NAME_LENGTH +- 1) ; species, id, dvs, level, nick
 HOF_LENGTH = 1 + HOF_MON_LENGTH * PARTY_LENGTH + 1 ; win count, party, terminator
-NUM_HOF_TEAMS = 30
+NUM_HOF_TEAMS = 24
 
 
 ; flag manipulation

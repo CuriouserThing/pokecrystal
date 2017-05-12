@@ -1009,23 +1009,8 @@ EraseBoxes: ; 151fb
 	ret
 ; 1522d
 
-BoxAddresses: ; 1522d
-; dbww bank, address, address
-	dbww BANK(sBox1),  sBox1,  sBox1End
-	dbww BANK(sBox2),  sBox2,  sBox2End
-	dbww BANK(sBox3),  sBox3,  sBox3End
-	dbww BANK(sBox4),  sBox4,  sBox4End
-	dbww BANK(sBox5),  sBox5,  sBox5End
-	dbww BANK(sBox6),  sBox6,  sBox6End
-	dbww BANK(sBox7),  sBox7,  sBox7End
-	dbww BANK(sBox8),  sBox8,  sBox8End
-	dbww BANK(sBox9),  sBox9,  sBox9End
-	dbww BANK(sBox10), sBox10, sBox10End
-	dbww BANK(sBox11), sBox11, sBox11End
-	dbww BANK(sBox12), sBox12, sBox12End
-	dbww BANK(sBox13), sBox13, sBox13End
-	dbww BANK(sBox14), sBox14, sBox14End
-; 15273
+BoxAddresses:
+	boxes_dbww
 
 
 Checksum: ; 15273

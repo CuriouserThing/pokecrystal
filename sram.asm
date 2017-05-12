@@ -172,12 +172,6 @@ sHallOfFame:: ; b2c0
 	hall_of_fame sHallOfFame22
 	hall_of_fame sHallOfFame23
 	hall_of_fame sHallOfFame24
-	hall_of_fame sHallOfFame25
-	hall_of_fame sHallOfFame26
-	hall_of_fame sHallOfFame27
-	hall_of_fame sHallOfFame28
-	hall_of_fame sHallOfFame29
-	hall_of_fame sHallOfFame30
 
 ; x = 1
 ; rept NUM_HOF_TEAMS
@@ -226,26 +220,67 @@ sBTPkmnPrevPrevTrainer2:: ds 1
 sBTPkmnPrevPrevTrainer3:: ds 1
 
 
-SECTION "Boxes A",  SRAM, BANK [8]
+SECTION "sBox1", SRAM
 	box sBox1
+SECTION "sBox2", SRAM
 	box sBox2
+SECTION "sBox3", SRAM
 	box sBox3
-
-SECTION "Boxes B", SRAM, BANK [9]
+SECTION "sBox4", SRAM
 	box sBox4
+SECTION "sBox5", SRAM
 	box sBox5
+SECTION "sBox6", SRAM
 	box sBox6
-	
-SECTION "Boxes C", SRAM, BANK [10]
+SECTION "sBox7", SRAM
 	box sBox7
+SECTION "sBox8", SRAM
 	box sBox8
+SECTION "sBox9", SRAM
 	box sBox9
-	
-SECTION "Boxes D", SRAM, BANK [11]
+SECTION "sBox10", SRAM
 	box sBox10
+SECTION "sBox11", SRAM
 	box sBox11
+SECTION "sBox12", SRAM
 	box sBox12
-	
-SECTION "Boxes E", SRAM, BANK [12]
+SECTION "sBox13", SRAM
 	box sBox13
+SECTION "sBox14", SRAM
 	box sBox14
+SECTION "sBox15", SRAM
+	box sBox15
+SECTION "sBox16", SRAM
+	box sBox16
+SECTION "sBox17", SRAM
+	box sBox17
+SECTION "sBox18", SRAM
+	box sBox18
+SECTION "sBox19", SRAM
+	box sBox19
+SECTION "sBox20", SRAM
+	box sBox20
+SECTION "sBox21", SRAM
+	box sBox21
+SECTION "sBox22", SRAM
+	box sBox22
+SECTION "sBox23", SRAM
+	box sBox23
+SECTION "sBox24", SRAM
+	box sBox24
+SECTION "sBox25", SRAM
+	box sBox25
+SECTION "sBox26", SRAM
+	box sBox26
+SECTION "sBox27", SRAM
+	box sBox27
+SECTION "sBox28", SRAM
+	box sBox28
+SECTION "sBox29", SRAM
+	box sBox29
+SECTION "sBox30", SRAM
+	box sBox30
+SECTION "sBox31", SRAM
+	box sBox31
+SECTION "sBox32", SRAM
+	box sBox32
