@@ -111,7 +111,7 @@ box: MACRO
 \1MonOT::           ds NAME_LENGTH * MONS_PER_BOX
 \1MonNicknames::    ds PKMN_NAME_LENGTH * MONS_PER_BOX
 \1MonNicknamesEnd::
-\1End::             ds 2 ; padding
+\1End::             ds 12 ; padding
 ENDM
 
 
