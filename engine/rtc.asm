@@ -1,26 +1,5 @@
-StopRTC: ; Unreferenced???
-	ld a, SRAM_ENABLE
-	ld [MBC3SRamEnable], a
-	ld a, RTC_DH
-	ld [MBC3SRamBank], a
-	ld a, [MBC3RTC]
-	set 6, a ; halt
-	ld [MBC3RTC], a
-	call CloseSRAM
+StartRTC:
 	ret
-; 14019
-
-StartRTC: ; 14019
-	ld a, SRAM_ENABLE
-	ld [MBC3SRamEnable], a
-	ld a, RTC_DH
-	ld [MBC3SRamBank], a
-	ld a, [MBC3RTC]
-	res 6, a ; halt
-	ld [MBC3RTC], a
-	call CloseSRAM
-	ret
-; 14032
 
 GetTimeOfDay:: ; 14032
 ; get time of day based on the current hour
@@ -80,10 +59,6 @@ StageRTCTimeForSave: ; 14056
 SaveRTC: ; 1406a
 	ld a, $a
 	ld [MBC3SRamEnable], a
-	ld hl, MBC3RTC
-	ld a, $c
-	ld [MBC3SRamBank], a
-	res 7, [hl]
 	ld a, BANK(sRTCStatusFlags)
 	ld [MBC3SRamBank], a
 	xor a
