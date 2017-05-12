@@ -409,11 +409,20 @@ SRAM 1
 	"SRAM Crystal Data" ; $be3c
 	"SRAM Battle Tower" ; $be45
 
-SRAM 2
-	"Boxes 1-7" ; $a000
+SRAM 8
+	"Boxes A"
 
-SRAM 4
-	"Boxes 8-14" ; $a000
+SRAM 9
+	"Boxes B"
+	
+SRAM 10
+	"Boxes C"
+	
+SRAM 11
+	"Boxes D"
+	
+SRAM 12
+	"Boxes E"
 
 
 VRAM 0

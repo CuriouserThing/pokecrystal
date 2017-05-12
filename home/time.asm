@@ -14,16 +14,6 @@ AskTimer:: ; 591
 ; 59c
 
 
-LatchClock:: ; 59c
-; latch clock counter data
-	ld a, 0
-	ld [MBC3LatchClock], a
-	ld a, 1
-	ld [MBC3LatchClock], a
-	ret
-; 5a7
-
-
 UpdateTime:: ; 5a7
 	call GetClock
 	call FixDays
@@ -42,7 +32,6 @@ GetClock:: ; 5b7
 
 ; clock data is 'backwards' in hram
 
-	call LatchClock
 	ld hl, MBC3SRamBank
 	ld de, MBC3RTC
 
@@ -241,7 +230,6 @@ SetClock:: ; 691
 ; set clock data
 ; stored 'backwards' in hram
 
-	call LatchClock
 	ld hl, MBC3SRamBank
 	ld de, MBC3RTC
 

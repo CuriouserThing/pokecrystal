@@ -226,20 +226,26 @@ sBTPkmnPrevPrevTrainer2:: ds 1
 sBTPkmnPrevPrevTrainer3:: ds 1
 
 
-SECTION "Boxes 1-7",  SRAM, BANK [2]
+SECTION "Boxes A",  SRAM, BANK [8]
 	box sBox1
 	box sBox2
 	box sBox3
+
+SECTION "Boxes B", SRAM, BANK [9]
 	box sBox4
 	box sBox5
 	box sBox6
+	
+SECTION "Boxes C", SRAM, BANK [10]
 	box sBox7
-
-SECTION "Boxes 8-14", SRAM, BANK [4]
 	box sBox8
 	box sBox9
+	
+SECTION "Boxes D", SRAM, BANK [11]
 	box sBox10
 	box sBox11
 	box sBox12
+	
+SECTION "Boxes E", SRAM, BANK [12]
 	box sBox13
 	box sBox14

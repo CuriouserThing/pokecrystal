@@ -1,7 +1,6 @@
 StopRTC: ; Unreferenced???
 	ld a, SRAM_ENABLE
 	ld [MBC3SRamEnable], a
-	call LatchClock
 	ld a, RTC_DH
 	ld [MBC3SRamBank], a
 	ld a, [MBC3RTC]
@@ -14,7 +13,6 @@ StopRTC: ; Unreferenced???
 StartRTC: ; 14019
 	ld a, SRAM_ENABLE
 	ld [MBC3SRamEnable], a
-	call LatchClock
 	ld a, RTC_DH
 	ld [MBC3SRamBank], a
 	ld a, [MBC3RTC]
@@ -82,7 +80,6 @@ StageRTCTimeForSave: ; 14056
 SaveRTC: ; 1406a
 	ld a, $a
 	ld [MBC3SRamEnable], a
-	call LatchClock
 	ld hl, MBC3RTC
 	ld a, $c
 	ld [MBC3SRamBank], a
