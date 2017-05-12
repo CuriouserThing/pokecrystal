@@ -399,15 +399,14 @@ ROMX $7f
 
 
 SRAM 0
-	"Scratch" ; $a000
+	"Scratch"
 
 SRAM 1
-	"Save" ; $a000
-	"Active Box" ; $ad10
-	"Link Battle Data" ; $b254
-	"SRAM Hall of Fame" ; $b2c0
-	"SRAM Crystal Data" ; $be3c
-	"SRAM Battle Tower" ; $be45
+	"Save"
+	"Active Box"
+	"Link Battle Data"
+	"SRAM Crystal Data"
+	"SRAM Battle Tower"
 
 
 VRAM 0

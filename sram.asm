@@ -145,48 +145,6 @@ sLinkBattleRecord4:: link_battle_record sLinkBattleRecord4
 sLinkBattleRecord5:: link_battle_record sLinkBattleRecord5
 sLinkBattleStatsEnd::
 
-SECTION "SRAM Hall of Fame", SRAM, BANK [1]
-sHallOfFame:: ; b2c0
-; temporary until I can find a way to macrofy it
-	hall_of_fame sHallOfFame01
-	hall_of_fame sHallOfFame02
-	hall_of_fame sHallOfFame03
-	hall_of_fame sHallOfFame04
-	hall_of_fame sHallOfFame05
-	hall_of_fame sHallOfFame06
-	hall_of_fame sHallOfFame07
-	hall_of_fame sHallOfFame08
-	hall_of_fame sHallOfFame09
-	hall_of_fame sHallOfFame10
-	hall_of_fame sHallOfFame11
-	hall_of_fame sHallOfFame12
-	hall_of_fame sHallOfFame13
-	hall_of_fame sHallOfFame14
-	hall_of_fame sHallOfFame15
-	hall_of_fame sHallOfFame16
-	hall_of_fame sHallOfFame17
-	hall_of_fame sHallOfFame18
-	hall_of_fame sHallOfFame19
-	hall_of_fame sHallOfFame20
-	hall_of_fame sHallOfFame21
-	hall_of_fame sHallOfFame22
-	hall_of_fame sHallOfFame23
-	hall_of_fame sHallOfFame24
-
-; x = 1
-; rept NUM_HOF_TEAMS
-; ; PRINTT("{x}\n")
-; if STRLEN({x}) == 2
-	; PRINTT(STRSUB({x},2,1))
-	; hall_of_fame STRCAT("sHallOfFame0", STRSUB({x},2,1))
-; else
-	; PRINTT(STRSUB({x},2,2))
-	; hall_of_fame STRCAT("sHallOfFame", STRSUB({x},2,2))
-; endc
-; x = x + 1
-; endr
-sHallOfFameEnd::
-
 SECTION "SRAM Crystal Data", SRAM, BANK [1]
 sMobileEventIndex:: ds 1 ; be3c
 
@@ -218,6 +176,61 @@ sBTPkmnPrevTrainer3:: ds 1
 sBTPkmnPrevPrevTrainer1:: ds 1
 sBTPkmnPrevPrevTrainer2:: ds 1
 sBTPkmnPrevPrevTrainer3:: ds 1
+
+
+SECTION "SRAM Hall of Fame", SRAM
+sHallOfFame::
+	hall_of_fame sHallOfFame01
+	hall_of_fame sHallOfFame02
+	hall_of_fame sHallOfFame03
+	hall_of_fame sHallOfFame04
+	hall_of_fame sHallOfFame05
+	hall_of_fame sHallOfFame06
+	hall_of_fame sHallOfFame07
+	hall_of_fame sHallOfFame08
+	hall_of_fame sHallOfFame09
+	hall_of_fame sHallOfFame10
+	hall_of_fame sHallOfFame11
+	hall_of_fame sHallOfFame12
+	hall_of_fame sHallOfFame13
+	hall_of_fame sHallOfFame14
+	hall_of_fame sHallOfFame15
+	hall_of_fame sHallOfFame16
+	hall_of_fame sHallOfFame17
+	hall_of_fame sHallOfFame18
+	hall_of_fame sHallOfFame19
+	hall_of_fame sHallOfFame20
+	hall_of_fame sHallOfFame21
+	hall_of_fame sHallOfFame22
+	hall_of_fame sHallOfFame23
+	hall_of_fame sHallOfFame24
+	hall_of_fame sHallOfFame25
+	hall_of_fame sHallOfFame26
+	hall_of_fame sHallOfFame27
+	hall_of_fame sHallOfFame28
+	hall_of_fame sHallOfFame29
+	hall_of_fame sHallOfFame30
+	hall_of_fame sHallOfFame31
+	hall_of_fame sHallOfFame32
+	hall_of_fame sHallOfFame33
+	hall_of_fame sHallOfFame34
+	hall_of_fame sHallOfFame35
+	hall_of_fame sHallOfFame36
+	hall_of_fame sHallOfFame37
+	hall_of_fame sHallOfFame38
+	hall_of_fame sHallOfFame39
+	hall_of_fame sHallOfFame40
+	hall_of_fame sHallOfFame41
+	hall_of_fame sHallOfFame42
+	hall_of_fame sHallOfFame43
+	hall_of_fame sHallOfFame44
+	hall_of_fame sHallOfFame45
+	hall_of_fame sHallOfFame46
+	hall_of_fame sHallOfFame47
+	hall_of_fame sHallOfFame48
+	hall_of_fame sHallOfFame49
+	hall_of_fame sHallOfFame50
+sHallOfFameEnd::
 
 
 SECTION "sBox1", SRAM

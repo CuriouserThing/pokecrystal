@@ -43,7 +43,7 @@ MAIL_MSG_LENGTH    EQU $20
 ; hall of fame
 HOF_MON_LENGTH = 1 + 2 + 2 + 1 + (PKMN_NAME_LENGTH +- 1) ; species, id, dvs, level, nick
 HOF_LENGTH = 1 + HOF_MON_LENGTH * PARTY_LENGTH + 1 ; win count, party, terminator
-NUM_HOF_TEAMS = 24
+NUM_HOF_TEAMS = 50
 
 
 ; flag manipulation
