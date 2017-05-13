@@ -570,8 +570,6 @@ ApplyPokerusTick: ; 13988
 
 INCLUDE "event/bug_contest_2.asm"
 
-INCLUDE "unknown/013a47.asm"
-
 GetSquareRoot: ; 13b87
 ; Return the square root of de in b.
 
@@ -5992,46 +5990,6 @@ SECTION "bank7D", ROMX, BANK[$7D]
 
 	db $cc, $6b, $1e ; XXX
 
-Function1f4003: ; 1f4003
-; XXX
-	ld a, $6
-	call GetSRAMBank
-	ld hl, .unknown_data
-	ld de, $a000
-	ld bc, $1000
-	call CopyBytes
-	call CloseSRAM
-	ret
-
-.unknown_data
-INCBIN "unknown/1f4018.bin"
-
-Function1f4dbe: ; 1f4dbe
-; XXX
-	ld a, $6
-	call GetSRAMBank
-	ld hl, .unknown_data
-	ld de, $a000
-	ld bc, $1000
-	call CopyBytes
-	call CloseSRAM
-	ret
-
-.unknown_data
-INCBIN "unknown/1f4dd3.bin"
-
-Function1f5d9f: ; 1f5d9f
-	ld a, $6
-	call GetSRAMBank
-	ld hl, .unknown_data
-	ld de, $a000
-	ld bc, $1000
-	call CopyBytes
-	call CloseSRAM
-	ret
-
-.unknown_data
-INCBIN "unknown/1f5db4.bin"
 
 SECTION "bank7E", ROMX, BANK[$7E]
 
