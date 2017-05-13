@@ -156,7 +156,7 @@ _CGB_FinishBattleScreenLayout: ; 8e23
 
 
 InitPartyMenuBGPal7: ; 8e85
-	farcall Function100dc0
+	xor a
 Mobile_InitPartyMenuBGPal7: ; 8e8b
 	ld hl, Palette_b311
 	jr nc, .not_mobile
@@ -170,7 +170,7 @@ Mobile_InitPartyMenuBGPal7: ; 8e8b
 ; 8e9f
 
 InitPartyMenuBGPal0: ; 8e9f
-	farcall Function100dc0
+	xor a
 	ld hl, Palette_b311
 	jr nc, .not_mobile
 	ld hl, Palette_b309

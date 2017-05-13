@@ -149,7 +149,6 @@ SpecialsPointers:: ; c029
 	add_special SpecialCheckForBattleTowerRules
 	add_special Special_GiveOddEgg
 	add_special Reset
-	add_special Function1011f1
 	add_special Function101220
 	add_special Function101225
 	add_special Function101231

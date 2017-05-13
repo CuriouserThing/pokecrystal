@@ -78,13 +78,6 @@ LinkReceptionistScript_Trade:
 	writetext Text_TradeReceptionistIntro
 	yesorno
 	iffalse .Cancel
-	special Mobile_DummyReturnFalse ; always returns false
-	iffalse .NoMobile
-	writetext Text_TradeReceptionistMobile
-	special AskMobileOrCable
-	iffalse .Cancel
-	if_equal $1, .Mobile
-.NoMobile:
 	special Special_SetBitsForLinkTradeRequest
 	writetext Text_PleaseWait
 	special Special_WaitForLinkedFriend
@@ -139,35 +132,6 @@ LinkReceptionistScript_Trade:
 	closetext
 	end
 
-.Mobile:
-	scall .Mobile_TrySave
-	iftrue .Mobile_Abort
-	scall BattleTradeMobile_WalkIn
-	warpcheck
-	end
-
-.Mobile_Abort:
-	end
-
-.Mobile_TrySave:
-	writetext Text_MustSaveGame
-	yesorno
-	iffalse .Mobile_DidNotSave
-	special Special_TryQuickSave
-	iffalse .Mobile_DidNotSave
-	special Function1011f1
-	writetext Text_PleaseComeIn2
-	waitbutton
-	closetext
-	writebyte $0
-	end
-
-.Mobile_DidNotSave:
-	writetext Text_PleaseComeAgain
-	closetext
-	writebyte $1
-	end
-
 BattleTradeMobile_WalkIn:
 	applymovement2 PokeCenter2FMobileMobileMovementData_ReceptionistWalksUpAndLeft_LookDown
 	applymovement PLAYER, PokeCenter2FMobileMovementData_PlayerWalksIntoMobileBattleRoom
@@ -180,13 +144,6 @@ LinkReceptionistScript_Battle:
 	writetext Text_BattleReceptionistIntro
 	yesorno
 	iffalse .Cancel
-	special Mobile_DummyReturnFalse ; always returns false
-	iffalse .NoMobile
-	writetext Text_BattleReceptionistMobile
-	special AskMobileOrCable
-	iffalse .Cancel
-	if_equal $1, .Mobile
-.NoMobile:
 	special Special_SetBitsForBattleRequest
 	writetext Text_PleaseWait
 	special Special_WaitForLinkedFriend
@@ -241,56 +198,6 @@ LinkReceptionistScript_Battle:
 	closetext
 	end
 
-.Mobile:
-	scall .SelectThreeMons
-	iffalse .Mobile_Abort
-	scall .Mobile_TrySave
-	iftrue .Mobile_Abort
-	scall BattleTradeMobile_WalkIn
-	warpcheck
-	end
-
-.Mobile_Abort:
-	end
-
-.Mobile_TrySave:
-	writetext Text_MustSaveGame
-	yesorno
-	iffalse .Mobile_DidNotSave
-	special Function103780
-	iffalse .Mobile_DidNotSave
-	special Function1011f1
-	writetext Text_PleaseComeIn2
-	waitbutton
-	closetext
-	writebyte $0
-	end
-
-.Mobile_DidNotSave:
-	writetext Text_PleaseComeAgain
-	closetext
-	writebyte $1
-	end
-
-.SelectThreeMons:
-	special Mobile_SelectThreeMons
-	iffalse .Mobile_DidNotSelect
-	if_equal $1, .Mobile_OK
-	if_equal $2, .Mobile_OK
-	if_equal $3, .Mobile_InvalidParty
-	jump .Mobile_DidNotSelect
-
-.Mobile_InvalidParty:
-	writetext Text_BrokeStadiumRules
-	waitbutton
-.Mobile_DidNotSelect:
-	closetext
-	writebyte $0
-	end
-
-.Mobile_OK:
-	writebyte $1
-	end
 
 Script_TimeCapsuleClosed:
 	faceplayer

@@ -3446,7 +3446,6 @@ Mobile_PrintOpponentBattleMessage: ; 4ea0a
 	ld a, c
 	push af
 	call SpeechTextBox
-	call MobileTextBorder
 	pop af
 	dec a
 	ld bc, $c
@@ -3479,40 +3478,10 @@ CheckBattleScene: ; 4ea44
 	ld a, 0
 	ld hl, wLinkMode
 	call GetFarWRAMByte
-	cp LINK_MOBILE
-	jr z, .mobile
 
 	ld a, [Options]
 	bit BATTLE_SCENE, a
 	jr nz, .off
-
-	and a
-	ret
-
-.mobile
-	ld a, [wcd2f]
-	and a
-	jr nz, .from_wram
-
-	ld a, $4
-	call GetSRAMBank
-	ld a, [$a60c]
-	ld c, a
-	call CloseSRAM
-
-	ld a, c
-	bit 0, c
-	jr z, .off
-
-	and a
-	ret
-
-.from_wram
-	ld a, $5
-	ld hl, w5_dc00
-	call GetFarWRAMByte
-	bit 0, a
-	jr z, .off
 
 	and a
 	ret
@@ -5501,7 +5470,6 @@ INCLUDE "misc/battle_tower_47.asm"
 
 SECTION "bank5B", ROMX, BANK[$5B]
 
-INCLUDE "misc/mobile_5b.asm"
 INCLUDE "engine/link_trade.asm"
 
 SECTION "bank5C", ROMX, BANK[$5C]

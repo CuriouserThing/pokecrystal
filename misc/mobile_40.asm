@@ -1623,25 +1623,12 @@ Function1009f3: ; 1009f3
 	ret
 ; 100a09
 
-_LinkBattleSendReceiveAction: ; 100a09
+_LinkBattleSendReceiveAction:
 	call .StageForSend
 	ld [wd431], a
 	farcall PlaceWaitingText
-	ld a, [wLinkMode]
-	cp LINK_MOBILE
-	jr nz, .not_mobile
-
-	call .MobileBattle_SendReceiveAction
-	call Function100da5
-	farcall FinishBattleAnim
-	jr .done
-
-.not_mobile
 	call .LinkBattle_SendReceiveAction
-
-.done
 	ret
-; 100a2e
 
 .StageForSend: ; 100a2e
 	ld a, [wPlayerAction]
@@ -1847,7 +1834,6 @@ Function100b7a: ; 100b7a
 	ld a, [wMenuData2_2DMenuItemStringsBank]
 	rst FarCall
 	farcall Draw2DMenu
-	farcall MobileTextBorder
 	call UpdateSprites
 	call ApplyTilemap
 	farcall Init2DMenuCursorPosition
@@ -2155,17 +2141,7 @@ Function100db0: ; 100db0
 
 
 
-Function100dc0: ; 100dc0
-	ld a, [wLinkMode]
-	cp LINK_MOBILE
-	jr nz, .mobile
-	ld hl, wcd2a
-	bit 3, [hl]
-	jr z, .mobile
-	scf
-	ret
-
-.mobile
+Function100dc0:
 	xor a
 	ret
 ; 100dd2
@@ -2302,12 +2278,8 @@ Jumptable_100e8c: ; 100e8c (40:4e8c)
 	dw Function100ec4
 
 
-Function100ea2: ; 100ea2 (40:4ea2)
-	call Function100dc0
-	ret nc
-	ld hl, wcd29
-	set 0, [hl]
-	call Function100ec5
+Function100ea2:
+	ret
 
 
 Function100eae: ; 100eae
@@ -2801,30 +2773,6 @@ LoadSelectedPartiesForColosseum: ; 1010f2
 	ld b, a
 	ret
 ; 1011f1
-
-Function1011f1: ; 1011f1
-	ld a, $04
-	call GetSRAMBank
-	ld a, [$a60c]
-	ld [wdc41], a
-	call CloseSRAM
-	ld hl, wdc41
-	res 4, [hl]
-	ld hl, GameTimerPause
-	bit 7, [hl]
-	jr z, .skip
-	ld hl, wdc41
-	set 4, [hl]
-
-.skip
-	call Function10209c
-	xor a
-	ld [wdc5f], a
-	ld [wdc60], a
-	ld a, LINK_MOBILE
-	ld [wLinkMode], a
-	ret
-; 101220
 
 Function101220: ; 101220
 	xor a
