@@ -5454,7 +5454,6 @@ SECTION "Intro Logo", ROMX, BANK[$42]
 IntroLogoGFX: ; 109407
 INCBIN "gfx/intro/logo.2bpp.lz"
 
-INCLUDE "misc/unused_title.asm"
 
 INCLUDE "engine/title.asm"
 
@@ -5996,11 +5995,3 @@ INCLUDE "data/battle_tower.asm"
 INCLUDE "data/odd_eggs.asm"
 
 SECTION "bank7F", ROMX, BANK[$7F]
-
-SECTION "stadium2", ROMX[$8000-$220], BANK[$7F]
-
-IF DEF(CRYSTAL11)
-INCBIN "misc/stadium2_2.bin"
-ELSE
-INCBIN "misc/stadium2_1.bin"
-ENDC

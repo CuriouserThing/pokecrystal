@@ -212,10 +212,6 @@ ROMX $41
 ROMX $42 ; CREDITS
 	"bank42" ; $4000
 	"Intro Logo" ; $5407
-	"Credits" ; $5847
-
-ROMX $43
-	"bank43" ; $4000
 
 ROMX $44
 	"Main" ; $4000

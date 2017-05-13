@@ -37,11 +37,6 @@ POKEDEX_ENTRIES_4         EQU $74
 EVENTS                    EQU $25
 
 
-; engine/credits.o
-
-CREDITS                   EQU $42
-
-
 ; gfx/pics.o
 
 PIC_POINTERS              EQU $48
