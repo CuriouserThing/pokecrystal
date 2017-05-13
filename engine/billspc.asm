@@ -2458,7 +2458,6 @@ BillsPC_PrintBoxName: ; e36cf (38:76cf)
 	ld de, .Current
 	call PlaceString
 	ld a, [wCurBox]
-	and $f
 	call GetBoxName
 	hlcoord 11, 2
 	call PlaceString
