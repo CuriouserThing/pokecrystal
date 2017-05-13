@@ -241,10 +241,10 @@ ENDC
 	ret
 ; 5ca6
 
-SetDefaultBoxNames: ; 5ca6
+SetDefaultBoxNames:
 	ld hl, wBoxNames
 	ld c, 0
-.loop
+.box_loop
 	push hl
 	ld de, .Box
 	call CopyName2
@@ -252,12 +252,16 @@ SetDefaultBoxNames: ; 5ca6
 	ld a, c
 	inc a
 	cp 10
-	jr c, .less
+	jr c, .single_digit
+	ld d, "0"
+.tens_loop
+	inc d
 	sub 10
-	ld [hl], "1"
+	cp 10
+	jr nc, .tens_loop
+	ld [hl], d
 	inc hl
-
-.less
+.single_digit
 	add "0"
 	ld [hli], a
 	ld [hl], "@"
@@ -267,12 +271,10 @@ SetDefaultBoxNames: ; 5ca6
 	inc c
 	ld a, c
 	cp NUM_BOXES
-	jr c, .loop
+	jr c, .box_loop
 	ret
-
 .Box:
-	db "BOX@"
-; 5cd3
+	db "Box @"
 
 InitializeMagikarpHouse: ; 5cd3
 	ld hl, wBestMagikarpLengthFeet
