@@ -43,7 +43,6 @@ MapMobileBattleRoomSignpost0Script:
 	special RestartMapMusic
 	refreshscreen $0
 .two_
-	special TrainerRankings_Healings
 	special HealParty
 	special Function10383c
 	iftrue .false

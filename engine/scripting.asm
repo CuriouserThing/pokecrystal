@@ -2992,8 +2992,6 @@ Script_halloffame:
 
 	ld hl, GameTimerPause
 	res 0, [hl]
-	farcall TrainerRankings_HallOfFame
-	farcall TrainerRankings_HallOfFame2
 	farcall HallOfFame
 	ld hl, GameTimerPause
 	set 0, [hl]

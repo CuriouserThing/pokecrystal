@@ -2828,7 +2828,6 @@ Special_CheckForLuckyNumberWinners: ; 4d87a
 	ld a, [ScriptVar]
 	and a
 	ret z ; found nothing
-	farcall TrainerRankings_LuckyNumberShow
 	ld a, [wFoundMatchingIDInParty]
 	and a
 	push af

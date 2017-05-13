@@ -28,7 +28,6 @@ Special_CheckMagikarpLength: ; fbb32
 	ld c, l
 	call CalcMagikarpLength
 	call PrintMagikarpLength
-	farcall TrainerRankings_MagikarpLength
 	ld hl, .MeasureItText
 	call PrintText
 

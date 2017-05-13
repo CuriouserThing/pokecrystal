@@ -2577,13 +2577,6 @@ AddBattleMoneyToAccount: ; 3d0be
 	ld c, $3
 	and a
 	push de
-	push hl
-	push bc
-	ld b, h
-	ld c, l
-	farcall TrainerRankings_AddToBattlePayouts
-	pop bc
-	pop hl
 .loop
 	ld a, [de]
 	adc [hl]
@@ -8225,7 +8218,6 @@ _DoBattle: ; 3f4d9
 ; 3f4dd
 
 BattleIntro: ; 3f4dd
-	farcall TrainerRankings_Battles ; mobile
 	call LoadTrainerOrWildMonPic
 	xor a
 	ld [TempBattleMonSpecies], a
@@ -8310,7 +8302,6 @@ BackUpVBGMap2: ; 3f568
 
 InitEnemyTrainer: ; 3f594
 	ld [TrainerClass], a
-	farcall TrainerRankings_TrainerBattles
 	xor a
 	ld [TempEnemyMonSpecies], a
 	farcall GetTrainerAttributes
@@ -8366,7 +8357,6 @@ InitEnemyTrainer: ; 3f594
 InitEnemyWildmon: ; 3f607
 	ld a, WILD_BATTLE
 	ld [wBattleMode], a
-	farcall TrainerRankings_WildBattles
 	call LoadEnemyMon
 	ld hl, EnemyMonMoves
 	ld de, wWildMonMoves
@@ -8549,7 +8539,6 @@ CheckPayDay: ; 3f71d
 ; 3f759
 
 ShowLinkBattleParticipantsAfterEnd: ; 3f759
-	farcall TrainerRankings_LinkBattles
 	farcall BackupMobileEventIndex
 	ld a, [CurOTMon]
 	ld hl, OTPartyMon1Status
@@ -8567,17 +8556,14 @@ DetermineMobileBattleResult: ; 3f77c
 	cp $1
 	jr c, .victory
 	jr z, .loss
-	farcall TrainerRankings_ColosseumDraws
 	ld de, .Draw
 	jr .store_result
 
 .victory
-	farcall TrainerRankings_ColosseumWins
 	ld de, .Win
 	jr .store_result
 
 .loss
-	farcall TrainerRankings_ColosseumLosses
 	ld de, .Lose
 	jr .store_result
 
@@ -9297,8 +9283,6 @@ BattleStartMessage: ; 3fc8b
 	ld a, [BattleType]
 	cp BATTLETYPE_FISH
 	jr nz, .NotFishing
-
-	farcall TrainerRankings_HookedEncounters
 
 	ld hl, HookedPokemonAttackedText
 	jr .PlaceBattleStartText
