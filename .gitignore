@@ -34,3 +34,5 @@ pokecrystal.txt
 # swap files for gedit
 *~
 
+# workspace files
+/workspace/*
