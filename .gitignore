@@ -36,3 +36,6 @@ pokecrystal.txt
 
 # workspace files
 /workspace/*
+
+# crowdmap
+/crowdmap/*
