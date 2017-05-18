@@ -508,9 +508,9 @@ Pokegear_UpdateClock: ; 90f86 (24:4f86)
 	hlcoord 3, 5
 	lb bc, 5, 14
 	call ClearBox
-	ld a, [hHours]
+	ld a, [WorldHours]
 	ld b, a
-	ld a, [hMinutes]
+	ld a, [WorldMinutes]
 	ld c, a
 	decoord 6, 8
 	farcall PrintHoursMins
@@ -1311,7 +1311,7 @@ PokegearPhoneContactSubmenu: ; 91342 (24:5342)
 ; 9146e
 
 ; XXX
-	ld a, [hHours]
+	ld a, [WorldHours]
 	cp 12
 	jr c, .am
 	sub 12

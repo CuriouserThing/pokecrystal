@@ -144,8 +144,8 @@ VBlank0:: ; 2b1
 	ld a, [hROMBankBackup]
 	rst Bankswitch
 
-	ld a, [hSeconds]
-	ld [hSecondsBackup], a
+	ld a, [WorldSeconds]
+	ld [WorldSecondsBackup], a
 
 	ret
 ; 325

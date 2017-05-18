@@ -1055,11 +1055,11 @@ IncrementMobileInactivityTimerByCFrames: ; 10064e
 Function100665: ; 100665
 	call UpdateTime
 	ld hl, wcd36
-	ld a, [hHours]
+	ld a, [WorldHours]
 	ld [hli], a
-	ld a, [hMinutes]
+	ld a, [WorldMinutes]
 	ld [hli], a
-	ld a, [hSeconds]
+	ld a, [WorldSeconds]
 	ld [hl], a
 	ret
 ; 100675
@@ -1132,7 +1132,7 @@ Function1006d3: ; 1006d3
 Function1006dc: ; 1006dc
 	ld a, [hld]
 	ld c, a
-	ld a, [hSeconds]
+	ld a, [WorldSeconds]
 	sub c
 	jr nc, .asm_1006e5
 	add $3c
@@ -1142,7 +1142,7 @@ Function1006dc: ; 1006dc
 	dec de
 	ld a, [hld]
 	ld c, a
-	ld a, [hMinutes]
+	ld a, [WorldMinutes]
 	sbc c
 	jr nc, .asm_1006f0
 	add $3c
@@ -1152,7 +1152,7 @@ Function1006dc: ; 1006dc
 	dec de
 	ld a, [hl]
 	ld c, a
-	ld a, [hHours]
+	ld a, [WorldHours]
 	sbc c
 	jr nc, .asm_1006fb
 	add $18
@@ -1192,11 +1192,11 @@ Function100720: ; 100720
 	xor a
 	ld [wcd6a], a
 	call UpdateTime
-	ld a, [hHours]
+	ld a, [WorldHours]
 	ld [wcd72], a
-	ld a, [hMinutes]
+	ld a, [WorldMinutes]
 	ld [wcd73], a
-	ld a, [hSeconds]
+	ld a, [WorldSeconds]
 	ld [wcd74], a
 	ld a, $04
 	ld hl, $a800
@@ -1215,11 +1215,11 @@ Function100720: ; 100720
 
 Function100754: ; 100754
 	call UpdateTime
-	ld a, [hHours]
+	ld a, [WorldHours]
 	ld [wcd72], a
-	ld a, [hMinutes]
+	ld a, [WorldMinutes]
 	ld [wcd73], a
-	ld a, [hSeconds]
+	ld a, [WorldSeconds]
 	ld [wcd74], a
 	ld a, [wcd6d]
 	ld [wcd6b], a
@@ -1334,11 +1334,11 @@ Function1007f6: ; 1007f6
 	call CloseSRAM
 	ld hl, wcd6e
 	call Function100826
-	ld a, [hHours]
+	ld a, [WorldHours]
 	ld [wcd72], a
-	ld a, [hMinutes]
+	ld a, [WorldMinutes]
 	ld [wcd73], a
-	ld a, [hSeconds]
+	ld a, [WorldSeconds]
 	ld [wcd74], a
 	ret
 ; 100826

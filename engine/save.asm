@@ -660,7 +660,6 @@ TryLoadSaveData: ; 14f1c
 	ld de, Options
 	ld bc, OptionsEnd - Options
 	call CopyBytes
-	call PanicResetClock
 	ret
 ; 14f7c
 

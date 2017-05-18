@@ -584,9 +584,9 @@ Special_InitialSetDSTFlag: ; 90a54
 .Text: ; 90a6c
 	start_asm
 	call UpdateTime
-	ld a, [hHours]
+	ld a, [WorldHours]
 	ld b, a
-	ld a, [hMinutes]
+	ld a, [WorldMinutes]
 	ld c, a
 	decoord 1, 14
 	farcall PrintHoursMins
@@ -615,9 +615,9 @@ Special_InitialClearDSTFlag: ; 90a88
 .Text: ; 90aa0
 	start_asm
 	call UpdateTime
-	ld a, [hHours]
+	ld a, [WorldHours]
 	ld b, a
-	ld a, [hMinutes]
+	ld a, [WorldMinutes]
 	ld c, a
 	decoord 1, 14
 	farcall PrintHoursMins
@@ -652,7 +652,7 @@ DebugDisplayTime: ; 90abc
 	ld [hl], " "
 	inc hl
 
-	ld de, hRTCDayLo
+	;ld de, hRTCDayLo
 	call .PrintTime
 
 	hlcoord 1, 16

@@ -384,7 +384,7 @@ CalcSecsMinsHoursDaysSince: ; 115db
 	inc hl
 	inc hl
 	inc hl
-	ld a, [hSeconds]
+	ld a, [WorldSeconds]
 	ld c, a
 	sub [hl]
 	jr nc, .skip
@@ -395,7 +395,7 @@ CalcSecsMinsHoursDaysSince: ; 115db
 	ld [wSecondsSince], a ; seconds since
 
 _CalcMinsHoursDaysSince: ; 115eb
-	ld a, [hMinutes]
+	ld a, [WorldMinutes]
 	ld c, a
 	sbc [hl]
 	jr nc, .skip
@@ -406,7 +406,7 @@ _CalcMinsHoursDaysSince: ; 115eb
 	ld [wMinutesSince], a ; minutes since
 
 _CalcHoursDaysSince: ; 115f8
-	ld a, [hHours]
+	ld a, [WorldHours]
 	ld c, a
 	sbc [hl]
 	jr nc, .skip
@@ -431,11 +431,11 @@ _CalcDaysSince:
 CopyDayHourMinSecToHL: ; 11613
 	ld a, [CurDay]
 	ld [hli], a
-	ld a, [hHours]
+	ld a, [WorldHours]
 	ld [hli], a
-	ld a, [hMinutes]
+	ld a, [WorldMinutes]
 	ld [hli], a
-	ld a, [hSeconds]
+	ld a, [WorldSeconds]
 	ld [hli], a
 	ret
 ; 11621
@@ -449,7 +449,7 @@ CopyDayToHL: ; 11621
 CopyDayHourToHL: ; 11626
 	ld a, [CurDay]
 	ld [hli], a
-	ld a, [hHours]
+	ld a, [WorldHours]
 	ld [hli], a
 	ret
 ; 1162e
@@ -457,9 +457,9 @@ CopyDayHourToHL: ; 11626
 CopyDayHourMinToHL: ; 1162e
 	ld a, [CurDay]
 	ld [hli], a
-	ld a, [hHours]
+	ld a, [WorldHours]
 	ld [hli], a
-	ld a, [hMinutes]
+	ld a, [WorldMinutes]
 	ld [hli], a
 	ret
 ; 11639

@@ -1,9 +1,6 @@
-StartRTC:
-	ret
-
-GetTimeOfDay:: ; 14032
+GetTimeOfDay::
 ; get time of day based on the current hour
-	ld a, [hHours] ; hour
+	ld a, [WorldHours] ; hour
 	ld hl, TimesOfDay
 
 .check
@@ -23,9 +20,8 @@ GetTimeOfDay:: ; 14032
 	ld a, [hl]
 	ld [TimeOfDay], a
 	ret
-; 14044
 
-TimesOfDay: ; 14044
+TimesOfDay:
 ; hours for the time of day
 ; 04-09 morn | 10-17 day | 18-03 nite
 	db 04, NITE
@@ -33,30 +29,21 @@ TimesOfDay: ; 14044
 	db 18, DAY
 	db 24, NITE
 	db -1, MORN
-; 1404e
 
-Unknown_1404e: ; Unreferenced
-	db 20, 2
-	db 40, 0
-	db 60, 1
-	db -1, 0
-; 14056
-
-StageRTCTimeForSave: ; 14056
+StageRTCTimeForSave:
 	call UpdateTime
 	ld hl, wRTC
 	ld a, [CurDay]
 	ld [hli], a
-	ld a, [hHours]
+	ld a, [WorldHours]
 	ld [hli], a
-	ld a, [hMinutes]
+	ld a, [WorldMinutes]
 	ld [hli], a
-	ld a, [hSeconds]
+	ld a, [WorldSeconds]
 	ld [hli], a
 	ret
-; 1406a
 
-SaveRTC: ; 1406a
+SaveRTC:
 	ld a, $a
 	ld [MBC5SRamEnable], a
 	ld a, BANK(sRTCStatusFlags)
@@ -65,39 +52,14 @@ SaveRTC: ; 1406a
 	ld [sRTCStatusFlags], a
 	call CloseSRAM
 	ret
-; 14089
 
-StartClock:: ; 14089
-	call GetClock
-	call Function1409b
-	call FixDays
-	jr nc, .skip_set
+StartClock::
+	ret
 	; bit 5: Day count exceeds 139
 	; bit 6: Day count exceeds 255
-	call RecordRTCStatus ; set flag on sRTCStatusFlags
+	jp RecordRTCStatus ; set flag on sRTCStatusFlags
 
-.skip_set
-	call StartRTC
-	ret
-; 1409b
-
-Function1409b: ; 1409b
-	ld hl, hRTCDayHi
-	bit 7, [hl]
-	jr nz, .set_bit_7
-	bit 6, [hl]
-	jr nz, .set_bit_7
-	xor a
-	ret
-
-.set_bit_7
-	; Day count exceeds 16383
-	ld a, %10000000
-	call RecordRTCStatus ; set bit 7 on sRTCStatusFlags
-	ret
-; 140ae
-
-Function140ae: ; 140ae
+Function140ae:
 	call CheckRTCStatus
 	ld c, a
 	and %11000000 ; Day count exceeded 255 or 16383
@@ -132,50 +94,21 @@ Function140ae: ; 140ae
 .dont_update
 	xor a
 	ret
-; 140ed
 
-_InitTime:: ; 140ed
-	call GetClock
-	call FixDays
-	ld hl, hRTCSeconds
-	ld de, StartSecond
-
+_InitTime::	
 	ld a, [StringBuffer2 + 3]
-	sub [hl]
-	dec hl
-	jr nc, .okay_secs
-	add 60
-.okay_secs
-	ld [de], a
-	dec de
-
+	ld [WorldSeconds], a
 	ld a, [StringBuffer2 + 2]
-	sbc [hl]
-	dec hl
-	jr nc, .okay_mins
-	add 60
-.okay_mins
-	ld [de], a
-	dec de
-
+	ld [WorldMinutes], a
 	ld a, [StringBuffer2 + 1]
-	sbc [hl]
-	dec hl
-	jr nc, .okay_hrs
-	add 24
-.okay_hrs
-	ld [de], a
-	dec de
-
+	ld [WorldHours], a
 	ld a, [StringBuffer2]
-	sbc [hl]
-	dec hl
-	jr nc, .okay_days
-	add 140
-	ld c, 7
-	call SimpleDivide
-
-.okay_days
-	ld [de], a
+	ld [WorldDaysLow], a
+	
+	ld a, $e1
+	ld [WorldSpeedHigh], a
+	ld a, 00
+	ld [WorldSpeedLow], a
+	ld a, 1
+	ld [WorldRunning], a
 	ret
-; 1412a

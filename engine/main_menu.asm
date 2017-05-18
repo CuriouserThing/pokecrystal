@@ -269,12 +269,12 @@ MainMenu_PrintCurrentTimeAndDay: ; 49e09
 	decoord 1, 15
 	call .PlaceCurrentDay
 	decoord 4, 16
-	ld a, [hHours]
+	ld a, [WorldHours]
 	ld c, a
 	farcall PrintHour
 	ld [hl], ":"
 	inc hl
-	ld de, hMinutes
+	ld de, WorldMinutes
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 2
 	call PrintNum
 	ret

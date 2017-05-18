@@ -4,17 +4,19 @@ hPushOAM           EQU $ff80 ; 10 bytes
 hROMBankBackup     EQU $ff8a
 hBuffer            EQU $ff8b
 hFF8C              EQU $ff8c
-hRTCDayHi          EQU $ff8d
-hRTCDayLo          EQU $ff8e
-hRTCHours          EQU $ff8f
-hRTCMinutes        EQU $ff90
-hRTCSeconds        EQU $ff91
 
-hHours             EQU $ff94
-
-hMinutes           EQU $ff96
-
-hSeconds           EQU $ff98
+WorldDaysHigh      EQU $ff8d
+WorldDaysLow       EQU $ff8e
+WorldHours         EQU $ff8f
+WorldMinutes       EQU $ff90
+WorldSeconds       EQU $ff91
+WorldFrames        EQU $ff92
+WorldTicks         EQU $ff93
+;
+;
+WorldSpeedHigh     EQU $ff96
+WorldSpeedLow      EQU $ff97
+WorldRunning       EQU $ff98
 
 hVBlankCounter     EQU $ff9b
 
@@ -115,7 +117,7 @@ hLastTalked        EQU $ffe0
 hRandom            EQU $ffe1
 hRandomAdd         EQU $ffe1
 hRandomSub         EQU $ffe2
-hSecondsBackup     EQU $ffe3
+WorldSecondsBackup     EQU $ffe3
 hBattleTurn        EQU $ffe4 ; Which trainers turn is it? 0: Player, 1: Opponent Trainer
 hCGBPalUpdate      EQU $ffe5
 hCGB               EQU $ffe6

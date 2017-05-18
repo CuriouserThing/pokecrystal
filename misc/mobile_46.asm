@@ -7310,14 +7310,14 @@ Function11b570: ; 11b570
 	push de
 	pop hl
 
-	ld a, [hRTCMinutes]
-	ld [hli], a
-	ld a, [hRTCHours]
-	ld [hli], a
-	ld a, [hRTCDayLo]
-	ld [hli], a
-	ld a, [hRTCDayHi]
-	ld [hl], a
+	;ld a, [hRTCMinutes]
+	;ld [hli], a
+	;ld a, [hRTCHours]
+	;ld [hli], a
+	;ld a, [hRTCDayLo]
+	;ld [hli], a
+	;ld a, [hRTCDayHi]
+	;ld [hl], a
 
 	call CloseSRAM
 	ret
@@ -7661,32 +7661,32 @@ Function11b879: ; 11b879
 	and a
 	ret z
 	ld hl, wcd4c
-	ld a, [hRTCDayHi]
+	;ld a, [hRTCDayHi]
 	cp [hl]
 	ret nz
 	dec hl
-	ld a, [hRTCDayLo]
+	;ld a, [hRTCDayLo]
 	cp [hl]
 	ret nz
 	ld hl, wcd4a
-	ld a, [hRTCHours]
+	;ld a, [hRTCHours]
 	cp [hl]
 	jr nc, .asm_11b8d8
 	ld a, $18
 	sub [hl]
-	ld hl, hRTCHours
+	;ld hl, hRTCHours
 	add [hl]
 	ld [wcd4c], a
-	ld a, [hRTCMinutes]
+	;ld a, [hRTCMinutes]
 	ld [wcd4b], a
 	xor a
 	ld [wcd4a], a
 	jr .asm_11b8e2
 
 .asm_11b8d8
-	ld a, [hRTCMinutes]
+	;ld a, [hRTCMinutes]
 	ld [wcd4b], a
-	ld a, [hRTCHours]
+	;ld a, [hRTCHours]
 	ld [wcd4c], a
 
 .asm_11b8e2

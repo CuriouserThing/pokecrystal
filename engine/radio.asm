@@ -1836,7 +1836,7 @@ BuenasPassword21:
 
 BuenasPasswordCheckTime:
 	call UpdateTime
-	ld a, [hHours]
+	ld a, [WorldHours]
 	cp 18 ; 6 PM
 	ret
 

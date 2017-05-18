@@ -48,7 +48,7 @@ _GetVarAction:: ; 80648 (20:4648)
 	dwb .CountBadges,                   RETVAR_EXECUTE
 	dwb PlayerState,                    RETVAR_ADDR_DE
 	dwb .PlayerFacing,                  RETVAR_EXECUTE
-	dwb hHours,                         RETVAR_STRBUF2
+	dwb WorldHours,                     RETVAR_STRBUF2
 	dwb .DayOfWeek,                     RETVAR_EXECUTE
 	dwb MapGroup,                       RETVAR_STRBUF2
 	dwb MapNumber,                      RETVAR_STRBUF2

@@ -122,13 +122,13 @@ _ResetWRAM: ; 5bae
 	call ByteFill
 
 	ld a, [rLY]
-	ld [hSecondsBackup], a
+	ld [WorldSecondsBackup], a
 	call DelayFrame
 	ld a, [hRandomSub]
 	ld [PlayerID], a
 
 	ld a, [rLY]
-	ld [hSecondsBackup], a
+	ld [WorldSecondsBackup], a
 	call DelayFrame
 	ld a, [hRandomAdd]
 	ld [PlayerID + 1], a

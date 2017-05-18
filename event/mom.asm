@@ -306,7 +306,7 @@ DSTChecks: ; 16439
 ; check the time; avoid changing DST if doing so would change the current day
 	ld a, [wDST]
 	bit 7, a
-	ld a, [hHours]
+	ld a, [WorldHours]
 	jr z, .NotDST
 	and a ; within one hour of 00:00?
 	jr z, .LostBooklet

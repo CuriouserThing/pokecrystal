@@ -72,9 +72,9 @@ RestartClock: ; 20021 (8:4021)
 	call UpdateTime
 	call GetWeekday
 	ld [Buffer4], a
-	ld a, [hHours]
+	ld a, [WorldHours]
 	ld [Buffer5], a
-	ld a, [hMinutes]
+	ld a, [WorldMinutes]
 	ld [Buffer6], a
 
 .loop

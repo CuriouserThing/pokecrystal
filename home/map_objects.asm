@@ -287,7 +287,7 @@ CheckObjectTime:: ; 18f5
 	ld hl, MAPOBJECT_TIMEOFDAY
 	add hl, bc
 	ld e, [hl]
-	ld hl, hHours
+	ld hl, WorldHours
 	ld a, d
 	cp e
 	jr z, .yes
