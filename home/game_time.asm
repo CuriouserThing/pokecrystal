@@ -154,7 +154,7 @@ UpdateWorldClock::
 	jr .end
 	
 .full_update
-	; In a, load # of ticks to add this frame
+	; Load # of ticks to add this frame
 	ld a, [WorldSpeedLow]
 	and $f
 	; Add ticks
@@ -169,8 +169,8 @@ UpdateWorldClock::
 .continue
 	ld [hld], a
 	
-	; In de, load # of world-frames to add this frame (big endian)
-	ld a, [WorldSpeedHigh]
+	; In de, load # of world-frames to add this frame (big endian)	
+	ld a, [hld] ; WorldSpeedHigh
 	swap a
 	ld e, a
 	and $0f
@@ -178,14 +178,13 @@ UpdateWorldClock::
 	ld a, e
 	and $f0
 	ld e, a
-	ld a, [WorldSpeedLow]
+	ld a, [hld] ; WorldSpeedLow
 	swap a
 	and $0f
 	or e
 	ld e, a
 	
 	; Add 1 world-second for every 60 world-frames (0-59 world-seconds total)
-	dec hl ; -> WorldSeconds
 .loop
 	cp 60 ; frames per seconds
 	jr nc, .add_second

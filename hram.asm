@@ -10,13 +10,11 @@ WorldDaysLow       EQU $ff8e
 WorldHours         EQU $ff8f
 WorldMinutes       EQU $ff90
 WorldSeconds       EQU $ff91
-WorldFrames        EQU $ff92
-WorldTicks         EQU $ff93
-;
-;
-WorldSpeedHigh     EQU $ff96
-WorldSpeedLow      EQU $ff97
-WorldRunning       EQU $ff98
+WorldSpeedLow      EQU $ff92
+WorldSpeedHigh     EQU $ff93
+WorldFrames        EQU $ff94
+WorldTicks         EQU $ff95
+WorldRunning       EQU $ff96
 
 hVBlankCounter     EQU $ff9b
 
