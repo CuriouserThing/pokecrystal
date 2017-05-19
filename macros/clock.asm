@@ -104,7 +104,7 @@ IF \1 > 23
 FAIL "Cannot advance clock to \1 oclock."
 ENDC
 IF hour != -1
-WARN "Already advancing clock to {hour} oclock. The attempt to advance it to \1 oclock will be ignored."
+WARN "Already advancing clock to {hour} o'clock. The attempt to advance it to \1 o'clock will be ignored."
 ELSE
 hour = \1
 ENDC
@@ -115,7 +115,7 @@ IF \1 == 0 || \1 > 12
 FAIL "Cannot advance clock to \1 AM."
 ENDC
 IF hour != -1
-WARN "Already advancing clock to {hour} hours. The attempt to advance it to \1 AM will be ignored."
+WARN "Already advancing clock to {hour} o'clock. The attempt to advance it to \1 AM will be ignored."
 ELSE
 hour = \1
 IF hour == 12
@@ -129,7 +129,7 @@ IF \1 == 0 || \1 > 12
 FAIL "Cannot advance clock to \1 PM."
 ENDC
 IF hour != -1
-WARN "Already advancing clock to {hour} hours. The attempt to advance it to \1 PM will be ignored."
+WARN "Already advancing clock to {hour} o'clock. The attempt to advance it to \1 PM will be ignored."
 ELSE
 hour = \1 + 12
 IF hour == 24
@@ -180,22 +180,92 @@ ENDC
 ENDM
 
 
-
-
-
-
-
-
-
-
-
 advance_clock_by: MACRO
+seconds = 0
+minutes = 0
+hours   = 0
+days    = 0
+
+IF _NARG % 2 == 1
+FAIL "Odd number of arguments."
+ENDC
+
+REPT _NARG / 2
+
+IF "\2" == "seconds"
+IF seconds != 0
+WARN "Already advancing clock by {seconds} seconds. The attempt to advance it by \1 seconds will be ignored."
+ELSE
+seconds = \1
+ENDC
+
+ELSE
+IF "\2" == "minutes"
+IF minutes != 0
+WARN "Already advancing clock by {minutes} minutes. The attempt to advance it by \1 minutes will be ignored."
+ELSE
+minutes = \1
+ENDC
+
+ELSE
+IF "\2" == "hours"
+IF hours != 0
+WARN "Already advancing clock by {hours} hours. The attempt to advance it by \1 hours will be ignored."
+ELSE
+hours = \1
+ENDC
+
+ELSE
+IF "\2" == "days"
+IF days != 0
+WARN "Already advancing clock by {days} days. The attempt to advance it by \1 days will be ignored."
+ELSE
+days = \1
+ENDC
+
+ELSE
+FAIL "Unrecognized unit of time '\2'."
+ENDC
+
+IF \1 == 0
+WARN "Advancing the clock by 0 \2 does nothing."
+ENDC
+
+ENDC
+ENDC
+ENDC
+SHIFT
+SHIFT
+ENDR
+
+minutes = minutes + seconds / 60
+seconds = seconds % 60
+hours = hours + minutes / 60
+minutes = minutes % 60
+days = days + hours / 24
+hours = hours % 24
+days_low = days & $ff
+days_high = (days & $ff00) >> 8
+
+IF seconds > 0
+	ld a, seconds
+	call AdvanceBySeconds
+ENDC
+IF minutes > 0
+	ld a, minutes
+	call AdvanceByMinutes
+ENDC
+IF hours > 0
+	ld a, hours
+	call AdvanceByHours
+ENDC
+IF days_low > 0
+	ld a, days_low
+	call AdvanceByDays
+ENDC
+IF days_high > 0
+	ld a, [WorldDaysHigh]
+	add days_high
+	ld [WorldDaysHigh], a
+ENDC
 ENDM
-
-
-
-
-
-
-
-
