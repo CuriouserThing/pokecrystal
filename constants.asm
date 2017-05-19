@@ -1,3 +1,5 @@
+INCLUDE "settings.asm"
+
 INCLUDE "macros.asm"
 
 INCLUDE "gbhw.asm"

@@ -8202,9 +8202,15 @@ StartBattle: ; 3f4c1
 
 	ld a, [TimeOfDayPal]
 	push af
+IF PAUSE_CLOCK_DURING_BATTLE
+	pause_clock
+ENDC
 	call BattleIntro
 	call DoBattle
 	call ExitBattle
+IF PAUSE_CLOCK_DURING_BATTLE
+	unpause_clock
+ENDC
 	pop af
 	ld [TimeOfDayPal], a
 	scf
