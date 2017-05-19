@@ -76,7 +76,7 @@ AdvanceToWeekday::
 	sub b
 	pop bc
 	jr nc, AdvanceByDays
-	add 7	
+	add 7
 AdvanceByDays::
 	ld hl, WorldDaysLow
 	add [hl]

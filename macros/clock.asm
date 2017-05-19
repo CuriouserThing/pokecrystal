@@ -18,6 +18,7 @@ CLEAN_unpause_clock: MACRO
 	pop af
 ENDM
 
+
 set_clock_multiplier: MACRO
 m = \1
 IF m & $fffff000 > 0 ; fixed-point
@@ -36,23 +37,24 @@ m = 3600
 ENDC
 m = m << 4
 ENDC
-IF m < $100
-	ld a, m
-	ld [WorldSpeedLow], a
+
+hi = (m & $ff00) >> 8
+lo = m & $00ff
+IF hi == 0
 	xor a
-	ld [WorldSpeedHigh], a
 ELSE
-IF m & $00ff == 0
-	xor a
-	ld [WorldSpeedLow], a
-	ld a, (m & $ff00) >> 8
-	ld [WorldSpeedHigh], a
-ELSE
-	ld a, m & $00ff
-	ld [WorldSpeedLow], a
-	ld a, (m & $ff00) >> 8
-	ld [WorldSpeedHigh], a
+	ld a, hi
 ENDC
+	ld [WorldSpeedHigh], a
+IF hi < $e1
+IF lo != hi
+IF lo == 0
+	xor a
+ELSE
+	ld a, lo
+ENDC
+ENDC
+	ld [WorldSpeedLow], a
 ENDC
 ENDM
 
@@ -97,12 +99,12 @@ minute = \1
 ENDC
 
 ELSE
-IF "\2" == "hours"
+IF "\2" == "oclock" || "\2" == "hours"
 IF \1 > 23
-FAIL "Cannot advance clock to \1 hours."
+FAIL "Cannot advance clock to \1 oclock."
 ENDC
 IF hour != -1
-WARN "Already advancing clock to {hour} hours. The attempt to advance it to \1 hours will be ignored."
+WARN "Already advancing clock to {hour} oclock. The attempt to advance it to \1 oclock will be ignored."
 ELSE
 hour = \1
 ENDC
@@ -176,3 +178,24 @@ IF weekday != -1
 	call AdvanceToWeekday
 ENDC
 ENDM
+
+
+
+
+
+
+
+
+
+
+
+advance_clock_by: MACRO
+ENDM
+
+
+
+
+
+
+
+
