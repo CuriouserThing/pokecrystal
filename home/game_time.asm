@@ -133,10 +133,10 @@ UpdateGameTimer:: ; 20ad
 
 
 UpdateWorldClock::
-	; Don't update if the world isn't running right now
-	ld a, [WorldRunning]
+	; Don't update if the world is paused right now
+	ld a, [WorldPaused]
 	and a
-	ret z
+	ret nz
 	
 	push de
 	
