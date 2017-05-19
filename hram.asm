@@ -5,6 +5,7 @@ hROMBankBackup     EQU $ff8a
 hBuffer            EQU $ff8b
 hFF8C              EQU $ff8c
 
+hWorldClock        EQU $ff8d ; start group
 WorldDaysHigh      EQU $ff8d
 WorldDaysLow       EQU $ff8e
 WorldHours         EQU $ff8f
@@ -12,8 +13,8 @@ WorldMinutes       EQU $ff90
 WorldSeconds       EQU $ff91
 WorldSpeedLow      EQU $ff92
 WorldSpeedHigh     EQU $ff93
-WorldFrames        EQU $ff94
-WorldTicks         EQU $ff95
+WorldTicks         EQU $ff94
+WorldFrames        EQU $ff95
 WorldRunning       EQU $ff96
 
 hVBlankCounter     EQU $ff9b
