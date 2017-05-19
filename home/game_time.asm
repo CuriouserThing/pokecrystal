@@ -163,13 +163,13 @@ UpdateWorldClock::
 	cp 16
 	jr c, .continue
 	sub 16
-	ld hl, WorldFrames
+	inc hl ; -> WorldFrames
 	inc [hl]
-	inc hl ; -> WorldTicks
+	dec hl ; -> WorldTicks
 .continue
 	ld [hld], a
 	
-	; In de, load # of world-frames to add this frame (big endian)	
+	; In de, load # of world-frames to add this frame (big endian)
 	ld a, [hld] ; WorldSpeedHigh
 	swap a
 	ld e, a
