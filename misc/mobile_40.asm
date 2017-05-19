@@ -1053,7 +1053,7 @@ IncrementMobileInactivityTimerByCFrames: ; 10064e
 ; 100665
 
 Function100665: ; 100665
-	call UpdateTime
+	farcall UpdateTime
 	ld hl, wcd36
 	ld a, [WorldHours]
 	ld [hli], a
@@ -1125,7 +1125,7 @@ String1006ca: ; 1006ca
 ; 1006d3
 
 Function1006d3: ; 1006d3
-	call UpdateTime
+	farcall UpdateTime
 	ld de, wcd34
 	ld hl, wcd38
 
@@ -1191,7 +1191,7 @@ Function10070d: ; 10070d
 Function100720: ; 100720
 	xor a
 	ld [wcd6a], a
-	call UpdateTime
+	farcall UpdateTime
 	ld a, [WorldHours]
 	ld [wcd72], a
 	ld a, [WorldMinutes]
@@ -1214,7 +1214,7 @@ Function100720: ; 100720
 ; 100754
 
 Function100754: ; 100754
-	call UpdateTime
+	farcall UpdateTime
 	ld a, [WorldHours]
 	ld [wcd72], a
 	ld a, [WorldMinutes]
@@ -1323,7 +1323,7 @@ Function10079c: ; 10079c
 ; 1007f6
 
 Function1007f6: ; 1007f6
-	call UpdateTime
+	farcall UpdateTime
 	ld hl, wcd74
 	ld de, wcd71
 	call Function1006dc

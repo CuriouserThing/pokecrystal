@@ -2346,8 +2346,6 @@ StartMinute:: ; d4b8
 StartSecond:: ; d4b9
 	ds 1
 
-wRTC:: ; d4ba
-	ds 8
 wDST:: ; d4c2
 	ds 1
 
@@ -2362,12 +2360,6 @@ GameTimeSeconds:: ; d4c7
 GameTimeFrames:: ; d4c8
 	ds 1
 
-	ds 2
-
-CurDay:: ; d4cb
-	ds 1
-
-	ds 1
 wObjectFollow_Leader:: ds 1
 wObjectFollow_Follower:: ds 1
 wCenteredObject:: ds 1

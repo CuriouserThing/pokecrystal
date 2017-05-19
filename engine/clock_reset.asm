@@ -69,7 +69,7 @@ RestartClock: ; 20021 (8:4021)
 	ld [Buffer2], a ; wd1eb (aliases: MovementType)
 	ld a, 8
 	ld [Buffer3], a
-	call UpdateTime
+	farcall UpdateTime
 	call GetWeekday
 	ld [Buffer4], a
 	ld a, [WorldHours]

@@ -1132,14 +1132,14 @@ Function1707ac: ; 1707ac (5c:47ac) BattleTowerAction $05
 	cp $2
 	jr nc, .asm_1707ef
 	push bc
-	call UpdateTime
+	farcall UpdateTime
 	pop bc
 	ld a, $5
 	call GetSRAMBank
 	ld a, [$aa8b]
 	call CloseSRAM
 	ld c, a
-	ld a, [CurDay]
+	ld a, [WorldDaysLow]
 	sub c
 	jr c, .asm_1707e5
 	cp $8
@@ -1149,7 +1149,7 @@ Function1707ac: ; 1707ac (5c:47ac) BattleTowerAction $05
 	jr nz, .asm_1707ef
 	ret
 .asm_1707e5
-	ld hl, CurDay
+	ld hl, WorldDaysLow
 	ld a, $8c
 	sub c
 	add [hl]
@@ -1170,10 +1170,10 @@ Function1707f4: ; 1707f4 (5c:47f4) BattleTowerAction $06
 	ret
 
 Function170807: ; 170807 (5c:4807) BattleTowerAction $16
-	call UpdateTime
+	farcall UpdateTime
 	ld a, $5
 	call GetSRAMBank
-	ld a, [CurDay]
+	ld a, [WorldDaysLow]
 	ld [$b2f9], a
 	xor a
 	ld [$b2fa], a
@@ -1193,9 +1193,9 @@ Function17081d: ; 17081d (5c:481d) BattleTowerAction $17
 	cp $2
 	jr nc, .asm_170853
 	push bc
-	call UpdateTime
+	farcall UpdateTime
 	pop bc
-	ld a, [CurDay]
+	ld a, [WorldDaysLow]
 	sub c
 	jr c, .asm_170849
 	cp $b
@@ -1206,7 +1206,7 @@ Function17081d: ; 17081d (5c:481d) BattleTowerAction $17
 	ret
 
 .asm_170849
-	ld hl, CurDay
+	ld hl, WorldDaysLow
 	ld a, 140
 	sub c
 	add [hl]
@@ -1284,17 +1284,17 @@ CheckMobileEventIndex: ; 1708b9 (5c:48b9) BattleTowerAction $0b something to do 
 	ret
 
 Function1708c8: ; 1708c8 (5c:48c8) BattleTowerAction $0c
-	call UpdateTime
+	farcall UpdateTime
 	ld a, $5
 	call GetSRAMBank
-	ld a, [CurDay]
+	ld a, [WorldDaysLow]
 	ld [$aa8b], a
 	xor a
 	ld [$aa8c], a
 	ld a, [$aa5d]
 	cp $2
 	jr nc, .asm_1708ec
-	ld a, [CurDay]
+	ld a, [WorldDaysLow]
 	ld [$aa48], a
 	ld a, $1
 	ld [$aa47], a
@@ -1305,7 +1305,7 @@ Function1708c8: ; 1708c8 (5c:48c8) BattleTowerAction $0c
 Function1708f0: ; 1708f0 (5c:48f0) BattleTowerAction $0d
 	xor a
 	ld [ScriptVar], a
-	call UpdateTime
+	farcall UpdateTime
 	ld a, $5
 	call GetSRAMBank
 	ld a, [$aa48]
@@ -1314,7 +1314,7 @@ Function1708f0: ; 1708f0 (5c:48f0) BattleTowerAction $0d
 	call CloseSRAM
 	and a
 	ret z
-	ld hl, CurDay
+	ld hl, WorldDaysLow
 	ld a, c
 	cp [hl]
 	jr nz, Function170923
@@ -1493,13 +1493,6 @@ Jumptable_1709e7: ; 1709e7
 ; 170a33
 
 .Action5: ; 170a33
-	ld a, $0
-	call GetSRAMBank
-	ld hl, wRTC
-	ld de, wMisc
-	ld bc, $0004
-	call CopyBytes
-	call CloseSRAM
 	ld a, $5
 	call GetSRAMBank
 	ld hl, $b08c

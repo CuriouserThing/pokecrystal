@@ -9,7 +9,7 @@ TrainerCard: ; 25105
 	set 4, [hl]
 	call .InitRAM
 .loop
-	call UpdateTime
+	farcall UpdateTime
 	call JoyTextDelay
 	ld a, [wJumptableIndex]
 	bit 7, a

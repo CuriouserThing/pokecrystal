@@ -1,5 +1,5 @@
 UpdateTimeOfDayPal:: ; 8c001
-	call UpdateTime
+	farcall UpdateTime
 	ld a, [TimeOfDay]
 	ld [CurTimeOfDay], a
 	call GetTimePalette

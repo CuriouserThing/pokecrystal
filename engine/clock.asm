@@ -1,8 +1,7 @@
-GetTimeOfDay::
+UpdateTime::
 ; get time of day based on the current hour
-	ld a, [WorldHours] ; hour
+	ld a, [WorldHours]
 	ld hl, TimesOfDay
-
 .check
 ; if we're within the given time period,
 ; get the corresponding time of day
@@ -13,7 +12,6 @@ GetTimeOfDay::
 	inc hl
 ; try again
 	jr .check
-
 .match
 ; get time of day
 	inc hl
@@ -30,43 +28,15 @@ TimesOfDay:
 	db 24, NITE
 	db -1, MORN
 
-StageRTCTimeForSave:
-	call UpdateTime
-	ld hl, wRTC
-	ld a, [CurDay]
-	ld [hli], a
-	ld a, [WorldHours]
-	ld [hli], a
-	ld a, [WorldMinutes]
-	ld [hli], a
-	ld a, [WorldSeconds]
-	ld [hli], a
-	ret
-
-SaveRTC:
-	ld a, SRAM_ENABLE
-	ld [MBC5SRamEnable], a
+SaveClock:
 	ld a, BANK(sWorldClock)
-	ld [MBC5SRamBank], a
+	call OpenSRAM
 	ld hl, hWorldClock
 	ld de, sWorldClock
 	ld bc, 10
 	call CopyBytes	
 	call CloseSRAM
 	ret
-
-LoadClock:
-	ld a, SRAM_ENABLE
-	ld [MBC5SRamEnable], a
-	ld a, BANK(sWorldClock)
-	ld [MBC5SRamBank], a
-	ld hl, sWorldClock
-	ld de, hWorldClock
-	ld bc, 10
-	call CopyBytes	
-	call CloseSRAM
-	ret
-
 	
 _InitTime::	
 	ld a, [StringBuffer2 + 3]
@@ -78,10 +48,6 @@ _InitTime::
 	ld a, [StringBuffer2]
 	ld [WorldDaysLow], a
 	
-	set_clock_multiplier 104.25
-	ld b, 13
-	farcall AdvanceByMinutes
-	ld b, 20
-	farcall AdvanceToMinute
+	set_clock_multiplier 3600
 	unpause_clock
 	ret

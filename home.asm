@@ -17,7 +17,6 @@ SECTION "Home", ROM0[$150]
 INCLUDE "home/init.asm"
 INCLUDE "home/vblank.asm"
 INCLUDE "home/delay.asm"
-INCLUDE "home/rtc.asm"
 INCLUDE "home/fade.asm"
 INCLUDE "home/lcd.asm"
 INCLUDE "home/time.asm"

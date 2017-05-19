@@ -7069,7 +7069,7 @@ Mobile46_InitJumptable: ; 11b44b
 	ld [wcf64], a
 	ld [wcf65], a
 	ld [wcf66], a
-	call UpdateTime
+	farcall UpdateTime
 	ret
 ; 11b45c
 
@@ -7346,13 +7346,6 @@ Function11b5e7: ; 11b5e7
 ; 11b5e8
 
 Function11b5e8: ; 11b5e8
-	ld a, $0
-	call GetSRAMBank
-	ld hl, wRTC
-	ld de, $c608
-	ld bc, 4
-	call CopyBytes
-	call CloseSRAM
 	ld a, $5
 	call GetSRAMBank
 	ld hl, $c608

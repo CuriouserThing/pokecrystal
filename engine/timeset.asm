@@ -583,7 +583,7 @@ Special_InitialSetDSTFlag: ; 90a54
 
 .Text: ; 90a6c
 	start_asm
-	call UpdateTime
+	farcall UpdateTime
 	ld a, [WorldHours]
 	ld b, a
 	ld a, [WorldMinutes]
@@ -614,7 +614,7 @@ Special_InitialClearDSTFlag: ; 90a88
 
 .Text: ; 90aa0
 	start_asm
-	call UpdateTime
+	farcall UpdateTime
 	ld a, [WorldHours]
 	ld b, a
 	ld a, [WorldMinutes]
@@ -642,7 +642,7 @@ DebugDisplayTime: ; 90abc
 
 .Text: ; 0x90acc
 	start_asm
-	call UpdateTime
+	farcall UpdateTime
 
 	hlcoord 1, 14
 	ld [hl], "R"

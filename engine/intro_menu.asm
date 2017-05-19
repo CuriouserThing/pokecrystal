@@ -55,7 +55,7 @@ NewGame_ClearTileMapEtc: ; 5b44
 ; 5b54
 
 MysteryGift: ; 5b54
-	call UpdateTime
+	farcall UpdateTime
 	farcall DoMysteryGiftIfDayHasPassed
 	farcall DoMysteryGift
 	ret
@@ -332,7 +332,7 @@ InitializeWorld: ; 5d23
 LoadOrRegenerateLuckyIDNumber: ; 5d33
 	ld a, BANK(sLuckyIDNumber)
 	call GetSRAMBank
-	ld a, [CurDay]
+	ld a, [WorldDaysLow]
 	inc a
 	ld b, a
 	ld a, [sLuckyNumberDay]

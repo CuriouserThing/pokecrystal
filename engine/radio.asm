@@ -1835,7 +1835,7 @@ BuenasPassword21:
 	jp NextRadioLine
 
 BuenasPasswordCheckTime:
-	call UpdateTime
+	farcall UpdateTime
 	ld a, [WorldHours]
 	cp 18 ; 6 PM
 	ret

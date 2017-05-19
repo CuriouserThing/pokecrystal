@@ -603,7 +603,7 @@ root	set root+1
 
 SECTION "bank5", ROMX, BANK[$5]
 
-INCLUDE "engine/rtc.asm"
+INCLUDE "engine/clock.asm"
 INCLUDE "engine/overworld.asm"
 INCLUDE "engine/tile_events.asm"
 INCLUDE "engine/save.asm"

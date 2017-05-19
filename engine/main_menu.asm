@@ -252,7 +252,7 @@ MainMenu_PrintCurrentTimeAndDay: ; 49e09
 	ld a, [wSaveFileExists]
 	and a
 	ret z
-	call UpdateTime
+	farcall UpdateTime
 	call GetWeekday
 	ld b, a
 	decoord 1, 15

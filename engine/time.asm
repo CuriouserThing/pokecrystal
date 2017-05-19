@@ -55,7 +55,7 @@ InitOneDayCountdown: ; 11413
 InitNDaysCountdown: ; 11415
 	ld [hl], a
 	push hl
-	call UpdateTime
+	farcall UpdateTime
 	pop hl
 	inc hl
 	call CopyDayToHL
@@ -76,7 +76,7 @@ CheckDayDependentEventHL: ; 11420
 RestartReceiveCallDelay: ; 1142e
 	ld hl, wReceiveCallDelay_MinsRemaining
 	ld [hl], a
-	call UpdateTime
+	farcall UpdateTime
 	ld hl, wReceiveCallDelay_StartTime
 	call CopyDayHourMinToHL
 	ret
@@ -144,7 +144,7 @@ StartBugContestTimer: ; 11490
 	ld [wBugContestMinsRemaining], a
 	ld a, 0
 	ld [wBugContestSecsRemaining], a
-	call UpdateTime
+	farcall UpdateTime
 	ld hl, wBugContestStartTime
 	call CopyDayHourMinSecToHL
 	ret
@@ -187,7 +187,7 @@ CheckBugContestTimer:: ; 114a4 (4:54a4)
 
 
 InitializeStartDay: ; 114dd
-	call UpdateTime
+	farcall UpdateTime
 	ld hl, wStartDay
 	call CopyDayToHL
 	ret
@@ -206,60 +206,19 @@ CheckPokerusTick:: ; 114e7
 	ret
 ; 114fc
 
-SetUnusedTwoDayTimer: ; 114fc
-	ld a, 2
-	ld hl, wUnusedTwoDayTimer
-	ld [hl], a
-	call UpdateTime
-	ld hl, wUnusedTwoDayTimerStartDate
-	call CopyDayToHL
-	ret
-; 1150c
-
-CheckUnusedTwoDayTimer: ; 1150c
-	ld hl, wUnusedTwoDayTimerStartDate
-	call CalcDaysSince
-	call GetDaysSince
-	ld hl, wUnusedTwoDayTimer
-	call UpdateTimeRemaining
-	ret
-; 1151c
-
-; XXX
-	ld hl, DailyFlags
-	set 2, [hl]
-	ret
-; 11522
-
-; XXX
-	and a
-	ld hl, DailyFlags
-	bit 2, [hl]
-	ret nz
-	scf
-	ret
-; 1152b
-
-RestartLuckyNumberCountdown: ; 1152b
+RestartLuckyNumberCountdown:
 	call .GetDaysUntilNextFriday
 	ld hl, wLuckyNumberDayBuffer
 	jp InitNDaysCountdown
-; 11534
-
-.GetDaysUntilNextFriday: ; 11534
+.GetDaysUntilNextFriday:
 	call GetWeekday
 	ld c, a
 	ld a, FRIDAY
 	sub c
 	jr z, .friday_saturday
-	jr nc, .earlier ; should've done "ret nc"
-
+	ret nc
 .friday_saturday
 	add 7
-
-.earlier
-	ret
-; 11542
 
 CheckLuckyNumberShowFlag: ; 11542
 	ld hl, wLuckyNumberDayBuffer
@@ -417,19 +376,17 @@ _CalcHoursDaysSince: ; 115f8
 	ld [wHoursSince], a ; hours since
 
 _CalcDaysSince:
-	ld a, [CurDay]
+	ld a, [WorldDaysLow]
 	ld c, a
 	sbc [hl]
-	jr nc, .skip
-	add 20 * 7
-.skip
+	; allow overflow
 	ld [hl], c ; current days
 	ld [wDaysSince], a ; days since
 	ret
 ; 11613
 
 CopyDayHourMinSecToHL: ; 11613
-	ld a, [CurDay]
+	ld a, [WorldDaysLow]
 	ld [hli], a
 	ld a, [WorldHours]
 	ld [hli], a
@@ -441,13 +398,13 @@ CopyDayHourMinSecToHL: ; 11613
 ; 11621
 
 CopyDayToHL: ; 11621
-	ld a, [CurDay]
+	ld a, [WorldDaysLow]
 	ld [hl], a
 	ret
 ; 11626
 
 CopyDayHourToHL: ; 11626
-	ld a, [CurDay]
+	ld a, [WorldDaysLow]
 	ld [hli], a
 	ld a, [WorldHours]
 	ld [hli], a
@@ -455,7 +412,7 @@ CopyDayHourToHL: ; 11626
 ; 1162e
 
 CopyDayHourMinToHL: ; 1162e
-	ld a, [CurDay]
+	ld a, [WorldDaysLow]
 	ld [hli], a
 	ld a, [WorldHours]
 	ld [hli], a

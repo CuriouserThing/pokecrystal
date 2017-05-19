@@ -220,7 +220,7 @@ HandleMapTimeAndJoypad: ; 967c1
 	cp 1 ; no events
 	ret z
 
-	call UpdateTime
+	farcall UpdateTime
 	call GetJoypad
 	call TimeOfDayPals
 	ret
