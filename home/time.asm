@@ -23,34 +23,3 @@ SetDayOfWeek::
 InitTime::
 	farcall _InitTime
 	ret
-
-ClearRTCStatus::
-; clear sRTCStatusFlags
-	xor a
-	push af
-	ld a, BANK(sRTCStatusFlags)
-	call GetSRAMBank
-	pop af
-	ld [sRTCStatusFlags], a
-	call CloseSRAM
-	ret
-
-RecordRTCStatus::
-; append flags to sRTCStatusFlags
-	ld hl, sRTCStatusFlags
-	push af
-	ld a, BANK(sRTCStatusFlags)
-	call GetSRAMBank
-	pop af
-	or [hl]
-	ld [hl], a
-	call CloseSRAM
-	ret
-
-CheckRTCStatus::
-; check sRTCStatusFlags
-	ld a, BANK(sRTCStatusFlags)
-	call GetSRAMBank
-	ld a, [sRTCStatusFlags]
-	call CloseSRAM
-	ret

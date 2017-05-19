@@ -17,11 +17,6 @@ _ResetClock: ; 4d3b1
 	ret z
 	call ClockResetPassword
 	jr c, .wrongpassword
-	ld a, BANK(sRTCStatusFlags)
-	call GetSRAMBank
-	ld a, $80
-	ld [sRTCStatusFlags], a
-	call CloseSRAM
 	ld hl, .text_okay
 	call PrintText
 	ret

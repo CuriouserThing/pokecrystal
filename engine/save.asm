@@ -633,6 +633,17 @@ TryLoadSaveData: ; 14f1c
 	ld de, StatusFlags
 	ld a, [hl]
 	ld [de], a
+	
+	ld a, BANK(sWorldClock)
+	ld [MBC5SRamBank], a
+	ld a, [sWorldPaused]
+	set WORLD_PAUSED_MAIN_MENU, a
+	ld [WorldPaused], a
+	ld hl, sWorldClock
+	ld de, hWorldClock
+	ld bc, 9
+	call CopyBytes
+	
 	call CloseSRAM
 	ret
 

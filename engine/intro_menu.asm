@@ -105,6 +105,10 @@ ResetWRAM: ; 5ba7
 ; 5bae
 
 _ResetWRAM: ; 5bae
+	ld hl, hWorldClock
+	ld bc, WorldPaused - WorldDaysHigh
+	xor a
+	call ByteFill
 
 	ld hl, Sprites
 	ld bc, Options - Sprites
@@ -388,7 +392,6 @@ Continue: ; 5d65
 	call DelayFrames
 	farcall JumpRoamMons
 	farcall MysteryGift_CopyReceivedDecosToPC ; Mystery Gift
-	farcall Function140ae ; time-related
 	ld a, [wSpawnAfterChampion]
 	cp SPAWN_LANCE
 	jr z, .SpawnAfterE4
@@ -466,21 +469,9 @@ ConfirmContinue: ; 5e34
 	ret
 ; 5e48
 
-Continue_CheckRTC_RestartClock: ; 5e48
-	call CheckRTCStatus
-	and %10000000 ; Day count exceeded 16383
-	jr z, .pass
-	farcall RestartClock
-	ld a, c
-	and a
-	jr z, .pass
-	scf
-	ret
-
-.pass
+Continue_CheckRTC_RestartClock:
 	xor a
 	ret
-; 5e5d
 
 FinishContinueFunction: ; 5e5d
 .loop
@@ -492,6 +483,8 @@ FinishContinueFunction: ; 5e5d
 	res 7, [hl]
 	ld hl, wEnteredMapFromContinue
 	set 1, [hl]
+	ld hl, WorldPaused
+	res WORLD_PAUSED_MAIN_MENU, [hl]
 	farcall OverworldLoop
 	ld a, [wSpawnAfterChampion]
 	cp SPAWN_RED
@@ -503,19 +496,10 @@ FinishContinueFunction: ; 5e5d
 	jr .loop
 ; 5e85
 
-DisplaySaveInfoOnContinue: ; 5e85
-	call CheckRTCStatus
-	and %10000000
-	jr z, .clock_ok
-	lb de, 4, 8
-	call DisplayContinueDataWithRTCError
-	ret
-
-.clock_ok
+DisplaySaveInfoOnContinue:
 	lb de, 4, 8
 	call DisplayNormalContinueData
 	ret
-; 5e9a
 
 DisplaySaveInfoOnSave: ; 5e9a
 	lb de, 4, 0

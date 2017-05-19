@@ -240,29 +240,18 @@ MainMenu_PrintCurrentTimeAndDay: ; 49e09
 ; 49e27
 
 
-.PlaceBox: ; 49e27
-	call CheckRTCStatus
-	and $80
-	jr nz, .TimeFail
+.PlaceBox:
 	hlcoord 0, 14
 	ld b, 2
 	ld c, 18
 	call TextBox
 	ret
 
-.TimeFail:
-	call SpeechTextBox
-	ret
-; 49e3d
 
-
-.PlaceTime: ; 49e3d
+.PlaceTime:
 	ld a, [wSaveFileExists]
 	and a
 	ret z
-	call CheckRTCStatus
-	and $80
-	jp nz, .PrintTimeNotSet
 	call UpdateTime
 	call GetWeekday
 	ld b, a
@@ -278,30 +267,9 @@ MainMenu_PrintCurrentTimeAndDay: ; 49e09
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 2
 	call PrintNum
 	ret
+	
 
-.min
-; unreferenced
-	db "min.@"
-; 49e75
-
-.PrintTimeNotSet: ; 49e75
-	hlcoord 1, 14
-	ld de, .TimeNotSet
-	call PlaceString
-	ret
-; 49e7f
-
-.TimeNotSet: ; 49e7f
-	db "TIME NOT SET@"
-; 49e8c
-
-.UnusedText: ; 49e8c
-	; Clock time unknown
-	text_jump UnknownText_0x1c5182
-	db "@"
-; 49e91
-
-.PlaceCurrentDay: ; 49e91
+.PlaceCurrentDay:
 	push de
 	ld hl, .Days
 	ld a, b
@@ -315,7 +283,6 @@ MainMenu_PrintCurrentTimeAndDay: ; 49e09
 	ld de, .Day
 	call PlaceString
 	ret
-; 49ea8
 
 .Days:
 	db "SUN@"
@@ -327,7 +294,6 @@ MainMenu_PrintCurrentTimeAndDay: ; 49e09
 	db "SATUR@"
 .Day:
 	db "DAY@"
-; 49ed0
 
 Function49ed0: ; 49ed0
 	xor a

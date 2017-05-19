@@ -15,7 +15,9 @@ WorldSpeedLow      EQU $ff92
 WorldSpeedHigh     EQU $ff93
 WorldTicks         EQU $ff94
 WorldFrames        EQU $ff95
-WorldRunning       EQU $ff96
+WorldPaused        EQU $ff96
+WORLD_PAUSED_DEFAULT   EQU 0
+WORLD_PAUSED_MAIN_MENU EQU 7
 
 hVBlankCounter     EQU $ff9b
 

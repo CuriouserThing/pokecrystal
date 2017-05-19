@@ -146,8 +146,6 @@ Init:: ; 17d
 	xor a ; VBGMap1 % $100
 	ld [hBGMapAddress], a
 
-	farcall StartClock
-
 	xor a
 	ld [MBC5SRamEnable], a
 

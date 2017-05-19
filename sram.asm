@@ -74,7 +74,18 @@ sBackupMysteryGiftItemEnd::
 
 	ds $30
 
-sRTCStatusFlags:: ds 8
+sWorldClock::
+sWorldDaysHigh:: ds 1
+sWorldDaysLow:: ds 1
+sWorldHours:: ds 1
+sWorldMinutes:: ds 1
+sWorldSeconds:: ds 1
+sWorldSpeedLow:: ds 1
+sWorldSpeedHigh:: ds 1
+sWorldTicks:: ds 1
+sWorldFrames:: ds 1
+sWorldPaused:: ds 1
+
 sLuckyNumberDay:: ds 1
 sLuckyIDNumber:: ds 2
 

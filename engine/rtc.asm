@@ -44,57 +44,30 @@ StageRTCTimeForSave:
 	ret
 
 SaveRTC:
-	ld a, $a
+	ld a, SRAM_ENABLE
 	ld [MBC5SRamEnable], a
-	ld a, BANK(sRTCStatusFlags)
+	ld a, BANK(sWorldClock)
 	ld [MBC5SRamBank], a
-	xor a
-	ld [sRTCStatusFlags], a
+	ld hl, hWorldClock
+	ld de, sWorldClock
+	ld bc, 10
+	call CopyBytes	
 	call CloseSRAM
 	ret
 
-StartClock::
-	ret
-	; bit 5: Day count exceeds 139
-	; bit 6: Day count exceeds 255
-	jp RecordRTCStatus ; set flag on sRTCStatusFlags
-
-Function140ae:
-	call CheckRTCStatus
-	ld c, a
-	and %11000000 ; Day count exceeded 255 or 16383
-	jr nz, .time_overflow
-
-	ld a, c
-	and %00100000 ; Day count exceeded 139
-	jr z, .dont_update
-
-	call UpdateTime
-	ld a, [wRTC + 0]
-	ld b, a
-	ld a, [CurDay]
-	cp b
-	jr c, .dont_update
-
-.time_overflow
-	farcall ClearDailyTimers
-	farcall Function170923
-; mobile
-	ld a, $5
-	call GetSRAMBank
-	ld a, [$aa8c]
-	inc a
-	ld [$aa8c], a
-	ld a, [$b2fa]
-	inc a
-	ld [$b2fa], a
+LoadClock:
+	ld a, SRAM_ENABLE
+	ld [MBC5SRamEnable], a
+	ld a, BANK(sWorldClock)
+	ld [MBC5SRamBank], a
+	ld hl, sWorldClock
+	ld de, hWorldClock
+	ld bc, 10
+	call CopyBytes	
 	call CloseSRAM
 	ret
 
-.dont_update
-	xor a
-	ret
-
+	
 _InitTime::	
 	ld a, [StringBuffer2 + 3]
 	ld [WorldSeconds], a
@@ -105,10 +78,10 @@ _InitTime::
 	ld a, [StringBuffer2]
 	ld [WorldDaysLow], a
 	
-	ld a, $e1
-	ld [WorldSpeedHigh], a
-	ld a, 00
-	ld [WorldSpeedLow], a
-	ld a, 1
-	ld [WorldRunning], a
+	set_clock_multiplier 104.25
+	ld b, 13
+	farcall AdvanceByMinutes
+	ld b, 20
+	farcall AdvanceToMinute
+	unpause_clock
 	ret
