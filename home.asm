@@ -756,14 +756,30 @@ CountSetBits:: ; 0x335f
 	ret
 ; 0x3376
 
-GetWeekday:: ; 3376
-	ld a, [CurDay]
+GetWeekday::
+	push hl
+	ld hl, WorldDaysHigh
+	ld a, [hli]
+.mod_high
+	sub 7
+	jr nc, .mod_high
+	add 7    ; -> WorldDaysHigh % 7
+	add a    ; -> WorldDaysHigh % 7 * 2
+	add a    ; -> WorldDaysHigh % 7 * 4
+	add [hl] ; -> WorldDaysHigh % 7 * 4 + WorldDaysLow, with possible overflow
+	jr c, .mod_overflow
 .mod
 	sub 7
 	jr nc, .mod
 	add 7
+	pop hl
 	ret
-; 3380
+.mod_overflow	
+	sub 7
+	jr nc, .mod_overflow
+	add 7 + 4 ; 7 + 256 % 7
+	pop hl
+	ret
 
 INCLUDE "home/pokedex_flags.asm"
 
