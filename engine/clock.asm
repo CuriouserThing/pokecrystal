@@ -47,7 +47,4 @@ _InitTime::
 	ld [WorldHours], a
 	ld a, [StringBuffer2]
 	ld [WorldDaysLow], a
-	
-	set_clock_multiplier 3600
-	unpause_clock
 	ret

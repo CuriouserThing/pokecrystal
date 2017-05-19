@@ -756,6 +756,7 @@ CountSetBits:: ; 0x335f
 ; 0x3376
 
 GetWeekday::
+	; i.e. get world-day % 7
 	push hl
 	ld hl, WorldDaysHigh
 	ld a, [hli]
@@ -1977,3 +1978,6 @@ ReinitSpriteAnimFrame:: ; 3b3c
 
 INCLUDE "home/audio.asm"
 INCLUDE "home/mobile.asm"
+
+SECTION "Clock Functions", ROM0
+INCLUDE "home/clock.asm"

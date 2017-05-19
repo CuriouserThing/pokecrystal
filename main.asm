@@ -5995,6 +5995,3 @@ INCLUDE "data/battle_tower.asm"
 INCLUDE "data/odd_eggs.asm"
 
 SECTION "bank7F", ROMX, BANK[$7F]
-
-SECTION "Clock Functions", ROMX
-INCLUDE "engine/clock_functions.asm"

@@ -1,15 +1,14 @@
+; All clock advance functions take their argument from a, use hl, and preserve bc and de
+
 AdvanceToSecond::
 	ld hl, WorldSeconds
-	ld a, [hl]
-	cp b
-	ld a, b
+	cp [hl]
 	ld [hld], a
-	jr nc, add_minute
-	ret
+	ret nc
+	jr add_minute
 AdvanceBySeconds::
 	ld hl, WorldSeconds
-	ld a, [hl]
-	add b
+	add [hl]
 	cp 60
 	jr nc, .overflow_seconds
 	ld [hl], a
@@ -24,16 +23,13 @@ add_minute
 
 AdvanceToMinute::
 	ld hl, WorldMinutes
-	ld a, [hl]
-	cp b
-	ld a, b
+	cp [hl]
 	ld [hld], a
-	jr nc, add_hour
-	ret
+	ret nc
+	jr add_hour
 AdvanceByMinutes::
 	ld hl, WorldMinutes
-	ld a, [hl]
-	add b
+	add [hl]
 check_minute_overflow
 	cp 60
 	jr nc, .overflow_minutes
@@ -49,16 +45,13 @@ add_hour
 
 AdvanceToHour::
 	ld hl, WorldHours
-	ld a, [hl]
-	cp b
-	ld a, b
+	cp [hl]
 	ld [hld], a
-	jr nc, add_day
-	ret
+	ret nc
+	jr add_day
 AdvanceByHours::
 	ld hl, WorldHours
-	ld a, [hl]
-	add b
+	add [hl]
 check_hour_overflow
 	cp 24
 	jr nc, .overflow_hours
@@ -69,21 +62,25 @@ check_hour_overflow
 	ld [hld], a
 add_day
 	inc [hl]
-	ret nc
+	ret c
 	dec hl
 	inc [hl]
 	ret
 
+AdvanceToWeekday::
+	push bc
+	ld c, a
+	call GetWeekday
+	ld b, a
+	ld a, c
+	sub b
+	pop bc
+	jr nc, AdvanceByDays
+	add 7	
 AdvanceByDays::
 	ld hl, WorldDaysLow
-	ld a, [hl]
-	add c
-	jr nc, .no_overflow
-	inc b
-.no_overflow
+	add [hl]
 	ld [hld], a
-	ld a, [hl]
-	add b
-	ld [hl], a
+	ret nc
+	inc [hl]
 	ret
-	
