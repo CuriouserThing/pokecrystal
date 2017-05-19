@@ -19,6 +19,7 @@ INCLUDE "macros/pals.asm"
 
 INCLUDE "macros/boxes.asm"
 INCLUDE "macros/comparison.asm"
+INCLUDE "macros/clock.asm"
 
 RGB: MACRO
 	dw ((\3) << 10) + ((\2) << 5) + (\1)
