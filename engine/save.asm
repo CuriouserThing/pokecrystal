@@ -137,8 +137,8 @@ StartMovePkmnWOMail_SaveGame: ; 14b34
 ; 14b54
 
 PauseGameLogic: ; 14b54
-IF PAUSE_CLOCK_DURING_SAVE
-	pause_clock
+IF PAUSE_WORLD_DURING_SAVE
+	pause_world_via_engine
 ENDC
 	ld a, $1
 	ld [wGameLogicPaused], a
@@ -148,8 +148,8 @@ ENDC
 ResumeGameLogic: ; 14b5a
 	xor a
 	ld [wGameLogicPaused], a
-IF PAUSE_CLOCK_DURING_SAVE
-	unpause_clock
+IF PAUSE_WORLD_DURING_SAVE
+	reset_world_pause_from_engine
 ENDC
 	ret
 ; 14b5f
@@ -640,7 +640,7 @@ TryLoadSaveData: ; 14f1c
 	ld a, BANK(sWorldClock)
 	ld [MBC5SRamBank], a
 	ld a, [sWorldPaused]
-	set WORLD_PAUSED_MAIN_MENU, a
+	set ENGINE_PAUSE, a ; make sure the world is paused before loading the save data
 	ld [WorldPaused], a
 	ld hl, sWorldClock
 	ld de, hWorldClock

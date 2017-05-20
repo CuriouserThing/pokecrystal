@@ -8202,14 +8202,14 @@ StartBattle: ; 3f4c1
 
 	ld a, [TimeOfDayPal]
 	push af
-IF PAUSE_CLOCK_DURING_BATTLE
-	pause_clock
+IF PAUSE_WORLD_DURING_BATTLE
+	pause_world_via_script
 ENDC
 	call BattleIntro
 	call DoBattle
 	call ExitBattle
-IF PAUSE_CLOCK_DURING_BATTLE
-	unpause_clock
+IF PAUSE_WORLD_DURING_BATTLE
+	reset_world_pause_from_script
 ENDC
 	pop af
 	ld [TimeOfDayPal], a

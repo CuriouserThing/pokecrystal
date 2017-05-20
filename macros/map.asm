@@ -70,7 +70,11 @@ map_header: MACRO
 IF _NARG > 8
 	define_clock_multiplier \9
 ELSE
-	dw 0
+IF DEF(\3_MULTIPLIER) ; from permission
+	define_clock_multiplier \3_MULTIPLIER
+ELSE
+	define_clock_multiplier DEFAULT_CLOCK_MULTIPLIER
+ENDC
 ENDC
 ENDM
 

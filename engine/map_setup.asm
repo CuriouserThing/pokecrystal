@@ -95,6 +95,7 @@ MapSetupScript_Connection: ; 153bf
 	db map_load_blocks
 	db map_load_tileset_header
 	db map_save_screen
+	db map_change_clock_speed
 	db map_load_objects
 	db map_fade_music
 	db map_palettes

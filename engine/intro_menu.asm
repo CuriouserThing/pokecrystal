@@ -483,8 +483,7 @@ FinishContinueFunction: ; 5e5d
 	res 7, [hl]
 	ld hl, wEnteredMapFromContinue
 	set 1, [hl]
-	ld hl, WorldPaused
-	res WORLD_PAUSED_MAIN_MENU, [hl]
+	reset_world_pause_from_engine
 	farcall OverworldLoop
 	ld a, [wSpawnAfterChampion]
 	cp SPAWN_RED

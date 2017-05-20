@@ -1,8 +1,8 @@
 InitClock: ; 90672 (24:4672)
-IF PAUSE_CLOCK_DURING_INTRO
-	pause_clock
+IF PAUSE_WORLD_DURING_INTRO
+	pause_world_via_script
 ENDC
-	set_clock_multiplier INITIAL_CLOCK_MULTIPLIER
+	set_clock_multiplier DEFAULT_CLOCK_MULTIPLIER
 
 ; Ask the player to set the time.
 	ld a, [hInMenu]

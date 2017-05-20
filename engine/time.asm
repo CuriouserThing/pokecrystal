@@ -190,8 +190,8 @@ InitializeStartDay: ; 114dd
 	farcall UpdateTime
 	ld hl, wStartDay
 	call CopyDayToHL
-IF PAUSE_CLOCK_DURING_INTRO
-	unpause_clock
+IF PAUSE_WORLD_DURING_INTRO
+	reset_world_pause_from_script
 ENDC
 	ret
 ; 114e7

@@ -1,22 +1,28 @@
-pause_clock: MACRO
+pause_world_via_script: MACRO
 	ld hl, WorldPaused
-	set WORLD_PAUSED_DEFAULT, [hl]
-ENDM
-CLEAN_pause_clock: MACRO
-	push hl
-	pause_clock
-	pop hl
+	set SCRIPT_PAUSE, [hl]
 ENDM
 
-unpause_clock: MACRO
+pause_world_via_engine: MACRO
+	ld hl, WorldPaused
+	set ENGINE_PAUSE, [hl]
+ENDM
+
+reset_world_pause_from_script: MACRO
+	ld hl, WorldPaused
+	res SCRIPT_PAUSE, [hl]
+ENDM
+
+reset_world_pause_from_engine: MACRO
+	ld hl, WorldPaused
+	res ENGINE_PAUSE, [hl]
+ENDM
+
+hard_unpause_world: MACRO
 	xor a
 	ld [WorldPaused], a
 ENDM
-CLEAN_unpause_clock: MACRO
-	push af
-	unpause_clock
-	pop af
-ENDM
+
 
 
 clock_multiplier: MACRO
@@ -66,11 +72,6 @@ ENDC
 ENDC
 ENDM
 
-CLEAN_set_clock_multiplier: MACRO
-	push af
-	set_clock_multiplier \1
-	pop af
-ENDM
 
 
 advance_clock_to: MACRO
@@ -186,6 +187,7 @@ IF weekday != -1
 	call AdvanceToWeekday
 ENDC
 ENDM
+
 
 
 advance_clock_by: MACRO
