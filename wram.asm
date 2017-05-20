@@ -371,7 +371,9 @@ BattleMonNick:: ds PKMN_NAME_LENGTH ; c621
 
 BattleMon:: battle_struct BattleMon ; c62c
 
-	ds 2
+wInitMinuteBuffer:: ds 1
+
+	ds 1
 
 wWildMon:: ds 1 ; c64e
 	ds 1

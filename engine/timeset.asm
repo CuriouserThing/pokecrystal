@@ -1,4 +1,9 @@
 InitClock: ; 90672 (24:4672)
+IF PAUSE_CLOCK_DURING_INTRO
+	pause_clock
+ENDC
+	set_clock_multiplier INITIAL_CLOCK_MULTIPLIER
+
 ; Ask the player to set the time.
 	ld a, [hInMenu]
 	push af
@@ -69,7 +74,7 @@ InitClock: ; 90672 (24:4672)
 	jr nc, .SetHourLoop
 
 	ld a, [wInitHourBuffer]
-	ld [StringBuffer2 + 1], a
+	ld [WorldHours], a
 	call .ClearScreen
 	ld hl, Text_WhatHrs
 	call PrintText
@@ -98,8 +103,8 @@ InitClock: ; 90672 (24:4672)
 	call SetMinutes
 	jr nc, .SetMinutesLoop
 
-	ld a, [BattleMonNick + 5]
-	ld [StringBuffer2 + 2], a
+	ld a, [wInitMinuteBuffer]
+	ld [WorldMinutes], a
 	call .ClearScreen
 	ld hl, Text_WhoaMins
 	call PrintText
@@ -109,7 +114,6 @@ InitClock: ; 90672 (24:4672)
 	jr .HourIsSet
 
 .MinutesAreSet:
-	call SetTimeOfDay
 	ld hl, OakText_ResponseToSetTime
 	call PrintText
 	call WaitPressAorB_BlinkCursor
@@ -237,7 +241,7 @@ SetMinutes: ; 90810 (24:4810)
 	ret
 
 .d_down
-	ld hl, BattleMonNick + 5
+	ld hl, wInitMinuteBuffer
 	ld a, [hl]
 	and a
 	jr nz, .decrease
@@ -248,7 +252,7 @@ SetMinutes: ; 90810 (24:4810)
 	jr .finish_dpad
 
 .d_up
-	ld hl, BattleMonNick + 5
+	ld hl, wInitMinuteBuffer
 	ld a, [hl]
 	cp 59
 	jr c, .increase
@@ -271,7 +275,7 @@ SetMinutes: ; 90810 (24:4810)
 	ret
 
 DisplayMinutesWithMinString: ; 90859 (24:4859)
-	ld de, BattleMonNick + 5
+	ld de, wInitMinuteBuffer
 	call PrintTwoDigitNumberRightAlign
 	inc hl
 	ld de, String_min
@@ -355,7 +359,7 @@ OakText_ResponseToSetTime: ; 0x908b8
 	call PrintHour
 	ld [hl], ":"
 	inc hl
-	ld de, BattleMonNick + 5
+	ld de, wInitMinuteBuffer
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 2
 	call PrintNum
 	ld b, h
@@ -450,8 +454,8 @@ Special_SetDayOfWeek: ; 90913
 	call YesNoBox
 	jr c, .loop
 	ld a, [wTempDayOfWeek]
-	ld [StringBuffer2], a
-	call SetDayOfWeek
+	ld [WorldDaysLow], a
+	farcall UpdateTime
 	call LoadStandardFont
 	pop af
 	ld [hInMenu], a

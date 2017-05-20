@@ -88,14 +88,13 @@ RestartClock: ; 20021 (8:4021)
 	call YesNoBox
 	jr c, .cancel
 	ld a, [Buffer4]
-	ld [StringBuffer2], a
+	ld [WorldDaysLow], a
 	ld a, [Buffer5]
-	ld [StringBuffer2 + 1], a
+	ld [WorldHours], a
 	ld a, [Buffer6]
-	ld [StringBuffer2 + 2], a
+	ld [WorldMinutes], a
 	xor a
-	ld [StringBuffer2 + 3], a
-	call InitTime
+	ld [WorldSeconds], a
 	call .PrintTime
 	ld hl, .Text_ClockReset
 	call PrintText

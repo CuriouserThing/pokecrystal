@@ -37,14 +37,3 @@ SaveClock:
 	call CopyBytes	
 	call CloseSRAM
 	ret
-	
-_InitTime::	
-	ld a, [StringBuffer2 + 3]
-	ld [WorldSeconds], a
-	ld a, [StringBuffer2 + 2]
-	ld [WorldMinutes], a
-	ld a, [StringBuffer2 + 1]
-	ld [WorldHours], a
-	ld a, [StringBuffer2]
-	ld [WorldDaysLow], a
-	ret

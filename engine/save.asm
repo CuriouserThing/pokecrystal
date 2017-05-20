@@ -137,6 +137,9 @@ StartMovePkmnWOMail_SaveGame: ; 14b34
 ; 14b54
 
 PauseGameLogic: ; 14b54
+IF PAUSE_CLOCK_DURING_SAVE
+	pause_clock
+ENDC
 	ld a, $1
 	ld [wGameLogicPaused], a
 	ret
@@ -145,6 +148,9 @@ PauseGameLogic: ; 14b54
 ResumeGameLogic: ; 14b5a
 	xor a
 	ld [wGameLogicPaused], a
+IF PAUSE_CLOCK_DURING_SAVE
+	unpause_clock
+ENDC
 	ret
 ; 14b5f
 
