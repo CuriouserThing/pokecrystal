@@ -111,9 +111,8 @@ ROMX $23
 ROMX $24
 	"bank24" ; $4000
 
-ROMX $25 ; MAP_HEADERS, EVENTS
+ROMX $25 ; MAP_HEADERS
 	"Map Headers" ; $4000
-	"Events" ; $66b0
 
 ROMX $28
 	"Phone Engine" ; $4000

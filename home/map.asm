@@ -2094,7 +2094,7 @@ GetAnyMapHeaderPointer:: ; 0x2bed
 	; find the cth map header
 	dec c
 	ld b, 0
-	ld a, 9
+	ld a, MAP_HEADER_LENGTH
 	call AddNTimes
 	ret
 ; 0x2c04
@@ -2370,6 +2370,23 @@ GetFishingGroup:: ; 2d19
 	pop de
 	ret
 ; 2d27
+
+ChangeClockSpeed::
+	push de
+	push hl
+	push bc
+
+	ld de, 9 ; clock speed (2-byte)
+	call GetMapHeaderMember
+	ld a, b
+	ld [WorldSpeedHigh], a
+	ld a, c
+	ld [WorldSpeedLow], a
+	
+	pop bc
+	pop hl
+	pop de
+	ret
 
 LoadTilesetHeader:: ; 2d27
 	push hl

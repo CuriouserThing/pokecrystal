@@ -19,7 +19,7 @@ CLEAN_unpause_clock: MACRO
 ENDM
 
 
-set_clock_multiplier: MACRO
+clock_multiplier: MACRO
 m = \1
 IF m & $fffff000 > 0 ; fixed-point
 IF m & $00000fff > 0
@@ -37,7 +37,15 @@ m = 3600
 ENDC
 m = m << 4
 ENDC
+ENDM
 
+define_clock_multiplier: MACRO
+	clock_multiplier \1
+	dw m
+ENDM
+
+set_clock_multiplier: MACRO
+	clock_multiplier \1
 hi = (m & $ff00) >> 8
 lo = m & $00ff
 IF hi == 0

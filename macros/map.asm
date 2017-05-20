@@ -67,6 +67,11 @@ map_header: MACRO
 	db \4, \5
 	dn \6, \7
 	db \8
+IF _NARG > 8
+	define_clock_multiplier \9
+ELSE
+	dw 0
+ENDC
 ENDM
 
 

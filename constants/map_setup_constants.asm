@@ -68,4 +68,5 @@ const_value SET 1
 	const map_keep_palettes       ; 2b
 	const map_text_scroll_off     ; 2c
 	const map_stop_script         ; 2d
+	const map_change_clock_speed  ; 2e
 map_end EQU -1

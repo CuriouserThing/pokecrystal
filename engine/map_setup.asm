@@ -50,6 +50,7 @@ MapSetupScript_Warp: ; 15392
 	db map_time_of_day
 	db map_load_objects
 	db map_lcd_on
+	db map_change_clock_speed
 	db map_palettes
 	db map_face_down
 	db map_sprites
@@ -74,6 +75,7 @@ MapSetupScript_BadWarp: ; 153a9
 	db map_time_of_day
 	db map_fade_out_music
 	db map_lcd_on
+	db map_change_clock_speed
 	db map_load_objects
 	db map_palettes
 	db map_face_down
@@ -120,6 +122,7 @@ MapSetupScript_Train: ; 153d2
 	db map_time_of_day
 	db map_fade_out_music
 	db map_lcd_on
+	db map_change_clock_speed
 	db map_load_objects
 	db map_palettes
 	db map_sprites
@@ -140,6 +143,7 @@ MapSetupScript_ReloadMap: ; 153e7
 	db map_load_graphics
 	db map_time_of_day
 	db map_lcd_on
+	db map_change_clock_speed
 	db map_palettes
 	db map_sprites
 	db map_music_force
@@ -158,6 +162,7 @@ MapSetupScript_LinkReturn: ; 153f7
 	db map_load_graphics
 	db map_time_of_day
 	db map_lcd_on
+	db map_change_clock_speed
 	db map_palettes
 	db map_sprites
 	db map_bike_music
@@ -179,6 +184,7 @@ MapSetupScript_Continue: ; 15408
 	db map_load_graphics
 	db map_time_of_day
 	db map_lcd_on
+	db map_change_clock_speed
 	db map_palettes
 	db map_sprites
 	db map_bike_music
@@ -284,6 +290,7 @@ MapSetupCommands: ; 15440
 	dba RetainOldPalettes ; 2b
 	dba DontScrollText ; 2c
 	dba ReturnFromMapSetupScript ; 2d
+	dba ChangeClockSpeed ; 2e
 ; 154ca
 
 
