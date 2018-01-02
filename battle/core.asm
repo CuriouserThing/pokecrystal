@@ -4195,7 +4195,7 @@ SpikesDamage: ; 3dc23
 	jp WaitBGMap
 
 .hl
-	jp hl
+	jp [hl]
 ; 3dc5b
 
 PursuitSwitch: ; 3dc5b

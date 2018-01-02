@@ -222,7 +222,7 @@ _BattleTowerBattle: ; 17022c
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	jp hl
+	jp [hl]
 ; 170249
 
 .dw ; 170249
@@ -691,7 +691,7 @@ Function1704e1: ; 1704e1
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	jp hl
+	jp [hl]
 ; 17051f
 
 .dw ; 17051f
@@ -946,7 +946,7 @@ BattleTowerAction: ; 170687
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	jp hl
+	jp [hl]
 ; 170696
 
 
@@ -1442,7 +1442,7 @@ Function1709bb: ; 1709bb (5c:49bb) BattleTowerAction $10
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	jp hl
+	jp [hl]
 
 .invalid
 	ld a, $5
