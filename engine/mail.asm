@@ -2,7 +2,7 @@ SendMailToPC: ; 4456e
 	ld a, MON_ITEM
 	call GetPartyParamLocation
 	ld d, [hl]
-	farcall ItemIsMail
+	callba ItemIsMail
 	jr nc, .full
 	call GetMailboxCount
 	cp MAILBOX_CAPACITY
@@ -80,7 +80,7 @@ ReadMailMessage: ; 445f4
 	call AddNTimes
 	ld d, h
 	ld e, l
-	farcall ReadAnyMail
+	callba ReadAnyMail
 	ret
 
 MoveMailFromPCToParty: ; 44607
@@ -127,7 +127,7 @@ GetMailboxCount: ; 44648
 CheckPokeItem:: ; 44654
 	push bc
 	push de
-	farcall SelectMonFromParty
+	callba SelectMonFromParty
 	ld a, $2
 	jr c, .pop_return
 
@@ -136,7 +136,7 @@ CheckPokeItem:: ; 44654
 	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	ld d, [hl]
-	farcall ItemIsMail
+	callba ItemIsMail
 	ld a, $3
 	jr nc, .pop_return
 
@@ -172,12 +172,12 @@ CheckPokeItem:: ; 44654
 	jr nz, .loop
 
 .done
-	farcall CheckCurPartyMonFainted
+	callba CheckCurPartyMonFainted
 	ld a, $4
 	jr c, .close_sram_return
 	xor a
 	ld [wPokemonWithdrawDepositParameter], a
-	farcall RemoveMonFromPartyOrBox
+	callba RemoveMonFromPartyOrBox
 	ld a, $1
 
 .close_sram_return
@@ -296,7 +296,7 @@ IsAnyMonHoldingMail: ; 44781
 	ld d, [hl]
 	push hl
 	push de
-	farcall ItemIsMail
+	callba ItemIsMail
 	pop de
 	pop hl
 	ret c
@@ -503,15 +503,15 @@ MailboxPC: ; 0x44806
 	ld [PartyMenuActionText], a
 	call ClearBGPalettes
 .try_again
-	farcall LoadPartyMenuGFX
-	farcall InitPartyMenuWithCancel
-	farcall InitPartyMenuGFX
-	farcall WritePartyMenuTilemap
-	farcall PrintPartyMenuText
+	callba LoadPartyMenuGFX
+	callba InitPartyMenuWithCancel
+	callba InitPartyMenuGFX
+	callba WritePartyMenuTilemap
+	callba PrintPartyMenuText
 	call WaitBGMap
 	call SetPalettes
 	call DelayFrame
-	farcall PartyMenuSelect
+	callba PartyMenuSelect
 	jr c, .exit2
 	ld a, [CurPartySpecies]
 	cp EGG

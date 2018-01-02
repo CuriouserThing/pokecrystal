@@ -97,7 +97,7 @@ Function8919e: ; 8919e (22:519e)
 
 Function891ab: ; 891ab
 	call Mobile22_SetBGMapMode1
-	farcall ReloadMapPart
+	callba ReloadMapPart
 	call Mobile22_SetBGMapMode0
 	ret
 ; 891b8
@@ -216,9 +216,9 @@ Mobile22_SetBGMapMode1: ; 89240
 
 
 Function89245: ; 89245 (22:5245)
-	farcall TryLoadSaveFile
+	callba TryLoadSaveFile
 	ret c
-	farcall _LoadData
+	callba _LoadData
 	and a
 	ret
 
@@ -775,7 +775,7 @@ Function8956f: ; 8956f
 	add hl, bc
 	ld b, h
 	ld c, l
-	farcall GetMobileOTTrainerClass
+	callba GetMobileOTTrainerClass
 	ld a, c
 	ld [TrainerClass], a
 	ld a, [rSVBK]
@@ -1220,13 +1220,13 @@ Function897af: ; 897af
 	add hl, bc
 	ld b, h
 	ld c, l
-	farcall GetMobileOTTrainerClass
+	callba GetMobileOTTrainerClass
 	ld a, c
 	ld [TrainerClass], a
 	xor a
 	ld [CurPartySpecies], a
 	ld de, VTiles2 tile $37
-	farcall GetTrainerPic
+	callba GetTrainerPic
 	pop bc
 	ret
 ; 897d5
@@ -1614,7 +1614,7 @@ Function89a0c: ; 89a0c
 	jr c, .asm_89a1c
 	ld d, h
 	ld e, l
-	farcall Function11c08f
+	callba Function11c08f
 	ret
 
 .asm_89a1c
@@ -1791,14 +1791,14 @@ Function89a57: ; 89a57
 
 
 Function89b00: ; 89b00 (22:5b00)
-	farcall MG_Mobile_Layout_LoadPals
+	callba MG_Mobile_Layout_LoadPals
 	ret
 ; 89b07 (22:5b07)
 
 Function89b07: ; 89b07
 	call Mobile22_SetBGMapMode0
 	call DelayFrame
-	farcall Function4a3a7
+	callba Function4a3a7
 	ret
 ; 89b14
 
@@ -1810,7 +1810,7 @@ Function89b14: ; 89b14
 ; 89b1e
 
 Function89b1e: ; 89b1e (22:5b1e)
-	farcall Function4a485
+	callba Function4a485
 	call Function89b00
 	ret
 
@@ -1825,7 +1825,7 @@ Function89b28: ; 89b28 (22:5b28)
 
 Function89b3b: ; 89b3b (22:5b3b)
 	call Mobile22_SetBGMapMode0
-	farcall Function48cda
+	callba Function48cda
 	ret
 
 Function89b45: ; 89b45
@@ -2178,7 +2178,7 @@ Function89d0d: ; 89d0d (22:5d0d)
 	ld [rSVBK], a
 
 	call SetPalettes
-	farcall PrintMail_
+	callba PrintMail_
 	call Mobile22_SetBGMapMode1
 	ld c, 24
 	call DelayFrames
@@ -2216,7 +2216,7 @@ Function89d75: ; 89d75 (22:5d75)
 	push hl
 	call Mobile22_SetBGMapMode0
 	call _hl_
-	farcall Mobile_OpenAndCloseMenu_HDMATransferTileMapAndAttrMap
+	callba Mobile_OpenAndCloseMenu_HDMATransferTileMapAndAttrMap
 	pop hl
 	jr asm_89d90
 
@@ -2247,7 +2247,7 @@ asm_89d90: ; 89d90 (22:5d90)
 
 Function89dab: ; 89dab (22:5dab)
 	call Mobile22_SetBGMapMode0
-	farcall MobileMenuJoypad
+	callba MobileMenuJoypad
 	call Mobile22_SetBGMapMode0
 	ld a, c
 	ld hl, wMenuJoypadFilter
@@ -2427,8 +2427,8 @@ Function89ee1: ; 89ee1 (22:5ee1)
 	call ClearBGPalettes
 	call Function893e2
 	call Mobile22_SetBGMapMode0
-	farcall Function4a3a7
-	farcall MG_Mobile_Layout_CreatePalBoxes
+	callba Function4a3a7
+	callba MG_Mobile_Layout_CreatePalBoxes
 	hlcoord 1, 0
 	call Function8a53d
 	ret
@@ -2956,8 +2956,8 @@ Function8a262: ; 8a262 (22:6262)
 	call ClearBGPalettes
 	call Function893e2
 	call Mobile22_SetBGMapMode0
-	farcall Function4a3a7
-	farcall MG_Mobile_Layout_CreatePalBoxes
+	callba Function4a3a7
+	callba MG_Mobile_Layout_CreatePalBoxes
 	hlcoord 1, 0
 	call Function8a53d
 	hlcoord 12, 4
@@ -3050,8 +3050,8 @@ Function8a313: ; 8a313 (22:6313)
 Function8a31c: ; 8a31c (22:631c)
 	push bc
 	call Mobile22_SetBGMapMode0
-	farcall Function4a3a7
-	farcall MG_Mobile_Layout_CreatePalBoxes
+	callba Function4a3a7
+	callba MG_Mobile_Layout_CreatePalBoxes
 	hlcoord 1, 0
 	call Function8a53d
 	hlcoord 12, 4
@@ -3093,7 +3093,7 @@ Function8a31c: ; 8a31c (22:631c)
 	ret
 
 Function8a383: ; 8a383 (22:6383)
-	farcall MobileMenuJoypad
+	callba MobileMenuJoypad
 	ld a, c
 	ld hl, wMenuJoypadFilter
 	and [hl]
@@ -3654,7 +3654,7 @@ Function8a78c: ; 8a78c (22:678c)
 	call Function891fe
 	ld de, wd002
 	ld b, $5
-	farcall NamingScreen
+	callba NamingScreen
 	call OpenSRAMBank4
 	call Function8931b
 	push bc
@@ -3683,7 +3683,7 @@ Function8a7cb: ; 8a7cb (22:67cb)
 	call Function891de
 	ld de, wd008
 	ld c, $0
-	farcall Function17a68f
+	callba Function17a68f
 	jr c, .asm_8a7f4
 	ld hl, wd008
 	ld a, $ff
@@ -4025,7 +4025,7 @@ Function8aa73: ; 8aa73 (22:6a73)
 	call Function891de
 	ld de, wd008
 	ld c, $0
-	farcall Function17a68f
+	callba Function17a68f
 	jr c, .asm_8aa9d
 	ld hl, wd008
 	ld a, $ff
@@ -4155,7 +4155,7 @@ Function8ab3b: ; 8ab3b (22:6b3b)
 Function8ab93: ; 8ab93 (22:6b93)
 	call ClearBGPalettes
 	call LoadStandardMenuDataHeader
-	farcall Function105688
+	callba Function105688
 	call ClearSprites
 	call Function891fe
 	call Function89b28

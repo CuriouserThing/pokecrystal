@@ -35,7 +35,7 @@ _InterpretMobileMenu:: ; 2403c
 	set 7, [hl]
 .loop
 	call DelayFrame
-	farcall Function10032e
+	callba Function10032e
 	ld a, [wcd2b]
 	and a
 	jr nz, .quit
@@ -320,7 +320,7 @@ Function241d5: ; 241d5
 	call AdvanceMobileInactivityTimerAndCheckExpired ; BUG: This function is in another bank.
 	                    ; Pointer in current bank (9) is bogus.
 	ret c
-	farcall Function100337
+	callba Function100337
 	ret c
 	ld a, [w2DMenuFlags1]
 	bit 7, a
@@ -380,7 +380,7 @@ Menu_WasButtonPressed: ; 24259
 	ld a, [w2DMenuFlags1]
 	bit 6, a
 	jr z, .skip_to_joypad
-	farcall PlaySpriteAnimationsAndDelayFrame
+	callba PlaySpriteAnimationsAndDelayFrame
 
 .skip_to_joypad
 	call JoyTextDelay

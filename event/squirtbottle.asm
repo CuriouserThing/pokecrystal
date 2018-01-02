@@ -29,7 +29,7 @@ _Squirtbottle: ; 50730
 	cp MAP_ROUTE_36
 	jr nz, .nope
 
-	farcall GetFacingObject
+	callba GetFacingObject
 	jr c, .nope
 
 	ld a, d

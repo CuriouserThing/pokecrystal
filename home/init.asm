@@ -139,7 +139,7 @@ Init:: ; 17d
 	ld a, -1
 	ld [hLinkPlayerNumber], a
 
-	farcall InitCGBPals
+	callba InitCGBPals
 
 	ld a, VBGMap1 / $100
 	ld [hBGMapAddress + 1], a

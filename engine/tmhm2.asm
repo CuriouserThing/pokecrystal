@@ -23,7 +23,7 @@ TMHMPocket: ; 2c76f (b:476f)
 .ConvertItemToTMHMNumber: ; 2c798 (b:4798)
 	ld a, [CurItem]
 	ld c, a
-	farcall GetNumberedTMHM
+	callba GetNumberedTMHM
 	ld a, c
 	ld [CurItem], a
 	ret
@@ -31,7 +31,7 @@ TMHMPocket: ; 2c76f (b:476f)
 ConvertCurItemIntoCurTMHM: ; 2c7a7 (b:47a7)
 	ld a, [CurItem]
 	ld c, a
-	farcall GetTMHMNumber
+	callba GetTMHMNumber
 	ld a, c
 	ld [wCurTMHM], a
 	ret
@@ -77,18 +77,18 @@ ChooseMonToLearnTMHM: ; 2c7fb
 	call CopyBytes
 	call ClearBGPalettes
 ChooseMonToLearnTMHM_NoRefresh: ; 2c80a
-	farcall LoadPartyMenuGFX
-	farcall InitPartyMenuWithCancel
-	farcall InitPartyMenuGFX
+	callba LoadPartyMenuGFX
+	callba InitPartyMenuWithCancel
+	callba InitPartyMenuGFX
 	ld a, $3 ; TeachWhichPKMNString
 	ld [PartyMenuActionText], a
 .loopback
-	farcall WritePartyMenuTilemap
-	farcall PrintPartyMenuText
+	callba WritePartyMenuTilemap
+	callba PrintPartyMenuText
 	call WaitBGMap
 	call SetPalettes
 	call DelayFrame
-	farcall PartyMenuSelect
+	callba PartyMenuSelect
 	push af
 	ld a, [CurPartySpecies]
 	cp EGG
@@ -138,7 +138,7 @@ TeachTMHM: ; 2c867
 	jr .nope
 
 .compatible
-	farcall KnowsMove
+	callba KnowsMove
 	jr c, .nope
 
 	predef LearnMove
@@ -151,7 +151,7 @@ TeachTMHM: ; 2c867
 	ret c
 
 	ld c, HAPPINESS_LEARNMOVE
-	farcall ChangeHappiness
+	callba ChangeHappiness
 	call ConsumeTM
 	jr .learned_move
 

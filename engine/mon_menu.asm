@@ -42,7 +42,7 @@ MonSubmenu: ; 24d19
 	xor a
 	ld [hBGMapMode], a
 	call GetMonSubmenuItems
-	farcall FreezeMonIcons
+	callba FreezeMonIcons
 	ld hl, .MenuDataHeader
 	call LoadMenuDataHeader
 	call .GetTopCoord
@@ -205,7 +205,7 @@ GetMonSubmenuItems: ; 24dd4
 	ld a, MON_ITEM
 	call GetPartyParamLocation
 	ld d, [hl]
-	farcall ItemIsMail
+	callba ItemIsMail
 	pop hl
 	ld a, MONMENU_MAIL
 	jr c, .ok

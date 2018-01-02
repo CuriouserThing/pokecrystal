@@ -101,32 +101,32 @@ OldDMATransfer:: ; dfd
 
 
 ReplaceKrisSprite:: ; e4a
-	farcall _ReplaceKrisSprite
+	callba _ReplaceKrisSprite
 	ret
 ; e51
 
 
 
 LoadStandardFont:: ; e51
-	farcall _LoadStandardFont
+	callba _LoadStandardFont
 	ret
 ; e58
 
 LoadFontsBattleExtra:: ; e58
-	farcall _LoadFontsBattleExtra
+	callba _LoadFontsBattleExtra
 	ret
 ; e5f
 
 
 
 LoadFontsExtra:: ; e5f
-	farcall _LoadFontsExtra1
-	farcall _LoadFontsExtra2
+	callba _LoadFontsExtra1
+	callba _LoadFontsExtra2
 	ret
 ; e6c
 
 LoadFontsExtra2:: ; e6c
-	farcall _LoadFontsExtra2
+	callba _LoadFontsExtra2
 	ret
 ; e73
 

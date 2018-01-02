@@ -297,17 +297,17 @@ Function4aa22: ; 4aa22
 	call ClearBGPalettes
 
 Function4aa25: ; 4aa25
-	farcall LoadPartyMenuGFX
-	farcall InitPartyMenuWithCancel
+	callba LoadPartyMenuGFX
+	callba InitPartyMenuWithCancel
 	call Function4aad3
 
 Function4aa34: ; 4aa34
 	ld a, $9
 	ld [PartyMenuActionText], a
-	farcall WritePartyMenuTilemap
+	callba WritePartyMenuTilemap
 	xor a
 	ld [PartyMenuActionText], a
-	farcall PrintPartyMenuText
+	callba PrintPartyMenuText
 	call Function4aab6
 	call WaitBGMap
 	call SetPalettes
@@ -429,7 +429,7 @@ Function4aad3: ; 4aad3
 	push bc
 	push hl
 	ld e, 0
-	farcall LoadMenuMonIcon
+	callba LoadMenuMonIcon
 	ld a, [hObjectStructIndexBuffer]
 	inc a
 	ld [hObjectStructIndexBuffer], a
@@ -439,7 +439,7 @@ Function4aad3: ; 4aad3
 	jr nz, .loop
 
 	call Function4aa7a
-	farcall PlaySpriteAnimations
+	callba PlaySpriteAnimations
 	ret
 ; 4aafb
 
@@ -669,7 +669,7 @@ Function4ac58: ; 4ac58
 	lb bc, 2, 18
 	hlcoord 1, 15
 	call ClearBox
-	farcall FreezeMonIcons
+	callba FreezeMonIcons
 	ld hl, MenuDataHeader_0x4aca2
 	call LoadMenuDataHeader
 	ld hl, wd019
@@ -809,13 +809,13 @@ UnknownText_0x4ad51: ; 0x4ad51
 ; 0x4ad56
 
 Function4ad56: ; 4ad56
-	farcall OpenPartyStats
+	callba OpenPartyStats
 	call WaitBGMap2
 	ret
 ; 4ad60
 
 Function4ad60: ; 4ad60
-	farcall ManagePokemonMoves
+	callba ManagePokemonMoves
 	ret
 ; 4ad67
 

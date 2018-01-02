@@ -5,14 +5,14 @@ SpecialBuenasPassword: ; 8af6b
 	call CopyMenuDataHeader
 	ld a, [wBuenasPassword]
 	ld c, a
-	farcall GetBuenasPassword
+	callba GetBuenasPassword
 	ld a, [wMenuBorderLeftCoord]
 	add c
 	add $2
 	ld [wMenuBorderRightCoord], a
 	call PushWindow
 	call DoNthMenu ; menu
-	farcall Buena_ExitMenu
+	callba Buena_ExitMenu
 	ld b, $0
 	ld a, [MenuSelection]
 	ld c, a
@@ -58,7 +58,7 @@ SpecialBuenasPassword: ; 8af6b
 	ld a, [MenuSelection]
 	add c
 	ld c, a
-	farcall GetBuenasPassword
+	callba GetBuenasPassword
 	pop hl
 	call PlaceString
 	ret

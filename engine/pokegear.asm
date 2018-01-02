@@ -14,13 +14,13 @@ PokeGear: ; 90b8d (24:4b8d)
 	call .InitTilemap
 	call DelayFrame
 .loop
-	farcall UpdateTime
+	callba UpdateTime
 	call JoyTextDelay
 	ld a, [wJumptableIndex]
 	bit 7, a
 	jr nz, .done
 	call PokegearJumptable
-	farcall PlaySpriteAnimations
+	callba PlaySpriteAnimations
 	call DelayFrame
 	jr .loop
 
@@ -55,7 +55,7 @@ PokeGear: ; 90b8d (24:4b8d)
 	ld a, $7
 	ld [hWX], a
 	call Pokegear_LoadGFX
-	farcall ClearSpriteAnims
+	callba ClearSpriteAnims
 	call InitPokegearModeIndicatorArrow
 	ld a, 8
 	call SkipMusic
@@ -106,7 +106,7 @@ Pokegear_LoadGFX: ; 90c4e
 	call GetWorldMapLocation
 	cp FAST_SHIP
 	jr z, .ssaqua
-	farcall GetPlayerIcon
+	callba GetPlayerIcon
 	push de
 	ld h, d
 	ld l, e
@@ -239,7 +239,7 @@ InitPokegearTilemap: ; 90da8 (24:4da8)
 
 .return_from_jumptable
 	call Pokegear_FinishTilemap
-	farcall TownMapPals
+	callba TownMapPals
 	ld a, [wcf65]
 	and a
 	jr nz, .kanto_0
@@ -319,7 +319,7 @@ InitPokegearTilemap: ; 90da8 (24:4da8)
 .kanto
 	ld e, 1
 .ok
-	farcall PokegearMap
+	callba PokegearMap
 	ld a, $7
 	ld bc, $12
 	hlcoord 1, 2
@@ -513,7 +513,7 @@ Pokegear_UpdateClock: ; 90f86 (24:4f86)
 	ld a, [WorldMinutes]
 	ld c, a
 	decoord 6, 8
-	farcall PrintHoursMins
+	callba PrintHoursMins
 	ld hl, .DayText
 	bccoord 6, 6
 	call PlaceHLTextAtBC
@@ -670,7 +670,7 @@ PokegearMap_InitPlayerIcon: ; 9106a
 	pop af
 	ld e, a
 	push bc
-	farcall GetLandmarkCoords
+	callba GetLandmarkCoords
 	pop bc
 	ld hl, SPRITEANIMSTRUCT_XCOORD
 	add hl, bc
@@ -709,9 +709,9 @@ PokegearMap_UpdateLandmarkName: ; 910b4
 	pop af
 	ld e, a
 	push de
-	farcall GetLandmarkName
+	callba GetLandmarkName
 	pop de
-	farcall TownMap_ConvertLineBreakCharacters
+	callba TownMap_ConvertLineBreakCharacters
 	hlcoord 8, 0
 	ld [hl], $34
 	ret
@@ -721,7 +721,7 @@ PokegearMap_UpdateLandmarkName: ; 910b4
 PokegearMap_UpdateCursorPosition: ; 910d4
 	push bc
 	ld e, a
-	farcall GetLandmarkCoords
+	callba GetLandmarkCoords
 	pop bc
 	ld hl, SPRITEANIMSTRUCT_XCOORD
 	add hl, bc
@@ -929,7 +929,7 @@ PokegearPhone_MakePhoneCall: ; 911eb (24:51eb)
 	ret
 
 .no_service
-	farcall Phone_NoSignal
+	callba Phone_NoSignal
 	ld hl, .OutOfServiceArea
 	call PrintText
 	ld a, $8
@@ -958,7 +958,7 @@ PokegearPhone_FinishPhoneCall: ; 91256 (24:5256)
 	ld a, [hJoyPressed]
 	and A_BUTTON | B_BUTTON
 	ret z
-	farcall HangUp
+	callba HangUp
 	ld a, $8
 	ld [wJumptableIndex], a
 	ld hl, PokegearText_WhomToCall
@@ -1121,7 +1121,7 @@ PokegearPhoneContactSubmenu: ; 91342 (24:5342)
 	ld d, 0
 	add hl, de
 	ld c, [hl]
-	farcall CheckCanDeletePhoneNumber
+	callba CheckCanDeletePhoneNumber
 	ld a, c
 	and a
 	jr z, .cant_delete
@@ -1849,7 +1849,7 @@ _TownMap: ; 9191c
 	call ClearSprites
 	call DisableLCD
 	call Pokegear_LoadGFX
-	farcall ClearSpriteAnims
+	callba ClearSpriteAnims
 	ld a, 8
 	call SkipMusic
 	ld a, $e3
@@ -1919,7 +1919,7 @@ _TownMap: ; 9191c
 	jr nz, .pressed_down
 .loop2
 	push de
-	farcall PlaySpriteAnimations
+	callba PlaySpriteAnimations
 	pop de
 	call DelayFrame
 	jr .loop
@@ -1973,7 +1973,7 @@ _TownMap: ; 9191c
 .kanto2
 	ld e, $1
 .okay_tilemap
-	farcall PokegearMap
+	callba PokegearMap
 	ld a, $7
 	ld bc, 6
 	hlcoord 1, 0
@@ -1994,7 +1994,7 @@ _TownMap: ; 9191c
 	ld [hl], $17
 	ld a, [wd003]
 	call PokegearMap_UpdateLandmarkName
-	farcall TownMapPals
+	callba TownMapPals
 	ret
 ; 91a53
 
@@ -2080,7 +2080,7 @@ PlayRadio: ; 91a53
 	call IsInJohto
 	and a
 	jr nz, .kanto
-	farcall UpdateTime
+	callba UpdateTime
 	ld a, [TimeOfDay]
 	and a
 	jp z, LoadStation_PokedexShow
@@ -2116,7 +2116,7 @@ _FlyMap: ; 91af3
 	ld [hl], $1
 	xor a
 	ld [hBGMapMode], a
-	farcall ClearSpriteAnims
+	callba ClearSpriteAnims
 	call LoadTownMapGFX
 	ld de, FlyMapLabelBorderGFX
 	ld hl, VTiles2 tile $30
@@ -2138,7 +2138,7 @@ _FlyMap: ; 91af3
 	jr nz, .pressedA
 	call FlyMapScroll
 	call GetMapCursorCoordinates
-	farcall PlaySpriteAnimations
+	callba PlaySpriteAnimations
 	call DelayFrame
 	jr .loop
 
@@ -2276,7 +2276,7 @@ TownMapBubble: ; 91bb5
 	ld de, Flypoints
 	add hl, de
 	ld e, [hl]
-	farcall GetLandmarkName
+	callba GetLandmarkName
 	hlcoord 2, 1
 	ld de, StringBuffer1
 	call PlaceString
@@ -2292,7 +2292,7 @@ GetMapCursorCoordinates: ; 91c17
 	ld de, Flypoints
 	add hl, de
 	ld e, [hl]
-	farcall GetLandmarkCoords
+	callba GetLandmarkCoords
 	ld a, [wd003]
 	ld c, a
 	ld a, [wd004]
@@ -2638,7 +2638,7 @@ _Area: ; 91d11
 .GetAndPlaceNest: ; 91e1e
 	ld [wd003], a
 	ld e, a
-	farcall FindNest ; load nest landmarks into TileMap[0,0]
+	callba FindNest ; load nest landmarks into TileMap[0,0]
 	decoord 0, 0
 	ld hl, Sprites
 .nestloop
@@ -2648,7 +2648,7 @@ _Area: ; 91d11
 	push de
 	ld e, a
 	push hl
-	farcall GetLandmarkCoords
+	callba GetLandmarkCoords
 	pop hl
 	; load into OAM
 	ld a, d
@@ -2680,7 +2680,7 @@ _Area: ; 91d11
 	ret c
 	ld a, [wd002]
 	ld e, a
-	farcall GetLandmarkCoords
+	callba GetLandmarkCoords
 	ld c, e
 	ld b, d
 	ld de, .PlayerOAM
@@ -2767,7 +2767,7 @@ _Area: ; 91d11
 	ld a, [wd002]
 	cp FAST_SHIP
 	jr z, .FastShip
-	farcall GetPlayerIcon
+	callba GetPlayerIcon
 	ret
 
 .FastShip:
@@ -2907,7 +2907,7 @@ TownMapMon: ; 91f7b
 	ld [wd265], a
 ; Get FlyMon icon
 	ld e, 8 ; starting tile in VRAM
-	farcall GetSpeciesIcon
+	callba GetSpeciesIcon
 ; Animation/palette
 	depixel 0, 0
 	ld a, SPRITE_ANIM_INDEX_00
@@ -2925,7 +2925,7 @@ TownMapMon: ; 91f7b
 TownMapPlayerIcon: ; 91fa6
 ; Draw the player icon at town map location in a
 	push af
-	farcall GetPlayerIcon
+	callba GetPlayerIcon
 ; Standing icon
 	ld hl, VTiles0 tile $10
 	ld c, 4 ; # tiles
@@ -2955,7 +2955,7 @@ TownMapPlayerIcon: ; 91fa6
 	pop af
 	ld e, a
 	push bc
-	farcall GetLandmarkCoords
+	callba GetLandmarkCoords
 	pop bc
 	ld hl, SPRITEANIMSTRUCT_XCOORD
 	add hl, bc
@@ -3001,7 +3001,7 @@ INCBIN "gfx/pokegear/flymap_label_border.2bpp"
 	ld [hl], $1
 	xor a
 	ld [hBGMapMode], a
-	farcall ClearSpriteAnims
+	callba ClearSpriteAnims
 	call LoadTownMapGFX
 	ld de, FlyMapLabelBorderGFX
 	ld hl, VTiles2 tile $30
@@ -3036,7 +3036,7 @@ INCBIN "gfx/pokegear/flymap_label_border.2bpp"
 	jr nz, .pressedA
 	call .HandleDPad
 	call GetMapCursorCoordinates
-	farcall PlaySpriteAnimations
+	callba PlaySpriteAnimations
 	call DelayFrame
 	jr .loop
 

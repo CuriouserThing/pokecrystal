@@ -8,7 +8,7 @@ HandleNewMap: ; 1045b0
 	ld a, MAPCALLBACK_NEWMAP
 	call RunMapCallback
 InitCommandQueue: ; 1045c4
-	farcall ClearCmdQueue
+	callba ClearCmdQueue
 	ld a, MAPCALLBACK_CMDQUEUE
 	call RunMapCallback
 	call GetMapHeaderTimeOfDayNybble
@@ -225,8 +225,8 @@ LoadMapTimeOfDay: ; 104750
 	res 6, [hl]
 	ld a, $1
 	ld [wSpriteUpdatesEnabled], a
-	farcall ReplaceTimeOfDayPals
-	farcall UpdateTimeOfDayPal
+	callba ReplaceTimeOfDayPals
+	callba UpdateTimeOfDayPal
 	call OverworldTextModeSwitch
 	call .ClearBGMap
 	call .PushAttrMap
@@ -239,7 +239,7 @@ LoadMapTimeOfDay: ; 104750
 	ld [wBGMapAnchor], a
 	ld [hSCY], a
 	ld [hSCX], a
-	farcall ApplyBGMapAnchorToObjects
+	callba ApplyBGMapAnchorToObjects
 
 	ld a, [rVBK]
 	push af
@@ -298,9 +298,9 @@ LoadGraphics: ; 1047cf
 	ld [hMapAnims], a
 	xor a
 	ld [hTileAnimFrame], a
-	farcall RefreshSprites
+	callba RefreshSprites
 	call LoadFontsExtra
-	farcall LoadOverworldFont
+	callba LoadOverworldFont
 	ret
 
 LoadMapPalettes: ; 1047eb
@@ -310,10 +310,10 @@ LoadMapPalettes: ; 1047eb
 
 RefreshMapSprites: ; 1047f0
 	call ClearSprites
-	farcall ReturnFromMapSetupScript
+	callba ReturnFromMapSetupScript
 	call GetMovementPermissions
-	farcall RefreshPlayerSprite
-	farcall CheckReplaceKrisSprite
+	callba RefreshPlayerSprite
+	callba CheckReplaceKrisSprite
 	ld hl, wPlayerSpriteSetupFlags
 	bit 6, [hl]
 	jr nz, .skip

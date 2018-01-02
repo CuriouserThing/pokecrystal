@@ -118,12 +118,12 @@ Pack: ; 10000
 	ret
 
 .TMHMPocketMenu: ; 100e8 (4:40e8)
-	farcall TMHMPocket
+	callba TMHMPocket
 	ld b, $5
 	ld c, $1
 	call Pack_InterpretJoypad
 	ret c
-	farcall _CheckTossableItem
+	callba _CheckTossableItem
 	ld a, [wItemAttributeParamBuffer]
 	and a
 	jr nz, .use_quit
@@ -192,15 +192,15 @@ Pack: ; 10000
 ; 10159
 
 .UseItem: ; 10159
-	farcall AskTeachTMHM
+	callba AskTeachTMHM
 	ret c
-	farcall ChooseMonToLearnTMHM
+	callba ChooseMonToLearnTMHM
 	jr c, .declined
 	ld hl, Options
 	ld a, [hl]
 	push af
 	res NO_TEXT_SCROLL, [hl]
-	farcall TeachTMHM
+	callba TeachTMHM
 	pop af
 	ld [Options], a
 .declined
@@ -240,29 +240,29 @@ Pack: ; 10000
 	ret
 
 .ItemBallsKey_LoadSubmenu: ; 101c5 (4:41c5)
-	farcall _CheckTossableItem
+	callba _CheckTossableItem
 	ld a, [wItemAttributeParamBuffer]
 	and a
 	jr nz, .tossable
-	farcall CheckSelectableItem
+	callba CheckSelectableItem
 	ld a, [wItemAttributeParamBuffer]
 	and a
 	jr nz, .selectable
-	farcall CheckItemMenu
+	callba CheckItemMenu
 	ld a, [wItemAttributeParamBuffer]
 	and a
 	jr nz, .usable
 	jr .unusable
 
 .selectable
-	farcall CheckItemMenu
+	callba CheckItemMenu
 	ld a, [wItemAttributeParamBuffer]
 	and a
 	jr nz, .selectable_usable
 	jr .selectable_unusable
 
 .tossable
-	farcall CheckSelectableItem
+	callba CheckSelectableItem
 	ld a, [wItemAttributeParamBuffer]
 	and a
 	jr nz, .tossable_selectable
@@ -455,7 +455,7 @@ Jumptable_GiveTossQuit: ; 1030b
 ; 10311
 
 UseItem: ; 10311
-	farcall CheckItemMenu
+	callba CheckItemMenu
 	ld a, [wItemAttributeParamBuffer]
 	ld hl, .dw
 	rst JumpTable
@@ -512,7 +512,7 @@ UseItem: ; 10311
 TossMenu: ; 10364
 	ld hl, Text_ThrowAwayHowMany
 	call Pack_PrintTextNoScroll
-	farcall SelectQuantityToToss
+	callba SelectQuantityToToss
 	push af
 	call ExitMenu
 	pop af
@@ -566,7 +566,7 @@ ResetPocketCursorPositions: ; 1039d
 ; 103c2
 
 RegisterItem: ; 103c2
-	farcall CheckSelectableItem
+	callba CheckSelectableItem
 	ld a, [wItemAttributeParamBuffer]
 	and a
 	jr nz, .cant_register
@@ -606,16 +606,16 @@ GiveItem: ; 103fd
 	ld a, $8
 	ld [PartyMenuActionText], a
 	call ClearBGPalettes
-	farcall LoadPartyMenuGFX
-	farcall InitPartyMenuWithCancel
-	farcall InitPartyMenuGFX
+	callba LoadPartyMenuGFX
+	callba InitPartyMenuWithCancel
+	callba InitPartyMenuGFX
 .loop
-	farcall WritePartyMenuTilemap
-	farcall PrintPartyMenuText
+	callba WritePartyMenuTilemap
+	callba PrintPartyMenuText
 	call WaitBGMap
 	call SetPalettes
 	call DelayFrame
-	farcall PartyMenuSelect
+	callba PartyMenuSelect
 	jr c, .finish
 	ld a, [CurPartySpecies]
 	cp EGG
@@ -786,7 +786,7 @@ BattlePack: ; 10493
 	ret
 
 .TMHMPocketMenu: ; 10581 (4:4581)
-	farcall TMHMPocket
+	callba TMHMPocket
 	ld b, $5
 	ld c, $1
 	call Pack_InterpretJoypad
@@ -824,7 +824,7 @@ BattlePack: ; 10493
 	ret
 
 ItemSubmenu: ; 105d3 (4:45d3)
-	farcall CheckItemContext
+	callba CheckItemContext
 	ld a, [wItemAttributeParamBuffer]
 TMHMSubmenu: ; 105dc (4:45dc)
 	and a
@@ -890,7 +890,7 @@ TMHMSubmenu: ; 105dc (4:45dc)
 ; 10629
 
 .Use: ; 10629
-	farcall CheckItemContext
+	callba CheckItemContext
 	ld a, [wItemAttributeParamBuffer]
 	ld hl, .ItemFunctionJumptable
 	rst JumpTable
@@ -1043,7 +1043,7 @@ DepositSellPack: ; 106be
 	ld a, 3
 	call InitPocket
 	call WaitBGMap_DrawPackGFX
-	farcall TMHMPocket
+	callba TMHMPocket
 	ld a, [CurItem]
 	ld [CurItem], a
 	ret
@@ -1130,7 +1130,7 @@ TutorialPack: ; 107bb
 	ld a, [InputType]
 	or a
 	jr z, .loop
-	farcall _DudeAutoInput_RightA
+	callba _DudeAutoInput_RightA
 .loop
 	call .RunJumptable
 	call DepositSellTutorial_InterpretJoypad
@@ -1207,7 +1207,7 @@ TutorialPack: ; 107bb
 	ld a, 3
 	call InitPocket
 	call WaitBGMap_DrawPackGFX
-	farcall TMHMPocket
+	callba TMHMPocket
 	ld a, [CurItem]
 	ld [CurItem], a
 	ret
@@ -1310,7 +1310,7 @@ DrawPackGFX: ; 1089d
 	ret
 
 .female
-	farcall DrawKrisPackGFX
+	callba DrawKrisPackGFX
 	ret
 ; 108cc
 
@@ -1377,7 +1377,7 @@ Pack_InterpretJoypad: ; 108d4 (4:48d4)
 	ret
 
 .select
-	farcall SwitchItemsInBag
+	callba SwitchItemsInBag
 	ld hl, Text_MoveItemWhere
 	call Pack_PrintTextNoScroll
 	scf
@@ -1394,7 +1394,7 @@ Pack_InterpretJoypad: ; 108d4 (4:48d4)
 	ret
 
 .place_insert
-	farcall SwitchItemsInBag
+	callba SwitchItemsInBag
 	ld de, SFX_SWITCH_POKEMON
 	call WaitPlaySFX
 	ld de, SFX_SWITCH_POKEMON

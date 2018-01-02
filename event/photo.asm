@@ -81,7 +81,7 @@ UnownPrinter: ; 16be4
 .pressed_a
 	ld a, [wJumptableIndex]
 	push af
-	farcall PrintUnownStamp
+	callba PrintUnownStamp
 	call RestartMapMusic
 	pop af
 	ld [wJumptableIndex], a
@@ -148,7 +148,7 @@ UnownPrinter: ; 16be4
 	lb bc, 7, 7
 	predef PlaceGraphic
 	ld de, VTiles2 tile $31
-	farcall RotateUnownFrontpic
+	callba RotateUnownFrontpic
 	ret
 
 .Load2bppToSRAM: ; 16cff
@@ -235,7 +235,7 @@ PlaceUnownPrinterFrontpic: ; 16dac
 PhotoStudio: ; 16dc7
 	ld hl, .Text_AskWhichMon
 	call PrintText
-	farcall SelectMonFromParty
+	callba SelectMonFromParty
 	jr c, .cancel
 	ld a, [CurPartySpecies]
 	cp EGG
@@ -244,7 +244,7 @@ PhotoStudio: ; 16dc7
 	ld hl, .Text_HoldStill
 	call PrintText
 	call DisableSpriteUpdates
-	farcall PrintPartymon
+	callba PrintPartymon
 	call ReturnToMapWithSpeechTextbox
 	ld a, [hPrinter]
 	and a

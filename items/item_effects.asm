@@ -357,7 +357,7 @@ ParkBall: ; e8a2
 	ld d, a
 	push de
 
-	; BUG: farcall overwrites a,
+	; BUG: callba overwrites a,
 	; and GetItemHeldEffect takes b anyway.
 
 	; This is probably the reason
@@ -368,7 +368,7 @@ ParkBall: ; e8a2
 
 	ld a, [BattleMonItem]
 ;	ld b, a
-	farcall GetItemHeldEffect
+	callba GetItemHeldEffect
 	ld a, b
 	cp HELD_CATCH_CHANCE
 
@@ -473,7 +473,7 @@ ParkBall: ; e8a2
 	ld [CurPartySpecies], a
 	ld a, [EnemyMonLevel]
 	ld [CurPartyLevel], a
-	farcall LoadEnemyMon
+	callba LoadEnemyMon
 
 	pop af
 	ld [EnemySubStatus5], a
@@ -562,7 +562,7 @@ ParkBall: ; e8a2
 
 	predef TryAddMonToParty
 
-	farcall SetCaughtData
+	callba SetCaughtData
 
 	ld a, [CurItem]
 	cp FRIEND_BALL
@@ -601,7 +601,7 @@ ParkBall: ; e8a2
 	xor a ; PARTYMON
 	ld [MonType], a
 	ld b, 0
-	farcall NamingScreen
+	callba NamingScreen
 
 	call RotateThreePalettesRight
 
@@ -618,7 +618,7 @@ ParkBall: ; e8a2
 
 	predef SentPkmnIntoBox
 
-	farcall SetBoxMonCaughtData
+	callba SetBoxMonCaughtData
 
 	ld a, BANK(sBoxCount)
 	call GetSRAMBank
@@ -654,7 +654,7 @@ ParkBall: ; e8a2
 	ld [MonType], a
 	ld de, wMonOrItemNameBuffer
 	ld b, $0
-	farcall NamingScreen
+	callba NamingScreen
 
 	ld a, BANK(sBoxMonNicknames)
 	call GetSRAMBank
@@ -689,7 +689,7 @@ ParkBall: ; e8a2
 	jr .return_from_capture
 
 .catch_bug_contest_mon
-	farcall BugContest_SetCaughtContestMon
+	callba BugContest_SetCaughtContestMon
 	jr .return_from_capture
 
 .FinishTutorial:
@@ -978,7 +978,7 @@ LoveBallMultiplier:
 	ld [MonType], a
 	ld a, [CurBattleMon]
 	ld [CurPartyMon], a
-	farcall GetGender
+	callba GetGender
 	jr c, .done1 ; no effect on genderless
 
 	ld d, 0 ; male
@@ -992,7 +992,7 @@ LoveBallMultiplier:
 	ld [CurPartySpecies], a
 	ld a, WILDMON
 	ld [MonType], a
-	farcall GetGender
+	callba GetGender
 	jr c, .done2 ; no effect on genderless
 
 	ld d, 0 ; male
@@ -1166,17 +1166,17 @@ Text_AskNicknameNewlyCaughtMon: ; 0xedf5
 ; 0xedfa
 
 ReturnToBattle_UseBall: ; edfa (3:6dfa)
-	farcall _ReturnToBattle_UseBall
+	callba _ReturnToBattle_UseBall
 	ret
 
 TownMap: ; ee01
-	farcall PokegearMap
+	callba PokegearMap
 	ret
 ; ee08
 
 
 Bicycle: ; ee08
-	farcall BikeFunction
+	callba BikeFunction
 	ret
 ; ee0f
 
@@ -1201,7 +1201,7 @@ SunStone: ; ee0f
 
 	ld a, $1
 	ld [wForceEvolution], a
-	farcall EvolvePokemon
+	callba EvolvePokemon
 
 	ld a, [wMonTriedToEvolve]
 	and a
@@ -1262,7 +1262,7 @@ Calcium: ; ee3d
 	call PrintText
 
 	ld c, HAPPINESS_USEDITEM
-	farcall ChangeHappiness
+	callba ChangeHappiness
 
 	jp UseDisposableItem
 
@@ -1376,7 +1376,7 @@ RareCandy: ; ef14
 	ld [CurPartyLevel], a
 	push de
 	ld d, a
-	farcall CalcExpAtLevel
+	callba CalcExpAtLevel
 
 	pop de
 	ld a, MON_EXP
@@ -1414,7 +1414,7 @@ RareCandy: ; ef14
 	ld a, [hl]
 	adc b
 	ld [hl], a
-	farcall LevelUpHappinessMod
+	callba LevelUpHappinessMod
 
 	ld a, PARTYMENUTEXT_LEVEL_UP
 	call ItemActionText
@@ -1442,7 +1442,7 @@ RareCandy: ; ef14
 
 	xor a
 	ld [wForceEvolution], a
-	farcall EvolvePokemon
+	callba EvolvePokemon
 
 	jp UseDisposableItem
 ; efad
@@ -1459,7 +1459,7 @@ HealPowder: ; efad
 	cp $0
 	jr nz, .asm_efc9
 	ld c, HAPPINESS_BITTERPOWDER
-	farcall ChangeHappiness
+	callba ChangeHappiness
 
 	call LooksBitterMessage
 
@@ -1562,7 +1562,7 @@ HealStatus: ; f030 (3:7030)
 	res SUBSTATUS_CONFUSED, [hl]
 .not_full_heal
 	push bc
-	farcall CalcPlayerStats
+	callba CalcPlayerStats
 	pop bc
 	ret
 
@@ -1628,7 +1628,7 @@ RevivalHerb: ; f0a9
 	jr nz, .asm_f0c5
 
 	ld c, HAPPINESS_REVIVALHERB
-	farcall ChangeHappiness
+	callba ChangeHappiness
 	call LooksBitterMessage
 	ld a, 0
 
@@ -1790,7 +1790,7 @@ EnergypowderEnergyRootCommon: ; f192
 	cp 0
 	jr nz, .skip_happiness
 
-	farcall ChangeHappiness
+	callba ChangeHappiness
 	call LooksBitterMessage
 	ld a, 0
 
@@ -1869,15 +1869,15 @@ UseItem_SelectMon: ; f1f9 (3:71f9)
 	ret
 
 ChoosePkmnToUseItemOn: ; f21c (3:721c)
-	farcall LoadPartyMenuGFX
-	farcall InitPartyMenuWithCancel
-	farcall InitPartyMenuGFX
-	farcall WritePartyMenuTilemap
-	farcall PrintPartyMenuText
+	callba LoadPartyMenuGFX
+	callba InitPartyMenuWithCancel
+	callba InitPartyMenuGFX
+	callba WritePartyMenuTilemap
+	callba PrintPartyMenuText
 	call WaitBGMap
 	call SetPalettes
 	call DelayFrame
-	farcall PartyMenuSelect
+	callba PartyMenuSelect
 	ret
 
 ItemActionText: ; f24a (3:724a)
@@ -1889,8 +1889,8 @@ ItemActionText: ; f24a (3:724a)
 	push hl
 	push de
 	push bc
-	farcall WritePartyMenuTilemap
-	farcall PrintPartyMenuActionText
+	callba WritePartyMenuTilemap
+	callba PrintPartyMenuActionText
 	call WaitBGMap
 	call SetPalettes
 	call DelayFrame
@@ -2227,7 +2227,7 @@ Softboiled_MilkDrinkFunction: ; f3df (3:73df)
 EscapeRope: ; f44f
 	xor a
 	ld [wItemEffectSucceeded], a
-	farcall EscapeRopeFunction
+	callba EscapeRopeFunction
 
 	ld a, [wItemEffectSucceeded]
 	cp 1
@@ -2337,16 +2337,16 @@ XSpecial: ; f4c5
 	ld [hBattleTurn], a
 	ld [AttackMissed], a
 	ld [EffectFailed], a
-	farcall CheckIfStatCanBeRaised
+	callba CheckIfStatCanBeRaised
 	call WaitSFX
 
-	farcall BattleCommand_StatUpMessage
-	farcall BattleCommand_StatUpFailText
+	callba BattleCommand_StatUpMessage
+	callba BattleCommand_StatUpFailText
 
 	ld a, [CurBattleMon]
 	ld [CurPartyMon], a
 	ld c, HAPPINESS_USEDXITEM
-	farcall ChangeHappiness
+	callba ChangeHappiness
 	ret
 ; f504
 
@@ -2492,13 +2492,13 @@ SuperRod: ; f5ad
 ; f5b1
 
 UseRod: ; f5b1
-	farcall FishFunction
+	callba FishFunction
 	ret
 ; f5b8
 
 
 Itemfinder: ; f5b8
-	farcall ItemFinder
+	callba ItemFinder
 	ret
 ; f5bf
 
@@ -2540,7 +2540,7 @@ Mysteryberry: ; f5bf
 	ld [CurMoveNum], a
 	ld a, $2
 	ld [wMoveSelectionMenuType], a
-	farcall MoveSelectionScreen
+	callba MoveSelectionScreen
 	pop bc
 
 	ld a, b
@@ -2775,25 +2775,25 @@ UnknownText_0xf739: ; 0xf739
 
 
 Squirtbottle: ; f73e
-	farcall _Squirtbottle
+	callba _Squirtbottle
 	ret
 ; f745
 
 
 CardKey: ; f745
-	farcall _CardKey
+	callba _CardKey
 	ret
 ; f74c
 
 
 BasementKey: ; f74c
-	farcall _BasementKey
+	callba _BasementKey
 	ret
 ; f753
 
 
 SacredAsh: ; f753
-	farcall _SacredAsh
+	callba _SacredAsh
 	ld a, [wItemEffectSucceeded]
 	cp $1
 	ret nz
@@ -2810,7 +2810,7 @@ NormalBox: ; f763
 GorgeousBox: ; f767
 	ld c, DECOFLAG_GOLD_TROPHY_DOLL
 OpenBox: ; f769
-	farcall SetSpecificDecorationFlag
+	callba SetSpecificDecorationFlag
 
 	ld hl, .text
 	call PrintText

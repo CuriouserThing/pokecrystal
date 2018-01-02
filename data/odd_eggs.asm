@@ -87,7 +87,7 @@ GiveOddEgg: ; 1fb4b6
 	ld [wMobileMonNicknamePointerBuffer], a
 	ld a, wOddEggName / $100
 	ld [wMobileMonNicknamePointerBuffer + 1], a
-	farcall AddMobileMonToParty
+	callba AddMobileMonToParty
 	ret
 ; 1fb546
 

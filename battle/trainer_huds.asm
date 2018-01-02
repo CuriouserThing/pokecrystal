@@ -259,7 +259,7 @@ _ShowLinkBattleParticipants: ; 2c1b2
 	ld a, $69 ; "V"
 	ld [hli], a
 	ld [hl], $6a ; "S"
-	farcall LinkBattle_TrainerHuds ; no need to farcall
+	callba LinkBattle_TrainerHuds ; no need to callba
 	ld b, SCGB_DIPLOMA
 	call GetSGBLayout
 	call SetPalettes

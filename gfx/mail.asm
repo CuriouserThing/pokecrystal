@@ -16,7 +16,7 @@ ReadAnyMail: ; b9237
 	push de
 	ld a, BANK(sPartyMail)
 	call GetSRAMBank
-	farcall IsMailEuropean
+	callba IsMailEuropean
 	call CloseSRAM
 	ld a, c
 	ld de, StandardEnglishFont
@@ -37,7 +37,7 @@ ReadAnyMail: ; b9237
 	call WaitBGMap
 	ld a, [Buffer3]
 	ld e, a
-	farcall LoadMailPalettes
+	callba LoadMailPalettes
 	call SetPalettes
 	xor a
 	ld [hJoyPressed], a
@@ -59,7 +59,7 @@ ReadAnyMail: ; b9237
 .pressed_start
 	ld a, [wJumptableIndex]
 	push af
-	farcall PrintMail ; printer
+	callba PrintMail ; printer
 	pop af
 	ld [wJumptableIndex], a
 	jr .loop

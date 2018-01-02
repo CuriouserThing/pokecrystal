@@ -455,7 +455,7 @@ Special_SetDayOfWeek: ; 90913
 	jr c, .loop
 	ld a, [wTempDayOfWeek]
 	ld [WorldDaysLow], a
-	farcall UpdateTime
+	callba UpdateTime
 	call LoadStandardFont
 	pop af
 	ld [hInMenu], a
@@ -587,13 +587,13 @@ Special_InitialSetDSTFlag: ; 90a54
 
 .Text: ; 90a6c
 	start_asm
-	farcall UpdateTime
+	callba UpdateTime
 	ld a, [WorldHours]
 	ld b, a
 	ld a, [WorldMinutes]
 	ld c, a
 	decoord 1, 14
-	farcall PrintHoursMins
+	callba PrintHoursMins
 	ld hl, .DSTIsThatOK
 	ret
 ; 90a83 (24:4a83)
@@ -618,13 +618,13 @@ Special_InitialClearDSTFlag: ; 90a88
 
 .Text: ; 90aa0
 	start_asm
-	farcall UpdateTime
+	callba UpdateTime
 	ld a, [WorldHours]
 	ld b, a
 	ld a, [WorldMinutes]
 	ld c, a
 	decoord 1, 14
-	farcall PrintHoursMins
+	callba PrintHoursMins
 	ld hl, .IsThatOK
 	ret
 ; 90ab7
@@ -646,7 +646,7 @@ DebugDisplayTime: ; 90abc
 
 .Text: ; 0x90acc
 	start_asm
-	farcall UpdateTime
+	callba UpdateTime
 
 	hlcoord 1, 14
 	ld [hl], "R"

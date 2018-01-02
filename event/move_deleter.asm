@@ -5,7 +5,7 @@ MoveDeletion:
 	jr c, .declined
 	ld hl, .AskWhichMonText
 	call PrintText
-	farcall SelectMonFromParty
+	callba SelectMonFromParty
 	jr c, .declined
 	ld a, [CurPartySpecies]
 	cp EGG
@@ -20,7 +20,7 @@ MoveDeletion:
 	ld hl, .AskWhichMoveText
 	call PrintText
 	call LoadStandardMenuDataHeader
-	farcall ChooseMoveToDelete
+	callba ChooseMoveToDelete
 	push af
 	call ReturnToMapWithSpeechTextbox
 	pop af

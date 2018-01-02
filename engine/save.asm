@@ -1,9 +1,9 @@
 SaveMenu: ; 14a1a
 	call LoadStandardMenuDataHeader
-	farcall DisplaySaveInfoOnSave
+	callba DisplaySaveInfoOnSave
 	call SpeechTextBox
 	call UpdateSprites
-	farcall SaveMenu_LoadEDTile
+	callba SaveMenu_LoadEDTile
 	ld hl, Text_WouldYouLikeToSaveTheGame
 	call SaveTheGame_yesorno
 	jr nz, .refused
@@ -19,19 +19,19 @@ SaveMenu: ; 14a1a
 .refused
 	call ExitMenu
 	call ret_d90
-	farcall SaveMenu_LoadEDTile
+	callba SaveMenu_LoadEDTile
 	scf
 	ret
 
 SaveAfterLinkTrade: ; 14a58
 	call PauseGameLogic
-	farcall BackupMysteryGift
+	callba BackupMysteryGift
 	call SavePokemonData
 	call SaveChecksum
 	call SaveBackupPokemonData
 	call SaveBackupChecksum
-	farcall BackupPartyMonMail
-	farcall SaveClock
+	callba BackupPartyMonMail
+	callba SaveClock
 	call ResumeGameLogic
 	ret
 ; 14a83
@@ -94,7 +94,7 @@ MovePkmnWOMail_InsertMon_SaveGame: ; 14ad5
 	ld [wCurBox], a
 	ld a, $1
 	ld [wSaveFileExists], a
-	farcall BackupMysteryGift
+	callba BackupMysteryGift
 	call ValidateSave
 	call SaveOptions
 	call SavePlayerData
@@ -105,9 +105,9 @@ MovePkmnWOMail_InsertMon_SaveGame: ; 14ad5
 	call SaveBackupPlayerData
 	call SaveBackupPokemonData
 	call SaveBackupChecksum
-	farcall BackupPartyMonMail
-	farcall BackupMobileEventIndex
-	farcall SaveClock
+	callba BackupPartyMonMail
+	callba BackupMobileEventIndex
+	callba SaveClock
 	call LoadBox
 	call ResumeGameLogic
 	ld de, SFX_SAVE
@@ -275,7 +275,7 @@ SavedTheGame: ; 14be6
 SaveGameData_: ; 14c10
 	ld a, 1
 	ld [wSaveFileExists], a
-	farcall BackupMysteryGift
+	callba BackupMysteryGift
 	call ValidateSave
 	call SaveOptions
 	call SavePlayerData
@@ -288,9 +288,9 @@ SaveGameData_: ; 14c10
 	call SaveBackupPokemonData
 	call SaveBackupChecksum
 	call UpdateStackTop
-	farcall BackupPartyMonMail
-	farcall BackupMobileEventIndex
-	farcall SaveClock
+	callba BackupPartyMonMail
+	callba BackupMobileEventIndex
+	callba SaveClock
 	ld a, BANK(sBattleTowerChallengeState)
 	call GetSRAMBank
 	ld a, [sBattleTowerChallengeState]
@@ -577,9 +577,9 @@ TryLoadSaveFile: ; 14ea5 (5:4ea5)
 	call LoadPlayerData
 	call LoadPokemonData
 	call LoadBox
-	farcall RestorePartyMonMail
-	farcall RestoreMobileEventIndex
-	farcall RestoreMysteryGift
+	callba RestorePartyMonMail
+	callba RestoreMobileEventIndex
+	callba RestoreMysteryGift
 	call ValidateBackupSave
 	call SaveBackupOptions
 	call SaveBackupPlayerData
@@ -594,9 +594,9 @@ TryLoadSaveFile: ; 14ea5 (5:4ea5)
 	call LoadBackupPlayerData
 	call LoadBackupPokemonData
 	call LoadBox
-	farcall RestorePartyMonMail
-	farcall RestoreMobileEventIndex
-	farcall RestoreMysteryGift
+	callba RestorePartyMonMail
+	callba RestoreMobileEventIndex
+	callba RestoreMysteryGift
 	call ValidateSave
 	call SaveOptions
 	call SavePlayerData

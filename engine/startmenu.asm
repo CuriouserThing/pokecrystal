@@ -5,7 +5,7 @@ StartMenu:: ; 125cd
 	ld de, SFX_MENU
 	call PlaySFX
 
-	farcall ReanchorBGMap_NoOAMUpdate
+	callba ReanchorBGMap_NoOAMUpdate
 
 	ld hl, StatusFlags2
 	bit 2, [hl] ; bug catching contest
@@ -23,7 +23,7 @@ StartMenu:: ; 125cd
 	call .DrawBugContestStatusBox
 	call SafeUpdateSprites
 	call _OpenAndCloseMenu_HDMATransferTileMapAndAttrMap
-	farcall LoadFonts_NoOAMUpdate
+	callba LoadFonts_NoOAMUpdate
 	call .DrawBugContestStatus
 	call UpdateTimePals
 	jr .Select
@@ -393,7 +393,7 @@ endr
 	ld hl, StatusFlags2
 	bit 2, [hl] ; bug catching contest
 	ret z
-	farcall StartMenu_DrawBugContestStatusBox
+	callba StartMenu_DrawBugContestStatusBox
 	ret
 ; 128de
 
@@ -403,7 +403,7 @@ endr
 	jr nz, .contest
 	ret
 .contest
-	farcall StartMenu_PrintBugContestStatus
+	callba StartMenu_PrintBugContestStatus
 	ret
 ; 128ed
 
@@ -442,7 +442,7 @@ StartMenu_Save: ; 1290b
 ; Save the game.
 
 	call BufferScreen
-	farcall SaveMenu
+	callba SaveMenu
 	jr nc, .asm_12919
 	ld a, 0
 	ret
@@ -456,7 +456,7 @@ StartMenu_Option: ; 1291c
 ; Game options.
 
 	call FadeToMenu
-	farcall OptionsMenu
+	callba OptionsMenu
 	ld a, 6
 	ret
 ; 12928
@@ -466,7 +466,7 @@ StartMenu_Status: ; 12928
 ; Player status.
 
 	call FadeToMenu
-	farcall TrainerCard
+	callba TrainerCard
 	call CloseSubmenu
 	ld a, 0
 	ret
@@ -480,7 +480,7 @@ StartMenu_Pokedex: ; 12937
 	jr z, .asm_12949
 
 	call FadeToMenu
-	farcall Pokedex
+	callba Pokedex
 	call CloseSubmenu
 
 .asm_12949
@@ -492,7 +492,7 @@ StartMenu_Pokedex: ; 12937
 StartMenu_Pokegear: ; 1294c
 
 	call FadeToMenu
-	farcall PokeGear
+	callba PokeGear
 	call CloseSubmenu
 	ld a, 0
 	ret
@@ -502,7 +502,7 @@ StartMenu_Pokegear: ; 1294c
 StartMenu_Pack: ; 1295b
 
 	call FadeToMenu
-	farcall Pack
+	callba Pack
 	ld a, [wcf66]
 	and a
 	jr nz, .used_item
@@ -531,17 +531,17 @@ StartMenu_Pokemon: ; 12976
 	call ClearBGPalettes
 
 .menu
-	farcall LoadPartyMenuGFX
-	farcall InitPartyMenuWithCancel
-	farcall InitPartyMenuGFX
+	callba LoadPartyMenuGFX
+	callba InitPartyMenuWithCancel
+	callba InitPartyMenuGFX
 
 .menunoreload
-	farcall WritePartyMenuTilemap
-	farcall PrintPartyMenuText
+	callba WritePartyMenuTilemap
+	callba PrintPartyMenuText
 	call WaitBGMap
 	call SetPalettes ; load regular palettes?
 	call DelayFrame
-	farcall PartyMenuSelect
+	callba PartyMenuSelect
 	jr c, .return ; if cancelled or pressed B
 
 	call PokemonActionSubmenu
@@ -594,13 +594,13 @@ HasNoItems: ; 129d5
 TossItemFromPC: ; 129f4
 	push de
 	call PartyMonItemName
-	farcall _CheckTossableItem
+	callba _CheckTossableItem
 	ld a, [wItemAttributeParamBuffer]
 	and a
 	jr nz, .key_item
 	ld hl, .TossHowMany
 	call MenuTextBox
-	farcall SelectQuantityToToss
+	callba SelectQuantityToToss
 	push af
 	call CloseWindow
 	call ExitMenu
@@ -678,8 +678,8 @@ PartyMonItemName: ; 12a6c
 
 
 CancelPokemonAction: ; 12a79
-	farcall InitPartyMenuWithCancel
-	farcall UnfreezeMonIcons
+	callba InitPartyMenuWithCancel
+	callba UnfreezeMonIcons
 	ld a, 1
 	ret
 ; 12a88
@@ -689,7 +689,7 @@ PokemonActionSubmenu: ; 12a88
 	hlcoord 1, 15
 	lb bc, 2, 18
 	call ClearBox
-	farcall MonSubmenu
+	callba MonSubmenu
 	call GetCurNick
 	ld a, [MenuSelection]
 	ld hl, .Actions
@@ -742,13 +742,13 @@ SwitchPartyMons: ; 12aec
 	inc a
 	ld [wSwitchMon], a
 
-	farcall HoldSwitchmonIcon
-	farcall InitPartyMenuNoCancel
+	callba HoldSwitchmonIcon
+	callba InitPartyMenuNoCancel
 
 	ld a, 4
 	ld [PartyMenuActionText], a
-	farcall WritePartyMenuTilemap
-	farcall PrintPartyMenuText
+	callba WritePartyMenuTilemap
+	callba PrintPartyMenuText
 
 	hlcoord 0, 1
 	ld bc, 20 * 2
@@ -760,18 +760,18 @@ SwitchPartyMons: ; 12aec
 	call SetPalettes
 	call DelayFrame
 
-	farcall PartyMenuSelect
+	callba PartyMenuSelect
 	bit 1, b
 	jr c, .DontSwitch
 
-	farcall _SwitchPartyMons
+	callba _SwitchPartyMons
 
 	xor a
 	ld [PartyMenuActionText], a
 
-	farcall LoadPartyMenuGFX
-	farcall InitPartyMenuWithCancel
-	farcall InitPartyMenuGFX
+	callba LoadPartyMenuGFX
+	callba InitPartyMenuWithCancel
+	callba InitPartyMenuGFX
 
 	ld a, 1
 	ret
@@ -828,10 +828,10 @@ GiveTakePartyMonItem: ; 12b60
 
 .GiveItem:
 
-	farcall DepositSellInitPackBuffers
+	callba DepositSellInitPackBuffers
 
 .loop
-	farcall DepositSellPack
+	callba DepositSellPack
 
 	ld a, [wcf66]
 	and a
@@ -870,7 +870,7 @@ TryGiveItemToPartymon: ; 12bd9
 
 	push hl
 	ld d, a
-	farcall ItemIsMail
+	callba ItemIsMail
 	pop hl
 	jr c, .please_remove_mail
 	ld a, [hl]
@@ -930,7 +930,7 @@ GivePartyItem: ; 12c4c
 	ld a, [CurItem]
 	ld [hl], a
 	ld d, a
-	farcall ItemIsMail
+	callba ItemIsMail
 	jr nc, .done
 	call ComposeMailMessage
 
@@ -951,7 +951,7 @@ TakePartyItem: ; 12c60
 	call ReceiveItemFromPokemon
 	jr nc, .asm_12c94
 
-	farcall ItemIsMail
+	callba ItemIsMail
 	call GetPartyItemLocation
 	ld a, [hl]
 	ld [wd265], a
@@ -1063,7 +1063,7 @@ StartMenuYesNo: ; 12cf5
 
 ComposeMailMessage: ; 12cfe (4:6cfe)
 	ld de, wTempMailMessage
-	farcall _ComposeMailMessage
+	callba _ComposeMailMessage
 	ld hl, PlayerName
 	ld de, wTempMailAuthor
 	ld bc, NAME_LENGTH - 1
@@ -1116,7 +1116,7 @@ MonMailAction: ; 12d45
 	jp .done
 
 .read
-	farcall ReadPartyMonMail
+	callba ReadPartyMonMail
 	ld a, $0
 	ret
 
@@ -1126,7 +1126,7 @@ MonMailAction: ; 12d45
 	jr c, .RemoveMailToBag
 	ld a, [CurPartyMon]
 	ld b, a
-	farcall SendMailToPC
+	callba SendMailToPC
 	jr c, .MailboxFull
 	ld hl, .sentmailtopctext
 	call MenuTextBoxBackup
@@ -1234,7 +1234,7 @@ OpenPartyStats: ; 12e00
 
 
 MonMenu_Cut: ; 12e1b
-	farcall CutFunction
+	callba CutFunction
 	ld a, [wFieldMoveSucceeded]
 	cp $1
 	jr nz, .Fail
@@ -1249,7 +1249,7 @@ MonMenu_Cut: ; 12e1b
 
 
 MonMenu_Fly: ; 12e30
-	farcall FlyFunction
+	callba FlyFunction
 	ld a, [wFieldMoveSucceeded]
 	cp $2
 	jr z, .Fail
@@ -1273,7 +1273,7 @@ MonMenu_Fly: ; 12e30
 ; 12e55
 
 MonMenu_Flash: ; 12e55
-	farcall OWFlash
+	callba OWFlash
 	ld a, [wFieldMoveSucceeded]
 	cp $1
 	jr nz, .Fail
@@ -1287,7 +1287,7 @@ MonMenu_Flash: ; 12e55
 ; 12e6a
 
 MonMenu_Strength: ; 12e6a
-	farcall StrengthFunction
+	callba StrengthFunction
 	ld a, [wFieldMoveSucceeded]
 	cp $1
 	jr nz, .Fail
@@ -1301,7 +1301,7 @@ MonMenu_Strength: ; 12e6a
 ; 12e7f
 
 MonMenu_Whirlpool: ; 12e7f
-	farcall WhirlpoolFunction
+	callba WhirlpoolFunction
 	ld a, [wFieldMoveSucceeded]
 	cp $1
 	jr nz, .Fail
@@ -1315,7 +1315,7 @@ MonMenu_Whirlpool: ; 12e7f
 ; 12e94
 
 MonMenu_Waterfall: ; 12e94
-	farcall WaterfallFunction
+	callba WaterfallFunction
 	ld a, [wFieldMoveSucceeded]
 	cp $1
 	jr nz, .Fail
@@ -1329,7 +1329,7 @@ MonMenu_Waterfall: ; 12e94
 ; 12ea9
 
 MonMenu_Teleport: ; 12ea9
-	farcall TeleportFunction
+	callba TeleportFunction
 	ld a, [wFieldMoveSucceeded]
 	and a
 	jr z, .Fail
@@ -1343,7 +1343,7 @@ MonMenu_Teleport: ; 12ea9
 ; 12ebd
 
 MonMenu_Surf: ; 12ebd
-	farcall SurfFunction
+	callba SurfFunction
 	ld a, [wFieldMoveSucceeded]
 	and a
 	jr z, .Fail
@@ -1357,7 +1357,7 @@ MonMenu_Surf: ; 12ebd
 ; 12ed1
 
 MonMenu_Dig: ; 12ed1
-	farcall DigFunction
+	callba DigFunction
 	ld a, [wFieldMoveSucceeded]
 	cp $1
 	jr nz, .Fail
@@ -1373,7 +1373,7 @@ MonMenu_Dig: ; 12ed1
 MonMenu_Softboiled_MilkDrink: ; 12ee6
 	call .CheckMonHasEnoughHP
 	jr nc, .NotEnoughHP
-	farcall Softboiled_MilkDrinkFunction
+	callba Softboiled_MilkDrinkFunction
 	jr .finish
 
 .NotEnoughHP:
@@ -1416,7 +1416,7 @@ MonMenu_Softboiled_MilkDrink: ; 12ee6
 ; 12f26
 
 MonMenu_Headbutt: ; 12f26
-	farcall HeadbuttFunction
+	callba HeadbuttFunction
 	ld a, [wFieldMoveSucceeded]
 	cp $1
 	jr nz, .Fail
@@ -1430,7 +1430,7 @@ MonMenu_Headbutt: ; 12f26
 ; 12f3b
 
 MonMenu_RockSmash: ; 12f3b
-	farcall RockSmashFunction
+	callba RockSmashFunction
 	ld a, [wFieldMoveSucceeded]
 	cp $1
 	jr nz, .Fail
@@ -1444,7 +1444,7 @@ MonMenu_RockSmash: ; 12f3b
 ; 12f50
 
 MonMenu_SweetScent: ; 12f50
-	farcall SweetScentFromMenu
+	callba SweetScentFromMenu
 	ld b, $4
 	ld a, $2
 	ret
@@ -1761,8 +1761,8 @@ SetUpMoveScreenBG: ; 13172
 	call ClearSprites
 	xor a
 	ld [hBGMapMode], a
-	farcall LoadStatsScreenPageTilesGFX
-	farcall ClearSpriteAnims2
+	callba LoadStatsScreenPageTilesGFX
+	callba ClearSpriteAnims2
 	ld a, [CurPartyMon]
 	ld e, a
 	ld d, $0
@@ -1771,7 +1771,7 @@ SetUpMoveScreenBG: ; 13172
 	ld a, [hl]
 	ld [wd265], a
 	ld e, $2
-	farcall LoadMenuMonIcon
+	callba LoadMenuMonIcon
 	hlcoord 0, 1
 	ld b, 9
 	ld c, 18
@@ -1791,7 +1791,7 @@ SetUpMoveScreenBG: ; 13172
 	hlcoord 5, 1
 	call PlaceString
 	push bc
-	farcall CopyPkmnToTempMon
+	callba CopyPkmnToTempMon
 	pop hl
 	call PrintLevel
 	ld hl, PlayerHPPal

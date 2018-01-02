@@ -9,7 +9,7 @@ TrainerCard: ; 25105
 	set 4, [hl]
 	call .InitRAM
 .loop
-	farcall UpdateTime
+	callba UpdateTime
 	call JoyTextDelay
 	ld a, [wJumptableIndex]
 	bit 7, a
@@ -34,7 +34,7 @@ TrainerCard: ; 25105
 	call ClearTileMap
 	call DisableLCD
 
-	farcall GetCardPic
+	callba GetCardPic
 
 	ld hl, CardRightCornerGFX
 	ld de, VTiles2 tile $1c

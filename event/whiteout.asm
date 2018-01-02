@@ -69,7 +69,7 @@ GetWhiteoutSpawn: ; 12527
 	ld d, a
 	ld a, [wLastSpawnMapNumber]
 	ld e, a
-	farcall IsSpawnPoint
+	callba IsSpawnPoint
 	ld a, c
 	jr c, .yes
 	xor a ; SPAWN_HOME

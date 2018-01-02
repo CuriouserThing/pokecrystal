@@ -99,7 +99,7 @@ AnimateFrontpic: ; d008e
 .loop
 	call SetUpPokeAnim
 	push af
-	farcall HDMATransferTileMapToWRAMBank3
+	callba HDMATransferTileMapToWRAMBank3
 	pop af
 	jr nc, .loop
 	ret
@@ -288,9 +288,9 @@ PokeAnim_DeinitFrames: ; d01a9
 	ld a, $2
 	ld [rSVBK], a
 	call PokeAnim_PlaceGraphic
-	farcall HDMATransferTileMapToWRAMBank3
+	callba HDMATransferTileMapToWRAMBank3
 	call PokeAnim_SetVBank0
-	farcall HDMATransferAttrMapToWRAMBank3
+	callba HDMATransferAttrMapToWRAMBank3
 	pop af
 	ld [rSVBK], a
 	ret
@@ -887,7 +887,7 @@ PokeAnim_SetVBank1: ; d0504
 	xor a
 	ld [hBGMapMode], a
 	call .SetFlag
-	farcall HDMATransferAttrMapToWRAMBank3
+	callba HDMATransferAttrMapToWRAMBank3
 	pop af
 	ld [rSVBK], a
 	ret

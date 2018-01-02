@@ -120,7 +120,7 @@ CheckRegisteredItem: ; 13345
 
 UseRegisteredItem: ; 133c3
 
-	farcall CheckItemMenu
+	callba CheckItemMenu
 	ld a, [wItemAttributeParamBuffer]
 	ld hl, .SwitchTo
 	rst JumpTable

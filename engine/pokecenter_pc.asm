@@ -105,7 +105,7 @@ BillsPC: ; 15668
 	call PC_PlayChoosePCSound
 	ld hl, PokeCenterPCText_AccessedBillsPC
 	call PC_DisplayText
-	farcall _BillsPC
+	callba _BillsPC
 	and a
 	ret
 ; 15679 (5:5679)
@@ -124,7 +124,7 @@ OaksPC: ; 15689
 	call PC_PlayChoosePCSound
 	ld hl, PokeCenterPCText_AccessedOaksPC
 	call PC_DisplayText
-	farcall ProfOaksPC
+	callba ProfOaksPC
 	and a
 	ret
 ; 1569a
@@ -132,7 +132,7 @@ OaksPC: ; 15689
 HallOfFamePC: ; 1569a
 	call PC_PlayChoosePCSound
 	call FadeToMenu
-	farcall _HallOfFamePC
+	callba _HallOfFamePC
 	call CloseSubmenu
 	and a
 	ret
@@ -308,7 +308,7 @@ UnknownText_0x157cc: ; 0x157cc
 
 KrisWithdrawItemMenu: ; 0x157d1
 	call LoadStandardMenuDataHeader
-	farcall ClearPCItemScreen
+	callba ClearPCItemScreen
 .loop
 	call PCItemsJoypad
 	jr c, .quit
@@ -322,7 +322,7 @@ KrisWithdrawItemMenu: ; 0x157d1
 
 .Submenu:
 	; check if the item has a quantity
-	farcall _CheckTossableItem
+	callba _CheckTossableItem
 	ld a, [wItemAttributeParamBuffer]
 	and a
 	jr z, .askquantity
@@ -335,7 +335,7 @@ KrisWithdrawItemMenu: ; 0x157d1
 .askquantity
 	ld hl, .HowManyText
 	call MenuTextBox
-	farcall SelectQuantityToToss
+	callba SelectQuantityToToss
 	call ExitMenu
 	call ExitMenu
 	jr c, .done
@@ -384,12 +384,12 @@ KrisWithdrawItemMenu: ; 0x157d1
 
 KrisTossItemMenu: ; 0x1585f
 	call LoadStandardMenuDataHeader
-	farcall ClearPCItemScreen
+	callba ClearPCItemScreen
 .loop
 	call PCItemsJoypad
 	jr c, .quit
 	ld de, PCItems
-	farcall TossItemFromPC
+	callba TossItemFromPC
 	jr .loop
 
 .quit
@@ -399,7 +399,7 @@ KrisTossItemMenu: ; 0x1585f
 ; 0x1587d
 
 KrisDecorationMenu: ; 0x1587d
-	farcall _KrisDecorationMenu
+	callba _KrisDecorationMenu
 	ld a, c
 	and a
 	ret z
@@ -418,14 +418,14 @@ KrisDepositItemMenu: ; 0x1588b
 	jr c, .nope
 	call DisableSpriteUpdates
 	call LoadStandardMenuDataHeader
-	farcall DepositSellInitPackBuffers
+	callba DepositSellInitPackBuffers
 .loop
-	farcall DepositSellPack
+	callba DepositSellPack
 	ld a, [wcf66]
 	and a
 	jr z, .close
 	call .TryDepositItem
-	farcall CheckRegisteredItem
+	callba CheckRegisteredItem
 	jr .loop
 
 .close
@@ -436,7 +436,7 @@ KrisDepositItemMenu: ; 0x1588b
 	ret
 
 .CheckItemsInBag:
-	farcall HasNoItems
+	callba HasNoItems
 	ret nc
 	ld hl, .NoItemsInBag
 	call MenuTextBoxBackup
@@ -453,7 +453,7 @@ KrisDepositItemMenu: ; 0x1588b
 	push af
 	ld a, $0
 	ld [wSpriteUpdatesEnabled], a
-	farcall CheckItemMenu
+	callba CheckItemMenu
 	ld a, [wItemAttributeParamBuffer]
 	ld hl, .dw
 	rst JumpTable
@@ -486,7 +486,7 @@ KrisDepositItemMenu: ; 0x1588b
 	ret
 
 .DepositItem_:
-	farcall _CheckTossableItem
+	callba _CheckTossableItem
 	ld a, [wItemAttributeParamBuffer]
 	and a
 	jr z, .AskQuantity
@@ -497,7 +497,7 @@ KrisDepositItemMenu: ; 0x1588b
 .AskQuantity:
 	ld hl, .HowManyText
 	call MenuTextBox
-	farcall SelectQuantityToToss
+	callba SelectQuantityToToss
 	push af
 	call ExitMenu
 	call ExitMenu
@@ -545,7 +545,7 @@ KrisDepositItemMenu: ; 0x1588b
 	db "@"
 
 KrisMailBoxMenu: ; 0x1597d
-	farcall _KrisMailBoxMenu
+	callba _KrisMailBoxMenu
 	xor a
 	ret
 ; 0x15985
@@ -605,12 +605,12 @@ PCItemsJoypad: ; 0x15985
 .a_select_2
 	call PC_PlaySwapItemsSound
 .select_1
-	farcall SwitchItemsInBag
+	callba SwitchItemsInBag
 .next
 	jp .loop
 
 .a_1
-	farcall ScrollingMenu_ClearLeftColumn
+	callba ScrollingMenu_ClearLeftColumn
 	call PlaceHollowCursor
 	and a
 	ret

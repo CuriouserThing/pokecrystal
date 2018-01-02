@@ -34,21 +34,21 @@ UnknownScript_0x506e9: ; 0x506e9
 ; 0x506ef
 
 SweetScentEncounter: ; 506ef
-	farcall CanUseSweetScent
+	callba CanUseSweetScent
 	jr nc, .no_battle
 	ld hl, StatusFlags2
 	bit 2, [hl]
 	jr nz, .not_in_bug_contest
-	farcall GetMapEncounterRate
+	callba GetMapEncounterRate
 	ld a, b
 	and a
 	jr z, .no_battle
-	farcall ChooseWildEncounter
+	callba ChooseWildEncounter
 	jr nz, .no_battle
 	jr .start_battle
 
 .not_in_bug_contest
-	farcall ChooseWildEncounter_BugContest
+	callba ChooseWildEncounter_BugContest
 
 .start_battle
 	ld a, $1

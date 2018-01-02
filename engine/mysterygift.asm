@@ -7,7 +7,7 @@ DoMysteryGift: ; 1048ba (41:48ba)
 	ld de, .String_PressAToLink_BToCancel
 	call PlaceString
 	call WaitBGMap
-	farcall PrepMysteryGiftDataToSend
+	callba PrepMysteryGiftDataToSend
 	call MysteryGift_ClearTrainerData
 	ld a, $2
 	ld [wca01], a
@@ -62,20 +62,20 @@ DoMysteryGift: ; 1048ba (41:48ba)
 	cp 4
 	jr z, .skip_append_save
 	call .SaveMysteryGiftTrainerName
-	farcall RestoreMobileEventIndex
-	farcall BackupMobileEventIndex
+	callba RestoreMobileEventIndex
+	callba BackupMobileEventIndex
 .skip_append_save
 	ld a, [wMysteryGiftPartnerSentDeco]
 	and a
 	jr z, .item
 	ld a, [wMysteryGiftPartnerWhichDeco]
 	ld c, a
-	farcall MysteryGiftGetDecoration
+	callba MysteryGiftGetDecoration
 	push bc
 	call MysteryGift_CheckAndSetDecorationAlreadyReceived
 	pop bc
 	jr nz, .item
-	farcall GetDecorationName_c
+	callba GetDecorationName_c
 	ld h, d
 	ld l, e
 	ld de, StringBuffer1
@@ -88,7 +88,7 @@ DoMysteryGift: ; 1048ba (41:48ba)
 	call GetMysteryGiftBank
 	ld a, [wMysteryGiftPartnerWhichItem]
 	ld c, a
-	farcall MysteryGiftGetItemHeldEffect
+	callba MysteryGiftGetItemHeldEffect
 	ld a, c
 	ld [sBackupMysteryGiftItem], a
 	ld [wNamedObjectIndexBuffer], a
@@ -236,7 +236,7 @@ DoMysteryGift: ; 1048ba (41:48ba)
 
 Function104a95: ; 104a95 (41:4a95)
 	di
-	farcall ClearChannels
+	callba ClearChannels
 	call Function104d5e
 
 .loop2
@@ -420,7 +420,7 @@ Function104bd0: ; 104bd0 (41:4bd0)
 	ld a, [wMysteryGiftTrainerData]
 	cp $3
 	jr nc, .quit
-	farcall StagePartyDataForMysteryGift
+	callba StagePartyDataForMysteryGift
 	call MysteryGift_ClearTrainerData
 	ld a, $26
 	ld [wca02], a
@@ -452,7 +452,7 @@ Function104bd0: ; 104bd0 (41:4bd0)
 
 Function104c2d: ; 104c2d (41:4c2d)
 	di
-	farcall ClearChannels
+	callba ClearChannels
 	call Function104d5e
 .asm_104c37
 	call Function104d96
@@ -1147,7 +1147,7 @@ MysteryGift_CopyReceivedDecosToPC: ; 105091 (41:5091)
 	pop bc
 	jr z, .skip
 	push bc
-	farcall SetSpecificDecorationFlag
+	callba SetSpecificDecorationFlag
 	pop bc
 .skip
 	inc c
@@ -1446,7 +1446,7 @@ Function105688: ; 105688 (41:5688)
 	ld hl, Text_ReceivedCard
 	call PrintText
 	ld de, wMysteryGiftTrainerData
-	farcall Function8ac70
+	callba Function8ac70
 	ld a, c
 	ld [wd265], a
 	ld hl, Text_CardNotRegistered
@@ -1662,7 +1662,7 @@ Function1057d7: ; 1057d7 (41:57d7)
 	call EnableLCD
 	call WaitBGMap
 	ld b, $2
-	farcall GetMysteryGift_MobileAdapterLayout
+	callba GetMysteryGift_MobileAdapterLayout
 	jp SetPalettes
 
 .Load6Row: ; 1058c6 (41:58c6)

@@ -606,7 +606,7 @@ Function106464:: ; 106464
 	ld hl, VTiles2 tile $6b
 	ld b, $f ; XXX no graphics at 0f:40b0
 	call Get2bpp
-	farcall LoadFrame
+	callba LoadFrame
 	ret
 ; 10649b
 

@@ -40,8 +40,8 @@ InitPartyMenuLayout: ; 5003f
 
 LoadPartyMenuGFX: ; 5004f
 	call LoadFontsBattleExtra
-	farcall InitPartyMenuPalettes ; engine/color.asm
-	farcall ClearSpriteAnims2
+	callba InitPartyMenuPalettes ; engine/color.asm
+	callba ClearSpriteAnims2
 	ret
 ; 5005f
 
@@ -662,7 +662,7 @@ InitPartyMenuGFX: ; 503e0
 	pop bc
 	dec c
 	jr nz, .loop
-	farcall PlaySpriteAnimations
+	callba PlaySpriteAnimations
 	ret
 ; 50405
 

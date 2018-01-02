@@ -45,7 +45,7 @@ InexplicablyEmptyFunction:: ; 2d43
 	ret
 ; 2d54
 
-INCLUDE "home/farcall.asm"
+INCLUDE "home/callba.asm"
 INCLUDE "home/predef.asm"
 INCLUDE "home/window.asm"
 INCLUDE "home/flag.asm"
@@ -546,7 +546,7 @@ LoadEDTile:: ; 323d
 ; 323f
 
 ; XXX
-	farcall HDMATransferAttrMapAndTileMapToWRAMBank3
+	callba HDMATransferAttrMapAndTileMapToWRAMBank3
 	ret
 ; 3246
 
@@ -990,7 +990,7 @@ GetTMHMName:: ; 3487
 	push de
 	ld a, [wd265]
 	ld c, a
-	farcall GetTMHMNumber
+	callba GetTMHMNumber
 	pop de
 
 ; HM numbers start from 51, not 1
@@ -1181,7 +1181,7 @@ HandleStoneQueue:: ; 3567
 	call .IsObjectInStoneTable
 	jr nc, .nope
 	call CallMapScript
-	farcall EnableScriptMode
+	callba EnableScriptMode
 	scf
 	ret
 
@@ -1788,7 +1788,7 @@ GetNick:: ; 38a2
 	call CopyBytes
 	pop de
 
-	farcall CheckNickErrors
+	callba CheckNickErrors
 
 	pop bc
 	pop hl

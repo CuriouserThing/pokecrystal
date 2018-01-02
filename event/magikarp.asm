@@ -5,7 +5,7 @@ Special_CheckMagikarpLength: ; fbb32
 	; Returns 0 if the Pokemon you select is not a Magikarp.
 
 	; Let's start by selecting a Magikarp.
-	farcall SelectMonFromParty
+	callba SelectMonFromParty
 	jr c, .declined
 	ld a, [CurPartySpecies]
 	cp MAGIKARP

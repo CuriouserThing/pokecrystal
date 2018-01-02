@@ -141,7 +141,7 @@ AI_Redundant: ; 2c41a
 	jr .NotRedundant
 
 .Attract: ; 2c4fe
-	farcall CheckOppositeGender
+	callba CheckOppositeGender
 	jr c, .Redundant
 	ld a, [PlayerSubStatus1]
 	bit SUBSTATUS_IN_LOVE, a
@@ -184,7 +184,7 @@ AI_Redundant: ; 2c41a
 .MorningSun:
 .Synthesis:
 .Moonlight: ; 2c539
-	farcall AICheckEnemyMaxHP
+	callba AICheckEnemyMaxHP
 	jr nc, .NotRedundant
 
 .Teleport:

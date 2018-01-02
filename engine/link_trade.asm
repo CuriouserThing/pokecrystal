@@ -23,8 +23,8 @@ Function16d43b: ; 16d43b
 	call ClearBGPalettes
 	call ClearTileMap
 	call ClearSprites
-	farcall __LoadTradeScreenBorder ; useless to farcall
-	farcall Function16d42e ; useless to farcall
+	callba __LoadTradeScreenBorder ; useless to callba
+	callba Function16d42e ; useless to callba
 	ld b, SCGB_DIPLOMA
 	call GetSGBLayout
 	call SetPalettes
@@ -119,8 +119,8 @@ _LinkTextbox: ; 16d61d
 InitTradeSpeciesList: ; 16d673
 	call _LoadTradeScreenBorder
 	call Function16d6ae
-	farcall InitMG_Mobile_LinkTradePalMap
-	farcall PlaceTradePartnerNamesAndParty
+	callba InitMG_Mobile_LinkTradePalMap
+	callba PlaceTradePartnerNamesAndParty
 	hlcoord 10, 17
 	ld de, .CANCEL
 	call PlaceString
@@ -146,7 +146,7 @@ LinkComms_LoadPleaseWaitTextboxBorderGFX: ; 16d69a
 ; 16d6a7
 
 LoadTradeRoomBGPals_: ; 16d6a7
-	farcall LoadTradeRoomBGPals
+	callba LoadTradeRoomBGPals
 	ret
 ; 16d6ae
 
@@ -171,7 +171,7 @@ LinkTextbox: ; 16d6ca
 Function16d6ce: ; 16d6ce
 	call LoadStandardMenuDataHeader
 	call Function16d6e1
-	farcall WaitLinkTransfer
+	callba WaitLinkTransfer
 	call Call_ExitMenu
 	call WaitBGMap2
 	ret
@@ -233,7 +233,7 @@ LinkTradeMenu: ; 16d70c
 	call .UpdateBGMapAndOAM
 	call .loop2
 	jr nc, .done
-	farcall _2DMenuInterpretJoypad
+	callba _2DMenuInterpretJoypad
 	jr c, .done
 	ld a, [w2DMenuFlags1]
 	bit 7, a
@@ -352,7 +352,7 @@ LinkTradeMenu: ; 16d70c
 	ld a, [w2DMenuFlags1]
 	bit 6, a
 	jr z, .skip_anims
-	farcall PlaySpriteAnimationsAndDelayFrame
+	callba PlaySpriteAnimationsAndDelayFrame
 .skip_anims
 	call JoyTextDelay
 	call .GetJoypad

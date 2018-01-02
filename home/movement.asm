@@ -159,13 +159,13 @@ SetMenuAttributes:: ; 1bb1
 ; 1bc9
 
 StaticMenuJoypad:: ; 1bc9
-	farcall _StaticMenuJoypad
+	callba _StaticMenuJoypad
 	call GetMenuJoypad
 	ret
 ; 1bd3
 
 ScrollingMenuJoypad:: ; 1bd3
-	farcall _ScrollingMenuJoypad
+	callba _ScrollingMenuJoypad
 	call GetMenuJoypad
 	ret
 ; 1bdd

@@ -69,7 +69,7 @@ RestartClock: ; 20021 (8:4021)
 	ld [Buffer2], a ; wd1eb (aliases: MovementType)
 	ld a, 8
 	ld [Buffer3], a
-	farcall UpdateTime
+	callba UpdateTime
 	call GetWeekday
 	ld [Buffer4], a
 	ld a, [WorldHours]
@@ -201,13 +201,13 @@ RestartClock: ; 20021 (8:4021)
 	decoord 1, 8
 	ld a, [Buffer4]
 	ld b, a
-	farcall PrintDayOfWeek
+	callba PrintDayOfWeek
 	ld a, [Buffer5]
 	ld b, a
 	ld a, [Buffer6]
 	ld c, a
 	decoord 11, 8
-	farcall PrintHoursMins
+	callba PrintHoursMins
 	ld a, [Buffer2] ; wd1eb (aliases: MovementType)
 	lb de, " ", " "
 	call .PlaceChars

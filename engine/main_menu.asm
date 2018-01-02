@@ -252,7 +252,7 @@ MainMenu_PrintCurrentTimeAndDay: ; 49e09
 	ld a, [wSaveFileExists]
 	and a
 	ret z
-	farcall UpdateTime
+	callba UpdateTime
 	call GetWeekday
 	ld b, a
 	decoord 1, 15
@@ -260,7 +260,7 @@ MainMenu_PrintCurrentTimeAndDay: ; 49e09
 	decoord 4, 16
 	ld a, [WorldHours]
 	ld c, a
-	farcall PrintHour
+	callba PrintHour
 	ld [hl], ":"
 	inc hl
 	ld de, WorldMinutes
@@ -307,21 +307,21 @@ Function49ed0: ; 49ed0
 
 
 MainMenu_NewGame: ; 49ee0
-	farcall NewGame
+	callba NewGame
 	ret
 ; 49ee7
 
 MainMenu_Options: ; 49ee7
-	farcall OptionsMenu
+	callba OptionsMenu
 	ret
 ; 49eee
 
 MainMenu_Continue: ; 49eee
-	farcall Continue
+	callba Continue
 	ret
 ; 49ef5
 
 MainMenu_MysteryGift: ; 49ef5
-	farcall MysteryGift
+	callba MysteryGift
 	ret
 ; 49efc

@@ -1,5 +1,5 @@
 DoItemEffect:: ; 2f3f
-	farcall _DoItemEffect
+	callba _DoItemEffect
 	ret
 ; 2f46
 
@@ -7,7 +7,7 @@ CheckTossableItem:: ; 2f46
 	push hl
 	push de
 	push bc
-	farcall _CheckTossableItem
+	callba _CheckTossableItem
 	pop bc
 	pop de
 	pop hl

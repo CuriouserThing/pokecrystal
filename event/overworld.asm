@@ -37,7 +37,7 @@ CheckEngineFlag: ; c721
 ; Check engine flag de
 ; Return carry if flag is not set
 	ld b, CHECK_FLAG
-	farcall EngineFlagAction
+	callba EngineFlagAction
 	ld a, c
 	and a
 	jr nz, .isset
@@ -177,7 +177,7 @@ CheckMapForSomethingToCut: ; c7ce
 	call GetFacingTileCoord
 	ld c, a
 	push de
-	farcall CheckCutCollision
+	callba CheckCutCollision
 	pop de
 	jr nc, .fail
 	; Get the location of the current block in OverworldMap.
@@ -233,7 +233,7 @@ CutDownTreeOrGrass: ; c810
 	call DelayFrame
 	ld a, [Buffer6] ; Animation type
 	ld e, a
-	farcall OWCutAnimation
+	callba OWCutAnimation
 	call BufferScreen
 	call GetMovementPermissions
 	call UpdateSprites
@@ -334,10 +334,10 @@ OWFlash: ; c8ac
 .CheckUseFlash: ; c8b5
 ; Flash
 	ld de, ENGINE_ZEPHYRBADGE
-	farcall CheckBadge
+	callba CheckBadge
 	jr c, .nozephyrbadge
 	push hl
-	farcall SpecialAerodactylChamber
+	callba SpecialAerodactylChamber
 	pop hl
 	jr c, .useflash
 	ld a, [wTimeOfDayPalset]
@@ -416,7 +416,7 @@ SurfFunction: ; c909
 	jr nz, .cannotsurf
 	call CheckDirection
 	jr c, .cannotsurf
-	farcall CheckFacingObject
+	callba CheckFacingObject
 	jr c, .cannotsurf
 	ld a, $1
 	ret
@@ -619,7 +619,7 @@ FlyFunction: ; ca3b
 	ld [hMapAnims], a
 	call LoadStandardMenuDataHeader
 	call ClearSprites
-	farcall _FlyMap
+	callba _FlyMap
 	ld a, e
 	cp -1
 	jr z, .illegal
@@ -672,10 +672,10 @@ FlyFunction: ; ca3b
 	end
 
 .ReturnFromFly: ; cacb
-	farcall Function561d
+	callba Function561d
 	call DelayFrame
 	call ReplaceKrisSprite
-	farcall LoadOverworldFont
+	callba LoadOverworldFont
 	ret
 
 WaterfallFunction: ; cade
@@ -687,7 +687,7 @@ WaterfallFunction: ; cade
 .TryWaterfall: ; cae7
 ; Waterfall
 	ld de, ENGINE_RISINGBADGE
-	farcall CheckBadge
+	callba CheckBadge
 	ld a, $80
 	ret c
 	call CheckMapCanWaterfall
@@ -858,7 +858,7 @@ dig_incave
 	ret
 
 .escaperope
-	farcall SpecialKabutoChamber
+	callba SpecialKabutoChamber
 	ld hl, .UsedEscapeRopeScript
 	call QueueScript
 	ld a, $81
@@ -952,7 +952,7 @@ TeleportFunction: ; cc61
 	ld d, a
 	ld a, [wLastSpawnMapNumber]
 	ld e, a
-	farcall IsSpawnPoint
+	callba IsSpawnPoint
 	jr nc, .nope
 	ld a, c
 	ld [wd001], a
@@ -1243,7 +1243,7 @@ DisappearWhirlpool: ; ce1d
 	call OverworldTextModeSwitch
 	ld a, [Buffer6]
 	ld e, a
-	farcall PlayWhirlpoolSound
+	callba PlayWhirlpoolSound
 	call BufferScreen
 	call GetMovementPermissions
 	ret
@@ -1397,7 +1397,7 @@ TryRockSmashFromMenu: ; cef4
 	ret
 
 GetFacingObject: ; cf0d
-	farcall CheckFacingObject
+	callba CheckFacingObject
 	jr nc, .fail
 
 	ld a, [hObjectStructIndexBuffer]
@@ -1532,7 +1532,7 @@ FishFunction: ; cf8e
 	ld d, a
 	ld a, [Buffer2]
 	ld e, a
-	farcall Fish
+	callba Fish
 	ld a, d
 	and a
 	jr z, .nonibble

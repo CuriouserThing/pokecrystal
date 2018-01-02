@@ -6,7 +6,7 @@ _MainMenu: ; 5ae8
 	ld a, e
 	ld [wMapMusic], a
 	call PlayMusic
-	farcall MainMenu
+	callba MainMenu
 	jp StartTitleScreen
 ; 5b04
 
@@ -55,14 +55,14 @@ NewGame_ClearTileMapEtc: ; 5b44
 ; 5b54
 
 MysteryGift: ; 5b54
-	farcall UpdateTime
-	farcall DoMysteryGiftIfDayHasPassed
-	farcall DoMysteryGift
+	callba UpdateTime
+	callba DoMysteryGiftIfDayHasPassed
+	callba DoMysteryGift
 	ret
 ; 5b64
 
 OptionsMenu: ; 5b64
-	farcall _OptionsMenu
+	callba _OptionsMenu
 	ret
 ; 5b6b
 
@@ -86,14 +86,14 @@ NewGame: ; 5b6b
 ; 5b8f
 
 AreYouABoyOrAreYouAGirl: ; 5b8f
-	farcall Mobile_AlwaysReturnNotCarry ; some mobile stuff
+	callba Mobile_AlwaysReturnNotCarry ; some mobile stuff
 	jr c, .ok
-	farcall InitGender
+	callba InitGender
 	ret
 
 .ok
 	ld c, 0
-	farcall InitMobileProfile ; mobile
+	callba InitMobileProfile ; mobile
 	ret
 ; 5ba7
 
@@ -226,11 +226,11 @@ ENDC
 
 	call InitializeNPCNames
 
-	farcall InitDecorations
+	callba InitDecorations
 
-	farcall DeletePartyMonMail
+	callba DeletePartyMonMail
 
-	farcall DeleteMobileEventIndex
+	callba DeleteMobileEventIndex
 
 	call ResetGameTime
 	ret
@@ -324,8 +324,8 @@ InitializeNPCNames: ; 5ce9
 
 InitializeWorld: ; 5d23
 	call ShrinkPlayer
-	farcall SpawnPlayer
-	farcall _InitializeStartDay
+	callba SpawnPlayer
+	callba _InitializeStartDay
 	ret
 ; 5d33
 
@@ -357,9 +357,9 @@ LoadOrRegenerateLuckyIDNumber: ; 5d33
 ; 5d65
 
 Continue: ; 5d65
-	farcall TryLoadSaveFile
+	callba TryLoadSaveFile
 	jr c, .FailToLoad
-	farcall _LoadData
+	callba _LoadData
 	call LoadStandardMenuDataHeader
 	call DisplaySaveInfoOnContinue
 	ld a, $1
@@ -390,8 +390,8 @@ Continue: ; 5d65
 	call ClearTileMap
 	ld c, 20
 	call DelayFrames
-	farcall JumpRoamMons
-	farcall MysteryGift_CopyReceivedDecosToPC ; Mystery Gift
+	callba JumpRoamMons
+	callba MysteryGift_CopyReceivedDecosToPC ; Mystery Gift
 	ld a, [wSpawnAfterChampion]
 	cp SPAWN_LANCE
 	jr z, .SpawnAfterE4
@@ -423,7 +423,7 @@ PostCreditsSpawn: ; 5de7
 ; 5df0
 
 Continue_MobileAdapterMenu: ; 5df0
-	farcall Mobile_AlwaysReturnNotCarry ; mobile check
+	callba Mobile_AlwaysReturnNotCarry ; mobile check
 	ret nc
 
 ; the rest of this stuff is never reached because
@@ -440,8 +440,8 @@ Continue_MobileAdapterMenu: ; 5df0
 	ld c, 20
 	call DelayFrames
 	ld c, $1
-	farcall InitMobileProfile ; mobile
-	farcall _SaveData
+	callba InitMobileProfile ; mobile
+	callba _SaveData
 	ld a, 8
 	ld [MusicFade], a
 	ld a, MUSIC_NONE % $100
@@ -484,7 +484,7 @@ FinishContinueFunction: ; 5e5d
 	ld hl, wEnteredMapFromContinue
 	set 1, [hl]
 	reset_world_pause_from_engine
-	farcall OverworldLoop
+	callba OverworldLoop
 	ld a, [wSpawnAfterChampion]
 	cp SPAWN_RED
 	jr z, .AfterRed
@@ -658,7 +658,7 @@ Continue_DisplayGameTime: ; 5f84
 
 
 OakSpeech: ; 0x5f99
-	farcall InitClock
+	callba InitClock
 	call RotateFourPalettesLeft
 	call ClearTileMap
 
@@ -722,7 +722,7 @@ OakSpeech: ; 0x5f99
 
 	xor a
 	ld [CurPartySpecies], a
-	farcall DrawIntroPlayerPic
+	callba DrawIntroPlayerPic
 
 	ld b, SCGB_TRAINER_OR_MON_FRONTPIC_PALS
 	call GetSGBLayout
@@ -769,20 +769,20 @@ OakText7: ; 0x606f
 	db "@"
 
 NamePlayer: ; 0x6074
-	farcall MovePlayerPicRight
-	farcall ShowPlayerNamingChoices
+	callba MovePlayerPicRight
+	callba ShowPlayerNamingChoices
 	ld a, [wMenuCursorY]
 	dec a
 	jr z, .NewName
 	call StorePlayerName
-	farcall ApplyMonOrTrainerPals
-	farcall MovePlayerPicLeft
+	callba ApplyMonOrTrainerPals
+	callba MovePlayerPicLeft
 	ret
 
 .NewName:
 	ld b, 1
 	ld de, PlayerName
-	farcall NamingScreen
+	callba NamingScreen
 
 	call RotateThreePalettesRight
 	call ClearTileMap
@@ -792,7 +792,7 @@ NamePlayer: ; 0x6074
 
 	xor a
 	ld [CurPartySpecies], a
-	farcall DrawIntroPlayerPic
+	callba DrawIntroPlayerPic
 
 	ld b, SCGB_TRAINER_OR_MON_FRONTPIC_PALS
 	call GetSGBLayout
@@ -930,7 +930,7 @@ Intro_WipeInFrontpic: ; 6182
 
 Intro_PrepTrainerPic: ; 619c
 	ld de, VTiles2
-	farcall GetTrainerPic
+	callba GetTrainerPic
 	xor a
 	ld [hGraphicStartTile], a
 	hlcoord 6, 4
@@ -953,7 +953,7 @@ ShrinkFrame: ; 61b4
 
 Intro_PlacePlayerSprite: ; 61cd
 
-	farcall GetPlayerIcon
+	callba GetPlayerIcon
 	ld c, $c
 	ld hl, VTiles0
 	call Request2bpp
@@ -999,9 +999,9 @@ Intro_PlacePlayerSprite: ; 61cd
 
 
 CrystalIntroSequence: ; 620b
-	farcall Copyright_GFPresents
+	callba Copyright_GFPresents
 	jr c, StartTitleScreen
-	farcall CrystalIntro
+	callba CrystalIntro
 
 StartTitleScreen: ; 6219
 	ld a, [rSVBK]
@@ -1062,7 +1062,7 @@ StartTitleScreen: ; 6219
 
 
 .TitleScreen: ; 6274
-	farcall _TitleScreen
+	callba _TitleScreen
 	ret
 ; 627b
 
@@ -1071,7 +1071,7 @@ RunTitleScreen: ; 627b
 	bit 7, a
 	jr nz, .done_title
 	call TitleScreenScene
-	farcall SuicuneFrameIterator
+	callba SuicuneFrameIterator
 	call DelayFrame
 	and a
 	ret
@@ -1149,7 +1149,7 @@ TitleScreenEntrance: ; 62bc
 	dec b
 	jr nz, .loop
 
-	farcall AnimateTitleCrystal
+	callba AnimateTitleCrystal
 	ret
 
 .done
@@ -1307,12 +1307,12 @@ TitleScreenEnd: ; 6375
 ; 6389
 
 DeleteSaveData: ; 6389
-	farcall _DeleteSaveData
+	callba _DeleteSaveData
 	jp Init
 ; 6392
 
 ResetClock: ; 6392
-	farcall _ResetClock
+	callba _ResetClock
 	jp Init
 ; 639b
 
@@ -1388,7 +1388,7 @@ CopyrightString: ; 63fd
 ; 642e
 
 GameInit:: ; 642e
-	farcall TryLoadSaveData
+	callba TryLoadSaveData
 	call ClearWindowData
 	call ClearBGPalettes
 	call ClearTileMap

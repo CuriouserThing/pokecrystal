@@ -164,7 +164,7 @@ BattleTurn: ; 3c12f
 
 	call HandleBerserkGene
 	call UpdateBattleMonInParty
-	farcall AIChooseMove
+	callba AIChooseMove
 	
 	call CheckPlayerLockedIn
 	jr c, .skip_iteration
@@ -355,7 +355,7 @@ HandleBerserkGene: ; 3c27c
 .go
 	push de
 	push bc
-	farcall GetUserItem
+	callba GetUserItem
 	ld a, [hl]
 	ld [wd265], a
 	sub BERSERK_GENE
@@ -383,14 +383,14 @@ HandleBerserkGene: ; 3c27c
 	ld [hl], a
 	ld [AttackMissed], a
 	ld [EffectFailed], a
-	farcall BattleCommand_AttackUp2
+	callba BattleCommand_AttackUp2
 	pop af
 	pop hl
 	ld [hl], a
 	call GetItemName
 	ld hl, BattleText_UsersStringBuffer1Activated
 	call StdBattleTextBox
-	farcall BattleCommand_StatUpMessage
+	callba BattleCommand_StatUpMessage
 	pop af
 	bit SUBSTATUS_CONFUSED, a
 	ret nz
@@ -451,7 +451,7 @@ DetermineMoveOrder: ; 3c314
 	jp .player_first
 
 .switch
-	farcall AI_Switch
+	callba AI_Switch
 	call SetEnemyTurn
 	call SpikesDamage
 	jp .enemy_first
@@ -467,9 +467,9 @@ DetermineMoveOrder: ; 3c314
 
 .equal_priority
 	call SetPlayerTurn
-	farcall GetUserItem
+	callba GetUserItem
 	push bc
-	farcall GetOpponentItem
+	callba GetOpponentItem
 	pop de
 	ld a, d
 	cp HELD_QUICK_CLAW
@@ -629,7 +629,7 @@ ParsePlayerAction: ; 3c434
 
 .encored
 	call SetPlayerTurn
-	farcall UpdateMoveData
+	callba UpdateMoveData
 	xor a
 	ld [wPlayerCharging], a
 	ld a, [wPlayerMoveStruct + MOVE_EFFECT]
@@ -906,7 +906,7 @@ Battle_EnemyFirst: ; 3c5fe
 	call SetEnemyTurn
 	ld a, $1
 	ld [wEnemyGoesFirst], a
-	farcall AI_SwitchOrTryItem
+	callba AI_SwitchOrTryItem
 	jr c, .switch_item
 	call EnemyTurn_EndOpponentProtectEndureDestinyBond
 	ld a, [wForcedSwitch]
@@ -943,7 +943,7 @@ Battle_PlayerFirst: ; 3c664
 	xor a
 	ld [wEnemyGoesFirst], a
 	call SetEnemyTurn
-	farcall AI_SwitchOrTryItem
+	callba AI_SwitchOrTryItem
 	push af
 	call PlayerTurn_EndOpponentProtectEndureDestinyBond
 	pop bc
@@ -988,14 +988,14 @@ Battle_PlayerFirst: ; 3c664
 PlayerTurn_EndOpponentProtectEndureDestinyBond: ; 3c6cf
 	call SetPlayerTurn
 	call EndUserDestinyBond
-	farcall DoPlayerTurn
+	callba DoPlayerTurn
 	jp EndOpponentProtectEndureDestinyBond
 ; 3c6de
 
 EnemyTurn_EndOpponentProtectEndureDestinyBond: ; 3c6de
 	call SetEnemyTurn
 	call EndUserDestinyBond
-	farcall DoEnemyTurn
+	callba DoEnemyTurn
 	jp EndOpponentProtectEndureDestinyBond
 ; 3c6ed
 
@@ -1327,7 +1327,7 @@ HandleLeftovers: ; 3c8eb
 	call SetPlayerTurn
 .do_it
 
-	farcall GetUserItem
+	callba GetUserItem
 	ld a, [hl]
 	ld [wd265], a
 	call GetItemName
@@ -1377,7 +1377,7 @@ HandleMysteryberry: ; 3c93c
 	call SetPlayerTurn
 
 .do_it
-	farcall GetUserItem
+	callba GetUserItem
 	ld a, b
 	cp HELD_RESTORE_PP
 	jr nz, .quit
@@ -1474,7 +1474,7 @@ HandleMysteryberry: ; 3c93c
 	add b
 	ld [de], a
 .skip_checks
-	farcall GetUserItem
+	callba GetUserItem
 	ld a, [hl]
 	ld [wd265], a
 	xor a
@@ -1540,13 +1540,13 @@ HandleFutureSight: ; 3ca26
 	ld a, FUTURE_SIGHT
 	ld [hl], a
 
-	farcall UpdateMoveData
+	callba UpdateMoveData
 	xor a
 	ld [AttackMissed], a
 	ld [AlreadyDisobeyed], a
 	ld a, 10
 	ld [TypeModifier], a
-	farcall DoMove
+	callba DoMove
 	xor a
 	ld [CurDamage], a
 	ld [CurDamage + 1], a
@@ -2361,7 +2361,7 @@ HandleEnemySwitch: ; 3cf4a
 	ld e, HP_BAR_LENGTH_PX
 	call UpdateHPPal
 	call WaitBGMap
-	farcall EnemySwitch_TrainerHud
+	callba EnemySwitch_TrainerHud
 	ld a, [wLinkMode]
 	and a
 	jr z, .not_linked
@@ -2419,7 +2419,7 @@ WinTrainerBattle: ; 3cfa4
 	and a
 	ld a, b
 	call z, PlayVictoryMusic
-	farcall Battle_GetTrainerName
+	callba Battle_GetTrainerName
 	ld hl, BattleText_EnemyWasDefeated
 	call StdBattleTextBox
 
@@ -2453,7 +2453,7 @@ WinTrainerBattle: ; 3cfa4
 	call DelayFrames
 	call EmptyBattleTextBox
 	ld c, $3
-	farcall BattleTowerText
+	callba BattleTowerText
 	call WaitPressAorB_BlinkCursor
 	ld hl, wPayDayMoney
 	ld a, [hli]
@@ -2766,7 +2766,7 @@ PlayerMonFaintHappinessMod: ; 3d1aa
 .got_param
 	ld a, [CurBattleMon]
 	ld [CurPartyMon], a
-	farcall ChangeHappiness
+	callba ChangeHappiness
 	ld a, [wBattleResult]
 	and %11000000
 	add $1
@@ -2876,16 +2876,16 @@ PlayerPartyMonEntrance: ; 3d2b3
 SetUpBattlePartyMenu_NoLoop: ; 3d2f7
 	call ClearBGPalettes
 SetUpBattlePartyMenu: ; switch to fullscreen menu?
-	farcall LoadPartyMenuGFX
-	farcall InitPartyMenuWithCancel
-	farcall InitPartyMenuBGPal7
-	farcall InitPartyMenuGFX
+	callba LoadPartyMenuGFX
+	callba InitPartyMenuWithCancel
+	callba InitPartyMenuBGPal7
+	callba InitPartyMenuGFX
 	ret
 ; 3d313
 
 JumpToPartyMenuAndPrintText: ; 3d313
-	farcall WritePartyMenuTilemap
-	farcall PrintPartyMenuText
+	callba WritePartyMenuTilemap
+	callba PrintPartyMenuText
 	call WaitBGMap
 	call SetPalettes
 	call DelayFrame
@@ -2893,7 +2893,7 @@ JumpToPartyMenuAndPrintText: ; 3d313
 ; 3d329
 
 SelectBattleMon: ; 3d329
-	farcall PartyMenuSelect
+	callba PartyMenuSelect
 	ret
 
 PickPartyMonInBattle: ; 3d33c
@@ -3000,7 +3000,7 @@ LostBattle: ; 3d38e
 
 	call EmptyBattleTextBox
 	ld c, 2
-	farcall BattleTowerText
+	callba BattleTowerText
 	call WaitPressAorB_BlinkCursor
 	call ClearTileMap
 	call ClearBGPalettes
@@ -3339,7 +3339,7 @@ LookUpTheEffectivenessOfEveryMove: ; 3d5d7
 	ld a, BANK(Moves)
 	call FarCopyBytes
 	call SetEnemyTurn
-	farcall BattleCheckTypeMatchup
+	callba BattleCheckTypeMatchup
 	pop bc
 	pop de
 	pop hl
@@ -3375,13 +3375,13 @@ IsThePlayerPkmnTypesEffectiveAgainstOTPkmn: ; 3d618
 	ld a, [BattleMonType1]
 	ld [wPlayerMoveStruct + MOVE_TYPE], a
 	call SetPlayerTurn
-	farcall BattleCheckTypeMatchup
+	callba BattleCheckTypeMatchup
 	ld a, [wd265]
 	cp 10 + 1 ; 1.0 + 0.1
 	jr nc, .super_effective
 	ld a, [BattleMonType2]
 	ld [wPlayerMoveStruct + MOVE_TYPE], a
-	farcall BattleCheckTypeMatchup
+	callba BattleCheckTypeMatchup
 	ld a, [wd265]
 	cp 10 + 1 ; 1.0 + 0.1
 	jr nc, .super_effective
@@ -3523,7 +3523,7 @@ CheckWhetherToAskSwitch: ; 3d714
 	push af
 	ld a, [CurBattleMon]
 	ld [CurPartyMon], a
-	farcall CheckCurPartyMonFainted
+	callba CheckCurPartyMonFainted
 	pop bc
 	ld a, b
 	ld [CurPartyMon], a
@@ -3539,7 +3539,7 @@ CheckWhetherToAskSwitch: ; 3d714
 OfferSwitch: ; 3d74b
 	ld a, [CurPartyMon]
 	push af
-	farcall Battle_GetTrainerName
+	callba Battle_GetTrainerName
 	ld hl, BattleText_EnemyIsAboutToUseWillPlayerChangePkmn
 	call StdBattleTextBox
 	lb bc, 1, 7
@@ -3590,7 +3590,7 @@ ClearEnemyMonBox: ; 3d7a0
 ; 3d7b8
 
 Function_BattleTextEnemySentOut: ; 3d7b8
-	farcall Battle_GetTrainerName
+	callba Battle_GetTrainerName
 	ld hl, BattleText_EnemySentOut
 	call StdBattleTextBox
 	jp WaitBGMap
@@ -3622,9 +3622,9 @@ Function_SetEnemyPkmnAndSendOutAnimation: ; 3d7c7
 .not_shiny
 
 	ld bc, TempMonSpecies
-	farcall CheckFaintedFrzSlp
+	callba CheckFaintedFrzSlp
 	jr c, .skip_cry
-	farcall CheckBattleScene
+	callba CheckBattleScene
 	jr c, .cry_no_anim
 	hlcoord 12, 0
 	ld d, $0
@@ -3766,7 +3766,7 @@ TryToRunAwayFromBattle: ; 3d8b3
 	ld a, [BattleMonItem]
 	ld [wd265], a
 	ld b, a
-	farcall GetItemHeldEffect
+	callba GetItemHeldEffect
 	ld a, b
 	cp HELD_ESCAPE
 	pop de
@@ -3952,7 +3952,7 @@ BattleCheckEnemyShininess: ; 3da79
 BattleCheckShininess: ; 3da7c
 	ld b, h
 	ld c, l
-	farcall CheckShininess
+	callba CheckShininess
 	ret
 ; 3da85
 
@@ -4106,7 +4106,7 @@ SendOutPlayerMon: ; 3db5f
 	call GetPartyParamLocation
 	ld b, h
 	ld c, l
-	farcall CheckFaintedFrzSlp
+	callba CheckFaintedFrzSlp
 	jr c, .statused
 	ld a, $f0
 	ld [CryTracks], a
@@ -4316,7 +4316,7 @@ HandleHealingItems: ; 3dcf9
 ; 3dd2f
 
 HandleHPHealingItem: ; 3dd2f
-	farcall GetOpponentItem
+	callba GetOpponentItem
 	ld a, b
 	cp $1
 	ret nz
@@ -4400,11 +4400,11 @@ HandleHPHealingItem: ; 3dd2f
 	predef AnimateHPBar
 UseOpponentItem:
 	call RefreshBattleHuds
-	farcall GetOpponentItem
+	callba GetOpponentItem
 	ld a, [hl]
 	ld [wNamedObjectIndexBuffer], a
 	call GetItemName
-	farcall ConsumeHeldItem
+	callba ConsumeHeldItem
 	ld hl, RecoveredUsingText
 	jp StdBattleTextBox
 ; 3ddc8
@@ -4429,7 +4429,7 @@ ItemRecoveryAnim: ; 3ddc8
 ; 3dde9
 
 UseHeldStatusHealingItem: ; 3dde9
-	farcall GetOpponentItem
+	callba GetOpponentItem
 	ld hl, .Statuses
 .loop
 	ld a, [hli]
@@ -4498,7 +4498,7 @@ UseConfusionHealingItem: ; 3de51
 	call GetBattleVar
 	bit SUBSTATUS_CONFUSED, a
 	ret z
-	farcall GetOpponentItem
+	callba GetOpponentItem
 	ld a, b
 	cp HELD_HEAL_CONFUSION
 	jr z, .heal_status
@@ -4565,7 +4565,7 @@ HandleStatBoostingHeldItems: ; 3de97
 	push bc
 	ld a, [bc]
 	ld b, a
-	farcall GetItemHeldEffect
+	callba GetItemHeldEffect
 	ld hl, .StatUpItems
 .loop
 	ld a, [hli]
@@ -4597,7 +4597,7 @@ HandleStatBoostingHeldItems: ; 3de97
 	call GetItemName
 	ld hl, BattleText_UsersStringBuffer1Activated
 	call StdBattleTextBox
-	farcall BattleCommand_StatUpMessage
+	callba BattleCommand_StatUpMessage
 	ret
 
 .finish
@@ -4672,7 +4672,7 @@ DrawPlayerHUD: ; 3df58
 	lb bc, 5, 11
 	call ClearBox
 
-	farcall DrawPlayerHUDBorder
+	callba DrawPlayerHUDBorder
 
 	hlcoord 18, 9
 	ld [hl], $73 ; vertical bar
@@ -4765,7 +4765,7 @@ PrintPlayerHUD: ; 3dfbf
 
 	ld a, TEMPMON
 	ld [MonType], a
-	farcall GetGender
+	callba GetGender
 	ld a, " "
 	jr c, .got_gender_char
 	ld a, "♂"
@@ -4814,7 +4814,7 @@ DrawEnemyHUD: ; 3e043
 	lb bc, 4, 11
 	call ClearBox
 
-	farcall DrawEnemyHUDBorder
+	callba DrawEnemyHUDBorder
 
 	ld a, [TempEnemyMonSpecies]
 	ld [CurSpecies], a
@@ -4843,7 +4843,7 @@ DrawEnemyHUD: ; 3e043
 
 	ld a, TEMPMON
 	ld [MonType], a
-	farcall GetGender
+	callba GetGender
 	ld a, " "
 	jr c, .got_gender
 	ld a, "♂"
@@ -4978,7 +4978,7 @@ BattleMenu: ; 3e139
 	ld a, [BattleType]
 	cp BATTLETYPE_CONTEST
 	jr nz, .not_contest
-	farcall ContestBattleMenu
+	callba ContestBattleMenu
 	jr .next
 .not_contest
 
@@ -4986,7 +4986,7 @@ BattleMenu: ; 3e139
 	ld a, [InputType]
 	or a
 	jr z, .skip_dude_pack_select
-	farcall _DudeAutoInput_DownA
+	callba _DudeAutoInput_DownA
 .skip_dude_pack_select
 	call LoadBattleMenu2
 	ret c
@@ -5015,7 +5015,7 @@ BattleMenu_Fight: ; 3e192
 ; 3e19b
 
 LoadBattleMenu2: ; 3e19b
-	farcall LoadBattleMenu
+	callba LoadBattleMenu
 	and a
 	ret
 
@@ -5036,14 +5036,14 @@ BattleMenu_Pack: ; 3e1c7
 	cp BATTLETYPE_CONTEST
 	jr z, .contest
 
-	farcall BattlePack
+	callba BattlePack
 	ld a, [wPlayerAction]
 	and a
 	jr z, .didnt_use_item
 	jr .got_item
 
 .tutorial
-	farcall TutorialPack
+	callba TutorialPack
 	ld a, POKE_BALL
 	ld [CurItem], a
 	call DoItemEffect
@@ -5081,7 +5081,7 @@ BattleMenu_Pack: ; 3e1c7
 	ld a, [wWildMon]
 	and a
 	jr nz, .run
-	farcall CheckItemPocket
+	callba CheckItemPocket
 	ld a, [wItemAttributeParamBuffer]
 	cp BALL
 	jr z, .ball
@@ -5136,7 +5136,7 @@ BattleMenuPKMN_Loop:
 	call SelectBattleMon
 	jr c, .Cancel
 .loop
-	farcall FreezeMonIcons
+	callba FreezeMonIcons
 	call .GetMenu
 	jr c, BattleMenuPKMN_Loop
 	call PlaceHollowCursor
@@ -5166,7 +5166,7 @@ BattleMenuPKMN_Loop:
 ; 3e2f5
 
 .GetMenu: ; 3e2f5
-	farcall BattleMonMenu
+	callba BattleMonMenu
 	ret
 
 Battle_StatsScreen: ; 3e308
@@ -5188,7 +5188,7 @@ Battle_StatsScreen: ; 3e308
 	call LowVolume
 	xor a ; PARTYMON
 	ld [MonType], a
-	farcall StatsScreenInit
+	callba StatsScreenInit
 	call MaxVolume
 
 	call DisableLCD
@@ -5297,7 +5297,7 @@ PlayerSwitch: ; 3e3ad
 ; 3e3ff
 
 EnemyMonEntrance: ; 3e3ff
-	farcall AI_Switch
+	callba AI_Switch
 	call SetEnemyTurn
 	jp SpikesDamage
 ; 3e40b
@@ -5380,7 +5380,7 @@ BattleMenu_Run: ; 3e489
 CheckAmuletCoin: ; 3e4a8
 	ld a, [BattleMonItem]
 	ld b, a
-	farcall GetItemHeldEffect
+	callba GetItemHeldEffect
 	ld a, b
 	cp HELD_AMULET_COIN
 	ret nz
@@ -5740,7 +5740,7 @@ MoveInfoBox: ; 3e6c8
 	ld [CurPartyMon], a
 	ld a, WILDMON
 	ld [MonType], a
-	farcall GetMaxPPOfMove
+	callba GetMaxPPOfMove
 
 	ld hl, wMenuCursorY
 	ld c, [hl]
@@ -5760,7 +5760,7 @@ MoveInfoBox: ; 3e6c8
 	hlcoord 7, 11
 	ld [hl], "/"
 
-	farcall UpdateMoveData
+	callba UpdateMoveData
 	ld a, [wPlayerMoveStruct + MOVE_ANIM]
 	ld b, a
 	hlcoord 2, 10
@@ -5953,7 +5953,7 @@ ParseEnemyAction: ; 3e7c1
 
 .skip_load
 	call SetEnemyTurn
-	farcall UpdateMoveData
+	callba UpdateMoveData
 	call CheckEnemyLockedIn
 	jr nz, .raging
 	xor a
@@ -6016,7 +6016,7 @@ CheckEnemyLockedIn: ; 3e8d1
 ; 3e8e4
 
 LinkBattleSendReceiveAction: ; 3e8e4
-	farcall _LinkBattleSendReceiveAction
+	callba _LinkBattleSendReceiveAction
 	ret
 ; 3e8eb
 
@@ -6125,7 +6125,7 @@ LoadEnemyMon: ; 3e8eb
 
 ; All trainers have preset DVs, determined by class
 ; See GetTrainerDVs for more on that
-	farcall GetTrainerDVs
+	callba GetTrainerDVs
 ; These are the DVs we'll use if we're actually in a trainer battle
 	ld a, [wBattleMode]
 	dec a
@@ -6229,7 +6229,7 @@ LoadEnemyMon: ; 3e8eb
 ; Get Magikarp's length
 	ld de, EnemyMonDVs
 	ld bc, PlayerID
-	farcall CalcMagikarpLength
+	callba CalcMagikarpLength
 
 ; We're clear if the length is < 1536
 	ld a, [MagikarpLength]
@@ -6629,7 +6629,7 @@ BattleWinSlideInEnemyTrainerFrontpic: ; 3ebd8
 	ld a, [OtherTrainerClass]
 	ld [TrainerClass], a
 	ld de, VTiles2
-	farcall GetTrainerPic
+	callba GetTrainerPic
 	hlcoord 19, 0
 	ld c, 0
 
@@ -6993,12 +6993,12 @@ BoostStat: ; 3ed7c
 ; 3ed9f
 
 _LoadBattleFontsHPBar: ; 3ed9f
-	farcall LoadBattleFontsHPBar
+	callba LoadBattleFontsHPBar
 	ret
 ; 3eda6
 
 _LoadHPBar: ; 3eda6
-	farcall LoadHPBar
+	callba LoadHPBar
 	ret
 ; 3edad
 
@@ -7304,7 +7304,7 @@ GiveExperiencePoints: ; 3ee3b
 	call GetBaseData
 	push bc
 	ld d, MAX_LEVEL
-	farcall CalcExpAtLevel
+	callba CalcExpAtLevel
 	pop bc
 	ld hl, MON_STAT_EXP - 1
 	add hl, bc
@@ -7333,7 +7333,7 @@ GiveExperiencePoints: ; 3ee3b
 	xor a ; PARTYMON
 	ld [MonType], a
 	predef CopyPkmnToTempMon
-	farcall CalcLevel
+	callba CalcLevel
 	pop bc
 	ld hl, MON_LEVEL
 	add hl, bc
@@ -7420,16 +7420,16 @@ GiveExperiencePoints: ; 3ee3b
 	xor a
 	ld [wd265], a
 	call ApplyStatLevelMultiplierOnAllStats
-	farcall ApplyStatusEffectOnPlayerStats
-	farcall BadgeStatBoosts
-	farcall UpdatePlayerHUD
+	callba ApplyStatusEffectOnPlayerStats
+	callba BadgeStatBoosts
+	callba UpdatePlayerHUD
 	call EmptyBattleTextBox
 	call LoadTileMapToTempTileMap
 	ld a, $1
 	ld [hBGMapMode], a
 
 .skip_animation
-	farcall LevelUpHappinessMod
+	callba LevelUpHappinessMod
 	ld a, [CurBattleMon]
 	ld b, a
 	ld a, [CurPartyMon]
@@ -7630,7 +7630,7 @@ AnimateExpBar: ; 3f136
 
 .NoOverflow:
 	ld d, MAX_LEVEL
-	farcall CalcExpAtLevel
+	callba CalcExpAtLevel
 	ld a, [hProduct + 1]
 	ld b, a
 	ld a, [hProduct + 2]
@@ -7653,7 +7653,7 @@ AnimateExpBar: ; 3f136
 	ld [hld], a
 
 .AlreadyAtMaxExp:
-	farcall CalcLevel
+	callba CalcLevel
 	ld a, d
 	pop bc
 	pop de
@@ -7685,7 +7685,7 @@ AnimateExpBar: ; 3f136
 	call TerminateExpBarSound
 	ld de, SFX_HIT_END_OF_EXP_BAR
 	call PlaySFX
-	farcall AnimateEndOfExpBar
+	callba AnimateEndOfExpBar
 	call WaitSFX
 	ld hl, BattleText_StringBuffer1GrewToLevel
 	call StdBattleTextBox
@@ -7991,7 +7991,7 @@ CalcExpBar: ; 3f39c
 	push de
 	ld d, b
 	push de
-	farcall CalcExpAtLevel
+	callba CalcExpAtLevel
 	pop de
 ; exp at current level gets pushed to the stack
 	ld hl, hMultiplicand
@@ -8003,7 +8003,7 @@ CalcExpBar: ; 3f39c
 	push af
 ; next level
 	inc d
-	farcall CalcExpAtLevel
+	callba CalcExpAtLevel
 ; back up the next level exp, and subtract the two levels
 	ld hl, hMultiplicand + 2
 	ld a, [hl]
@@ -8230,11 +8230,11 @@ BattleIntro: ; 3f4dd
 	ld [wd0d2], a
 	xor a
 	ld [hMapAnims], a
-	farcall PlayBattleMusic
-	farcall ShowLinkBattleParticipants
-	farcall FindFirstAliveMonAndStartBattle
+	callba PlayBattleMusic
+	callba ShowLinkBattleParticipants
+	callba FindFirstAliveMonAndStartBattle
 	call DisableSpriteUpdates
-	farcall ClearBattleRAM
+	callba ClearBattleRAM
 	call InitEnemy
 	call BackUpVBGMap2
 	ld b, SCGB_BATTLE_GRAYSCALE
@@ -8310,8 +8310,8 @@ InitEnemyTrainer: ; 3f594
 	ld [TrainerClass], a
 	xor a
 	ld [TempEnemyMonSpecies], a
-	farcall GetTrainerAttributes
-	farcall ReadTrainerParty
+	callba GetTrainerAttributes
+	callba ReadTrainerParty
 
 	ld a, [TrainerClass]
 	cp RIVAL1
@@ -8321,7 +8321,7 @@ InitEnemyTrainer: ; 3f594
 .ok
 
 	ld de, VTiles2
-	farcall GetTrainerPic
+	callba GetTrainerPic
 	xor a
 	ld [hGraphicStartTile], a
 	dec a
@@ -8348,7 +8348,7 @@ InitEnemyTrainer: ; 3f594
 	or [hl]
 	jr z, .skipfaintedmon
 	ld c, HAPPINESS_GYMBATTLE
-	farcall ChangeHappiness
+	callba ChangeHappiness
 .skipfaintedmon
 	pop bc
 	dec b
@@ -8471,7 +8471,7 @@ ExitBattle: ; 3f69e
 	xor a
 	ld [wForceEvolution], a
 	predef EvolveAfterBattle
-	farcall GivePokerusAndConvertBerries
+	callba GivePokerusAndConvertBerries
 	ret
 ; 3f6d0
 
@@ -8545,14 +8545,14 @@ CheckPayDay: ; 3f71d
 ; 3f759
 
 ShowLinkBattleParticipantsAfterEnd: ; 3f759
-	farcall BackupMobileEventIndex
+	callba BackupMobileEventIndex
 	ld a, [CurOTMon]
 	ld hl, OTPartyMon1Status
 	call GetPartyLocation
 	ld a, [EnemyMonStatus]
 	ld [hl], a
 	call ClearTileMap
-	farcall _ShowLinkBattleParticipants
+	callba _ShowLinkBattleParticipants
 	ret
 ; 3f77c
 
@@ -8576,7 +8576,7 @@ DetermineMobileBattleResult: ; 3f77c
 .store_result
 	hlcoord 6, 8
 	call PlaceString
-	farcall BackupMobileEventIndex
+	callba BackupMobileEventIndex
 	ld c, 200
 	call DelayFrames
 
@@ -8787,7 +8787,7 @@ BattleEnd_HandleRoamMons: ; 3f998
 	ret nz
 
 .update_roam_mons
-	farcall UpdateRoamMons
+	callba UpdateRoamMons
 	ret
 ; 3f9d1
 
@@ -9094,7 +9094,7 @@ InitBattleDisplay: ; 3fb6c
 	call WaitBGMap
 	xor a
 	ld [hBGMapMode], a
-	farcall BattleIntroSlidingPics
+	callba BattleIntroSlidingPics
 	ld a, $1
 	ld [hBGMapMode], a
 	ld a, $31
@@ -9163,7 +9163,7 @@ GetTrainerBackpic: ; 3fbff
 	jr z, .Chris
 
 ; It's a girl.
-	farcall GetKrisBackpic
+	callba GetKrisBackpic
 	ret
 
 .Chris:
@@ -9248,7 +9248,7 @@ BattleStartMessage: ; 3fc8b
 	ld c, 20
 	call DelayFrames
 
-	farcall Battle_GetTrainerName
+	callba Battle_GetTrainerName
 
 	ld hl, WantsToBattleText
 	jr .PlaceBattleStartText
@@ -9267,10 +9267,10 @@ BattleStartMessage: ; 3fc8b
 	call Call_PlayBattleAnim
 
 .not_shiny
-	farcall CheckSleepingTreeMon
+	callba CheckSleepingTreeMon
 	jr c, .skip_cry
 
-	farcall CheckBattleScene
+	callba CheckBattleScene
 	jr c, .cry_no_anim
 
 	hlcoord 12, 0
@@ -9304,7 +9304,7 @@ BattleStartMessage: ; 3fc8b
 
 .PlaceBattleStartText:
 	push hl
-	farcall BattleStart_TrainerHuds
+	callba BattleStart_TrainerHuds
 	pop hl
 	call StdBattleTextBox
 	ret

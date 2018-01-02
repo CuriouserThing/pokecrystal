@@ -55,7 +55,7 @@ InitOneDayCountdown: ; 11413
 InitNDaysCountdown: ; 11415
 	ld [hl], a
 	push hl
-	farcall UpdateTime
+	callba UpdateTime
 	pop hl
 	inc hl
 	call CopyDayToHL
@@ -76,7 +76,7 @@ CheckDayDependentEventHL: ; 11420
 RestartReceiveCallDelay: ; 1142e
 	ld hl, wReceiveCallDelay_MinsRemaining
 	ld [hl], a
-	farcall UpdateTime
+	callba UpdateTime
 	ld hl, wReceiveCallDelay_StartTime
 	call CopyDayHourMinToHL
 	ret
@@ -144,7 +144,7 @@ StartBugContestTimer: ; 11490
 	ld [wBugContestMinsRemaining], a
 	ld a, 0
 	ld [wBugContestSecsRemaining], a
-	farcall UpdateTime
+	callba UpdateTime
 	ld hl, wBugContestStartTime
 	call CopyDayHourMinSecToHL
 	ret
@@ -187,7 +187,7 @@ CheckBugContestTimer:: ; 114a4 (4:54a4)
 
 
 InitializeStartDay: ; 114dd
-	farcall UpdateTime
+	callba UpdateTime
 	ld hl, wStartDay
 	call CopyDayToHL
 IF PAUSE_WORLD_DURING_INTRO
@@ -203,7 +203,7 @@ CheckPokerusTick:: ; 114e7
 	and a
 	jr z, .done ; not even a day has passed since game start
 	ld b, a
-	farcall ApplyPokerusTick
+	callba ApplyPokerusTick
 .done
 	xor a
 	ret
@@ -244,7 +244,7 @@ DoMysteryGiftIfDayHasPassed: ; 11548
 	ld hl, Buffer1
 	call InitOneDayCountdown
 	call CloseSRAM
-	farcall Function1050c8
+	callba Function1050c8
 
 .not_timed_out
 	ld a, BANK(sMysteryGiftTimer)

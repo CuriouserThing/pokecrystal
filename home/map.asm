@@ -212,7 +212,7 @@ endr
 ReturnToMapFromSubmenu:: ; 222a
 	ld a, MAPSETUP_SUBMENU
 	ld [hMapEntryMethod], a
-	farcall RunMapSetupScript
+	callba RunMapSetupScript
 	xor a
 	ld [hMapEntryMethod], a
 	ret
@@ -223,7 +223,7 @@ CheckWarpTile:: ; 2238
 	ret nc
 
 	push bc
-	farcall CheckDirectionalWarp
+	callba CheckDirectionalWarp
 	pop bc
 	ret nc
 
@@ -240,7 +240,7 @@ WarpCheck:: ; 224a
 ; 2252
 
 GetDestinationWarpNumber:: ; 2252
-	farcall CheckWarpCollision
+	callba CheckWarpCollision
 	ret nc
 
 	ld a, [hROMBank]
@@ -714,7 +714,7 @@ RestoreFacingAfterWarp:: ; 248a
 	call .backup
 
 .skip
-	farcall GetCoordOfUpperLeftCorner
+	callba GetCoordOfUpperLeftCorner
 	ret
 ; 24ba
 
@@ -1047,15 +1047,15 @@ RunMapCallback:: ; 263b
 
 ExecuteCallbackScript:: ; 2674
 ; Do map callback de and return to script bank b.
-	farcall CallCallback
+	callba CallCallback
 	ld a, [ScriptMode]
 	push af
 	ld hl, ScriptFlags
 	ld a, [hl]
 	push af
 	set 1, [hl]
-	farcall EnableScriptMode
-	farcall ScriptEvents
+	callba EnableScriptMode
+	callba ScriptEvents
 	pop af
 	ld [ScriptFlags], a
 	pop af
@@ -1436,7 +1436,7 @@ LoadTileset:: ; 2821
 	jr .skip_roof
 
 .load_roof
-	farcall LoadMapGroupRoof
+	callba LoadMapGroupRoof
 
 .skip_roof
 	xor a
@@ -1980,7 +1980,7 @@ FadeToMenu:: ; 2b29
 	xor a
 	ld [hBGMapMode], a
 	call LoadStandardMenuDataHeader
-	farcall FadeOutPalettes
+	callba FadeOutPalettes
 	call ClearSprites
 	call DisableSpriteUpdates
 	ret
@@ -2004,9 +2004,9 @@ ExitAllMenus:: ; 2b4d
 FinishExitMenu:: ; 2b5c
 	ld b, SCGB_MAPPALS
 	call GetSGBLayout
-	farcall LoadOW_BGPal7
+	callba LoadOW_BGPal7
 	call WaitBGMap2
-	farcall FadeInPalettes
+	callba FadeInPalettes
 	call EnableSpriteUpdates
 	ret
 ; 2b74
@@ -2027,7 +2027,7 @@ ReturnToMapWithSpeechTextbox:: ; 0x2b74
 	call WaitBGMap2
 	ld b, SCGB_MAPPALS
 	call GetSGBLayout
-	farcall LoadOW_BGPal7
+	callba LoadOW_BGPal7
 	call UpdateTimePals
 	call DelayFrame
 	ld a, $1
@@ -2039,7 +2039,7 @@ ReturnToMapWithSpeechTextbox:: ; 0x2b74
 ReloadTilesetAndPalettes:: ; 2bae
 	call DisableLCD
 	call ClearSprites
-	farcall RefreshSprites
+	callba RefreshSprites
 	call LoadStandardFont
 	call LoadFontsExtra
 	ld a, [hROMBank]
@@ -2049,7 +2049,7 @@ ReloadTilesetAndPalettes:: ; 2bae
 	ld a, [MapNumber]
 	ld c, a
 	call SwitchToAnyMapBank
-	farcall UpdateTimeOfDayPal
+	callba UpdateTimeOfDayPal
 	call OverworldTextModeSwitch
 	call LoadTileset
 	ld a, 9
@@ -2295,7 +2295,7 @@ RADIO_TOWER_MUSIC EQU 7
 	jr z, .mahoganymart
 	bit RADIO_TOWER_MUSIC, c
 	jr nz, .radiotower
-	farcall Function8b342
+	callba Function8b342
 	ld e, c
 	ld d, 0
 .done

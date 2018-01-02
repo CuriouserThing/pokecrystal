@@ -278,7 +278,7 @@ endr
 	pop bc
 	call GetWorldMapLocation
 	ld e, a
-	farcall GetLandmarkName
+	callba GetLandmarkName
 	ld hl, OPT_OakText1
 	call CopyRadioTextToRAM
 	ld a, OAKS_POKEMON_TALK_5
@@ -592,7 +592,7 @@ OaksPkmnTalk9:
 	db "@"
 
 OaksPkmnTalk10:
-	farcall RadioMusicRestartPokemonChannel
+	callba RadioMusicRestartPokemonChannel
 	ld hl, OPT_RestartText
 	call PrintText
 	call WaitBGMap
@@ -653,7 +653,7 @@ OaksPkmnTalk14:
 	dec [hl]
 	ret nz
 	ld de, $1d
-	farcall RadioMusicRestartDE
+	callba RadioMusicRestartDE
 	ld hl, .terminator
 	call PrintText
 	ld a, OAKS_POKEMON_TALK_4
@@ -923,7 +923,7 @@ StartPokemonMusicChannel:
 	jr z, .SunTueThurSun
 	ld de, MUSIC_POKEMON_LULLABY
 .SunTueThurSun:
-	farcall RadioMusicRestartDE
+	callba RadioMusicRestartDE
 	ret
 
 BenIntroText1:
@@ -978,9 +978,9 @@ BenFernText3B:
 
 LuckyNumberShow1:
 	call StartRadioStation
-	farcall Special_CheckLuckyNumberShowFlag
+	callba Special_CheckLuckyNumberShowFlag
 	jr nc, .dontreset
-	farcall Special_ResetLuckyNumberShowFlag
+	callba Special_ResetLuckyNumberShowFlag
 .dontreset
 	ld hl, LC_Text1
 	ld a, LUCKY_NUMBER_SHOW_2
@@ -1193,12 +1193,12 @@ PeoplePlaces4: ; People
 	pop bc
 	jr c, PeoplePlaces4
 	push bc
-	farcall GetTrainerClassName
+	callba GetTrainerClassName
 	ld de, StringBuffer1
 	call CopyName1
 	pop bc
 	ld b, 1
-	farcall GetTrainerName
+	callba GetTrainerName
 	ld hl, PnP_Text4
 	ld a, PLACES_AND_PEOPLE_5
 	jp NextRadioLine
@@ -1348,7 +1348,7 @@ PeoplePlaces6: ; Places
 	ld c, [hl]
 	call GetWorldMapLocation
 	ld e, a
-	farcall GetLandmarkName
+	callba GetLandmarkName
 	ld hl, PnP_Text5
 	ld a, PLACES_AND_PEOPLE_7
 	jp NextRadioLine
@@ -1809,8 +1809,8 @@ BuenasPassword19:
 BuenasPassword20:
 	ld a, [hBGMapMode]
 	push af
-	farcall NoRadioMusic
-	farcall NoRadioName
+	callba NoRadioMusic
+	callba NoRadioName
 	pop af
 	ld [hBGMapMode], a
 	ld hl, WeeklyFlags
@@ -1835,7 +1835,7 @@ BuenasPassword21:
 	jp NextRadioLine
 
 BuenasPasswordCheckTime:
-	farcall UpdateTime
+	callba UpdateTime
 	ld a, [WorldHours]
 	cp 18 ; 6 PM
 	ret
@@ -1956,7 +1956,7 @@ StartRadioStation:
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	farcall RadioMusicRestartDE
+	callba RadioMusicRestartDE
 	ret
 
 RadioChannelSongs:

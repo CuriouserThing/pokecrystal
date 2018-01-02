@@ -27,7 +27,7 @@ AI_Basic: ; 38591
 	push hl
 	push de
 	push bc
-	farcall AI_Redundant
+	callba AI_Redundant
 	pop bc
 	pop de
 	pop hl
@@ -174,7 +174,7 @@ AI_Types: ; 38635
 	push de
 	ld a, 1
 	ld [hBattleTurn], a
-	farcall BattleCheckTypeMatchup
+	callba BattleCheckTypeMatchup
 	pop de
 	pop bc
 	pop hl
@@ -427,7 +427,7 @@ AI_Smart_LeechHit: ; 387f7
 	push hl
 	ld a, 1
 	ld [hBattleTurn], a
-	farcall BattleCheckTypeMatchup
+	callba BattleCheckTypeMatchup
 	pop hl
 
 ; 60% chance to discourage this move if not very effective.
@@ -508,7 +508,7 @@ AI_Smart_LockOn: ; 3881d
 
 	push hl
 	push bc
-	farcall BattleCheckTypeMatchup
+	callba BattleCheckTypeMatchup
 	ld a, [wd265]
 	cp $a
 	pop bc
@@ -570,7 +570,7 @@ AI_Smart_Explosion: ; 388a6
 
 ; Unless this is the enemy's last Pokemon...
 	push hl
-	farcall FindAliveEnemyMons
+	callba FindAliveEnemyMons
 	pop hl
 	jr nc, .asm_388b7
 
@@ -968,7 +968,7 @@ AI_Smart_Whirlwind: ; 38a2a
 ; Consider player's type(s) if its moves are unknown.
 
 	push hl
-	farcall CheckPlayerMoveTypeMatchups
+	callba CheckPlayerMoveTypeMatchups
 	ld a, [wEnemyAISwitchScore]
 	cp 10 ; neutral
 	pop hl
@@ -1366,7 +1366,7 @@ AI_Smart_Mimic: ; 38ba8
 
 	ld a, $1
 	ld [hBattleTurn], a
-	farcall BattleCheckTypeMatchup
+	callba BattleCheckTypeMatchup
 
 	ld a, [wd265]
 	cp $a
@@ -1761,9 +1761,9 @@ AI_Smart_PriorityHit: ; 38d5a
 	ld a, $1
 	ld [hBattleTurn], a
 	push hl
-	farcall EnemyAttackDamage
-	farcall BattleCommand_DamageCalc
-	farcall BattleCommand_Stab
+	callba EnemyAttackDamage
+	callba BattleCommand_DamageCalc
+	callba BattleCommand_Stab
 	pop hl
 	ld a, [CurDamage + 1]
 	ld c, a
@@ -1809,7 +1809,7 @@ AI_Smart_Conversion2: ; 38d98
 	xor a
 	ld [hBattleTurn], a
 
-	farcall BattleCheckTypeMatchup
+	callba BattleCheckTypeMatchup
 
 	ld a, [wd265]
 	cp $a
@@ -1887,7 +1887,7 @@ AI_Smart_MeanLook: ; 38dfb
 
 ; Otherwise, discourage this move unless the player only has not very effective moves against the enemy.
 	push hl
-	farcall CheckPlayerMoveTypeMatchups
+	callba CheckPlayerMoveTypeMatchups
 	ld a, [wEnemyAISwitchScore]
 	cp $b ; not very effective
 	pop hl
@@ -2005,7 +2005,7 @@ AI_Smart_Curse: ; 38e5c
 	jp nz, AIDiscourageMove
 
 	push hl
-	farcall FindAliveEnemyMons
+	callba FindAliveEnemyMons
 	pop hl
 	jr nc, .asm_38eb0
 
@@ -2134,7 +2134,7 @@ AI_Smart_Foresight: ; 38f1d
 
 AI_Smart_PerishSong: ; 38f4a
 	push hl
-	farcall FindAliveEnemyMons
+	callba FindAliveEnemyMons
 	pop hl
 	jr c, .no
 
@@ -2143,7 +2143,7 @@ AI_Smart_PerishSong: ; 38f4a
 	jr nz, .yes
 
 	push hl
-	farcall CheckPlayerMoveTypeMatchups
+	callba CheckPlayerMoveTypeMatchups
 	ld a, [wEnemyAISwitchScore]
 	cp 10 ; 1.0
 	pop hl
@@ -2401,7 +2401,7 @@ AI_Smart_BatonPass: ; 39062
 ; Consider player's type(s) if its moves are unknown.
 
 	push hl
-	farcall CheckPlayerMoveTypeMatchups
+	callba CheckPlayerMoveTypeMatchups
 	ld a, [wEnemyAISwitchScore]
 	cp 10 ; neutral
 	pop hl
@@ -2463,8 +2463,8 @@ AI_Smart_HiddenPower: ; 3909e
 	ld [hBattleTurn], a
 
 ; Calculate Hidden Power's type and base power based on enemy's DVs.
-	farcall HiddenPowerDamage
-	farcall BattleCheckTypeMatchup
+	callba HiddenPowerDamage
+	callba BattleCheckTypeMatchup
 	pop hl
 
 ; Discourage Hidden Power if not very effective.
@@ -3333,13 +3333,13 @@ AIDamageCalc: ; 393e7
 	ld hl, .ConstantDamageEffects
 	call IsInArray
 	jr nc, .asm_39400
-	farcall BattleCommand_ConstantDamage
+	callba BattleCommand_ConstantDamage
 	ret
 
 .asm_39400
-	farcall EnemyAttackDamage
-	farcall BattleCommand_DamageCalc
-	farcall BattleCommand_Stab
+	callba EnemyAttackDamage
+	callba BattleCommand_DamageCalc
+	callba BattleCommand_Stab
 	ret
 
 .ConstantDamageEffects:
@@ -3456,7 +3456,7 @@ AI_Status: ; 39453
 	push de
 	ld a, 1
 	ld [hBattleTurn], a
-	farcall BattleCheckTypeMatchup
+	callba BattleCheckTypeMatchup
 	pop de
 	pop bc
 	pop hl

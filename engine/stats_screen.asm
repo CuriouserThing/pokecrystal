@@ -23,7 +23,7 @@ StatsScreenInit_gotaddress: ; 4dc94
 	call ClearBGPalettes
 	call ClearTileMap
 	call UpdateSprites
-	farcall StatsScreen_LoadFont
+	callba StatsScreen_LoadFont
 	pop hl
 	call _hl_
 	call ClearBGPalettes
@@ -73,13 +73,13 @@ StatsScreenMobile: ; 4dcf7
 	or $1
 	ld [wcf64], a
 .loop
-	farcall Mobile_SetOverworldDelay
+	callba Mobile_SetOverworldDelay
 	ld a, [wJumptableIndex]
 	and $7f
 	ld hl, StatsScreenPointerTable
 	rst JumpTable
 	call StatsScreen_WaitAnim
-	farcall MobileComms_CheckInactivityTimer
+	callba MobileComms_CheckInactivityTimer
 	jr c, .exit
 	ld a, [wJumptableIndex]
 	bit 7, a
@@ -111,14 +111,14 @@ StatsScreen_WaitAnim: ; 4dd3a (13:5d3a)
 	ret
 
 .try_anim
-	farcall SetUpPokeAnim
+	callba SetUpPokeAnim
 	jr nc, .finish
 	ld hl, wcf64
 	res 6, [hl]
 .finish
 	ld hl, wcf64
 	res 5, [hl]
-	farcall HDMATransferTileMapToWRAMBank3
+	callba HDMATransferTileMapToWRAMBank3
 	ret
 
 StatsScreen_SetJumptableIndex: ; 4dd62 (13:5d62)
@@ -138,7 +138,7 @@ MonStatsInit: ; 4dd72 (13:5d72)
 	res 6, [hl]
 	call ClearBGPalettes
 	call ClearTileMap
-	farcall HDMATransferTileMapToWRAMBank3
+	callba HDMATransferTileMapToWRAMBank3
 	call StatsScreen_CopyToTempMon
 	ld a, [CurPartySpecies]
 	cp EGG
@@ -224,14 +224,14 @@ StatsScreen_CopyToTempMon: ; 4ddf2 (13:5df2)
 	jr .done
 
 .breedmon
-	farcall CopyPkmnToTempMon
+	callba CopyPkmnToTempMon
 	ld a, [CurPartySpecies]
 	cp EGG
 	jr z, .done
 	ld a, [MonType]
 	cp BOXMON
 	jr c, .done
-	farcall CalcTempmonStats
+	callba CalcTempmonStats
 .done
 	and a
 	ret
@@ -244,7 +244,7 @@ StatsScreen_GetJoypad: ; 4de2c (13:5e2c)
 	push hl
 	push de
 	push bc
-	farcall StatsScreenDPad
+	callba StatsScreenDPad
 	pop bc
 	pop de
 	pop hl
@@ -409,7 +409,7 @@ StatsScreen_InitUpperHalf: ; 4deea (13:5eea)
 	ld a, [hli]
 	ld d, a
 	ld e, [hl]
-	farcall ComputeHPBarPixels
+	callba ComputeHPBarPixels
 	ld hl, wcda1
 	call SetHPPal
 	ld b, SCGB_STATS_SCREEN_HP_PALS
@@ -419,7 +419,7 @@ StatsScreen_InitUpperHalf: ; 4deea (13:5eea)
 
 .PlaceGenderChar: ; 4df66 (13:5f66)
 	push hl
-	farcall GetGender
+	callba GetGender
 	pop hl
 	ret c
 	ld a, "♂"
@@ -470,7 +470,7 @@ StatsScreen_PlacePageSwitchArrows: ; 4df9b (13:5f9b)
 
 StatsScreen_PlaceShinyIcon: ; 4dfa6 (13:5fa6)
 	ld bc, TempMonDVs
-	farcall CheckShininess
+	callba CheckShininess
 	ret nc
 	hlcoord 19, 0
 	ld [hl], "<SHINY>"
@@ -509,7 +509,7 @@ StatsScreen_LoadGFX: ; 4dfb6 (13:5fb6)
 	ld a, [wcf64]
 	and $3
 	ld c, a
-	farcall LoadStatsScreenPals
+	callba LoadStatsScreenPals
 	call DelayFrame
 	ld hl, wcf64
 	set 5, [hl]
@@ -629,7 +629,7 @@ StatsScreen_LoadGFX: ; 4dfb6 (13:5fb6)
 	jr z, .AlreadyAtMaxLevel
 	inc a
 	ld d, a
-	farcall CalcExpAtLevel
+	callba CalcExpAtLevel
 	ld hl, TempMonExp + 2
 	ld hl, TempMonExp + 2
 	ld a, [hQuotient + 2]
@@ -709,7 +709,7 @@ StatsScreen_LoadGFX: ; 4dfb6 (13:5fb6)
 	and a
 	ret z
 	ld b, a
-	farcall TimeCapsule_ReplaceTeruSama
+	callba TimeCapsule_ReplaceTeruSama
 	ld a, b
 	ld [wd265], a
 	call GetItemName
@@ -758,7 +758,7 @@ StatsScreen_LoadGFX: ; 4dfb6 (13:5fb6)
 	ld hl, .OTNamePointers
 	call GetNicknamePointer
 	call CopyNickname
-	farcall CheckNickErrors
+	callba CheckNickErrors
 	hlcoord 2, 13
 	call PlaceString
 	ld a, [TempMonCaughtGender]
@@ -1003,7 +1003,7 @@ EggStatsScreen: ; 4e33a
 	call DelayFrame
 	hlcoord 0, 0
 	call PrepMonFrontpic
-	farcall HDMATransferTileMapToWRAMBank3
+	callba HDMATransferTileMapToWRAMBank3
 	call StatsScreen_AnimateEgg
 
 	ld a, [TempMonHappiness]

@@ -40,7 +40,7 @@ _SlotMachine:
 	call ByteFill
 	ld b, SCGB_SLOT_MACHINE
 	call GetSGBLayout
-	farcall ClearSpriteAnims
+	callba ClearSpriteAnims
 	ld hl, wSlots
 	ld bc, wSlotsDataEnd - wSlots
 	xor a
@@ -115,7 +115,7 @@ SlotsLoop: ; 927af (24:67af)
 	call Slots_SpinReels
 	xor a
 	ld [wCurrSpriteOAMAddr], a
-	farcall DoNextFrameForFirst16Sprites
+	callba DoNextFrameForFirst16Sprites
 	call .PrintCoinsAndPayout
 	call .DummyFunc
 	call DelayFrame
@@ -1997,7 +1997,7 @@ SlotMachine_AnimateGolem: ; 9321d (24:721d)
 	dec [hl]
 	ld e, a
 	ld d, 14 * 8
-	farcall BattleAnim_Sine_e
+	callba BattleAnim_Sine_e
 	ld a, e
 	ld hl, SPRITEANIMSTRUCT_YOFFSET
 	add hl, bc

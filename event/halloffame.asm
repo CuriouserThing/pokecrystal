@@ -12,7 +12,7 @@ HallOfFame:: ; 0x8640e
 	ld hl, StatusFlags
 	set 6, [hl] ; hall of fame
 
-	farcall HallOfFame_InitSaveIfNeeded
+	callba HallOfFame_InitSaveIfNeeded
 
 	ld hl, wHallOfFameCount
 	ld a, [hl]
@@ -20,16 +20,16 @@ HallOfFame:: ; 0x8640e
 	jr nc, .ok
 	inc [hl]
 .ok
-	farcall SaveGameData
+	callba SaveGameData
 	call GetHallOfFameParty
-	farcall AddHallOfFameEntry
+	callba AddHallOfFameEntry
 
 	xor a
 	ld [wGameLogicPaused], a
 	call AnimateHallOfFame
 	pop af
 	ld b, a
-	farcall Credits
+	callba Credits
 	ret
 ; 0x86455
 
@@ -40,11 +40,11 @@ RedCredits:: ; 86455
 	ld [MusicFadeIDHi], a
 	ld a, 10
 	ld [MusicFade], a
-	farcall FadeOutPalettes
+	callba FadeOutPalettes
 	xor a
 	ld [VramState], a
 	ld [hMapAnims], a
-	farcall InitDisplayForRedCredits
+	callba InitDisplayForRedCredits
 	ld c, 8
 	call DelayFrames
 	call DisableSpriteUpdates
@@ -52,7 +52,7 @@ RedCredits:: ; 86455
 	ld [wSpawnAfterChampion], a
 	ld a, [StatusFlags]
 	ld b, a
-	farcall Credits
+	callba Credits
 	ret
 ; 8648e
 
@@ -63,11 +63,11 @@ HallOfFame_FadeOutMusic: ; 8648e
 	ld [MusicFadeIDHi], a
 	ld a, 10
 	ld [MusicFade], a
-	farcall FadeOutPalettes
+	callba FadeOutPalettes
 	xor a
 	ld [VramState], a
 	ld [hMapAnims], a
-	farcall InitDisplayForHallOfFame
+	callba InitDisplayForHallOfFame
 	ld c, 100
 	jp DelayFrames
 ; 864b4
@@ -230,7 +230,7 @@ GetHallOfFameParty: ; 8653f
 AnimateHOFMonEntrance: ; 865b5
 	push hl
 	call ClearBGPalettes
-	farcall ResetDisplayBetweenHallOfFameMons
+	callba ResetDisplayBetweenHallOfFameMons
 	pop hl
 	ld a, [hli]
 	ld [TempMonSpecies], a
@@ -497,7 +497,7 @@ DisplayHOFMon: ; 86748
 	call PlaceString
 	ld a, TEMPMON
 	ld [MonType], a
-	farcall GetGender
+	callba GetGender
 	ld a, " "
 	jr c, .got_gender
 	ld a, "♂"
@@ -539,7 +539,7 @@ HOF_AnimatePlayerPic: ; 86810
 	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
 	ld a, " "
 	call ByteFill
-	farcall GetPlayerBackpic
+	callba GetPlayerBackpic
 	ld a, $31
 	ld [hGraphicStartTile], a
 	hlcoord 6, 6
@@ -563,7 +563,7 @@ HOF_AnimatePlayerPic: ; 86810
 	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
 	ld a, " "
 	call ByteFill
-	farcall HOF_LoadTrainerFrontpic
+	callba HOF_LoadTrainerFrontpic
 	xor a
 	ld [hGraphicStartTile], a
 	hlcoord 12, 5
@@ -610,7 +610,7 @@ HOF_AnimatePlayerPic: ; 86810
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 2
 	call PrintNum
 	call WaitBGMap
-	farcall ProfOaksPCRating
+	callba ProfOaksPCRating
 	ret
 ; 868ed
 

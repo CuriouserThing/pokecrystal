@@ -197,7 +197,7 @@ SpecialNone: ; c224
 Special_SetPlayerPalette: ; c225
 	ld a, [ScriptVar]
 	ld d, a
-	farcall SetPlayerPalette
+	callba SetPlayerPalette
 	ret
 ; c230
 
@@ -212,7 +212,7 @@ Special_GameCornerPrizeMonCheckDex: ; c230
 	call FadeToMenu
 	ld a, [ScriptVar]
 	ld [wd265], a
-	farcall NewPokedexEntry
+	callba NewPokedexEntry
 	call ExitAllMenus
 	ret
 ; c252
@@ -227,28 +227,28 @@ SpecialSeenMon: ; c252
 Special_FindGreaterThanThatLevel: ; c25a
 	ld a, [ScriptVar]
 	ld b, a
-	farcall _FindGreaterThanThatLevel
+	callba _FindGreaterThanThatLevel
 	jr z, FoundNone
 	jr FoundOne
 
 Special_FindAtLeastThatHappy: ; c268
 	ld a, [ScriptVar]
 	ld b, a
-	farcall _FindAtLeastThatHappy
+	callba _FindAtLeastThatHappy
 	jr z, FoundNone
 	jr FoundOne
 
 Special_FindThatSpecies: ; c276
 	ld a, [ScriptVar]
 	ld b, a
-	farcall _FindThatSpecies
+	callba _FindThatSpecies
 	jr z, FoundNone
 	jr FoundOne
 
 Special_FindThatSpeciesYourTrainerID: ; c284
 	ld a, [ScriptVar]
 	ld b, a
-	farcall _FindThatSpeciesYourTrainerID
+	callba _FindThatSpeciesYourTrainerID
 	jr z, FoundNone
 	jr FoundOne
 
@@ -266,7 +266,7 @@ FoundNone: ; c298
 SpecialNameRival: ; 0xc29d
 	ld b, $2 ; rival
 	ld de, RivalName
-	farcall _NamingScreen
+	callba _NamingScreen
 	; default to "SILVER"
 	ld hl, RivalName
 	ld de, DefaultRivalName
@@ -278,27 +278,27 @@ DefaultRivalName: ; 0xc2b2
 	db "SILVER@"
 
 SpecialNameRater: ; c2b9
-	farcall NameRater
+	callba NameRater
 	ret
 ; c2c0
 
 Special_TownMap: ; c2c0
 	call FadeToMenu
-	farcall _TownMap
+	callba _TownMap
 	call ExitAllMenus
 	ret
 ; c2cd
 
 Special_UnownPrinter: ; c2cd
 	call FadeToMenu
-	farcall UnownPrinter
+	callba UnownPrinter
 	call ExitAllMenus
 	ret
 ; c2da
 
 Special_DisplayLinkRecord: ; c2da
 	call FadeToMenu
-	farcall DisplayLinkRecord
+	callba DisplayLinkRecord
 	call ExitAllMenus
 	ret
 ; c2e7
@@ -306,7 +306,7 @@ Special_DisplayLinkRecord: ; c2da
 Special_KrissHousePC: ; c2e7
 	xor a
 	ld [ScriptVar], a
-	farcall _KrissHousePC
+	callba _KrissHousePC
 	ld a, c
 	ld [ScriptVar], a
 	ret
@@ -362,7 +362,7 @@ Special_GetMysteryGiftItem: ; c309
 ; 0xc34a
 
 BugContestJudging: ; c34a
-	farcall _BugContestJudging
+	callba _BugContestJudging
 	ld a, b
 	ld [ScriptVar], a
 	ret
@@ -371,13 +371,13 @@ BugContestJudging: ; c34a
 MapRadio: ; c355
 	ld a, [ScriptVar]
 	ld e, a
-	farcall PlayRadio
+	callba PlayRadio
 	ret
 ; c360
 
 Special_UnownPuzzle: ; c360
 	call FadeToMenu
-	farcall UnownPuzzle
+	callba UnownPuzzle
 	ld a, [wSolvedUnownPuzzle]
 	ld [ScriptVar], a
 	call ExitAllMenus
@@ -510,20 +510,20 @@ StoreSwarmMapIndices:: ; c403
 
 SpecialCheckPokerus: ; c419
 ; Check if a monster in your party has Pokerus
-	farcall CheckPokerus
+	callba CheckPokerus
 	jp ScriptReturnCarry
 ; c422
 
 Special_ResetLuckyNumberShowFlag: ; c422
-	farcall RestartLuckyNumberCountdown
+	callba RestartLuckyNumberCountdown
 	ld hl, wLuckyNumberShowFlag
 	res 0, [hl]
-	farcall LoadOrRegenerateLuckyIDNumber
+	callba LoadOrRegenerateLuckyIDNumber
 	ret
 ; c434
 
 Special_CheckLuckyNumberShowFlag: ; c434
-	farcall CheckLuckyNumberShowFlag
+	callba CheckLuckyNumberShowFlag
 	jp ScriptReturnCarry
 ; c43d
 
@@ -618,14 +618,14 @@ Special_FadeOutMusic: ; c48f
 
 Diploma: ; c49f
 	call FadeToMenu
-	farcall _Diploma
+	callba _Diploma
 	call ExitAllMenus
 	ret
 ; c4ac
 
 PrintDiploma: ; c4ac
 	call FadeToMenu
-	farcall _PrintDiploma
+	callba _PrintDiploma
 	call ExitAllMenus
 	ret
 ; c4b9

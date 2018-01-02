@@ -6,7 +6,7 @@ SelectQuantityToToss: ; 24fbf
 ; 24fc9
 
 SelectQuantityToBuy: ; 24fc9
-	farcall GetItemPrice
+	callba GetItemPrice
 RooftopSale_SelectQuantityToBuy: ; 24fcf
 	ld a, d
 	ld [Buffer1], a
@@ -19,7 +19,7 @@ RooftopSale_SelectQuantityToBuy: ; 24fcf
 ; 24fe1
 
 SelectQuantityToSell: ; 24fe1
-	farcall GetItemPrice
+	callba GetItemPrice
 	ld a, d
 	ld [Buffer1], a
 	ld a, e

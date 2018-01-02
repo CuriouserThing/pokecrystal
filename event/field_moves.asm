@@ -7,20 +7,20 @@ PlayWhirlpoolSound: ; 8c7d4
 ; 8c7e1
 
 BlindingFlash: ; 8c7e1
-	farcall FadeOutPalettes
+	callba FadeOutPalettes
 	ld hl, StatusFlags
 	set 2, [hl] ; Flash
-	farcall ReplaceTimeOfDayPals
-	farcall UpdateTimeOfDayPal
+	callba ReplaceTimeOfDayPals
+	callba UpdateTimeOfDayPal
 	ld b, SCGB_MAPPALS
 	call GetSGBLayout
-	farcall LoadOW_BGPal7
-	farcall FadeInPalettes
+	callba LoadOW_BGPal7
+	callba FadeInPalettes
 	ret
 ; 8c80a
 
 ShakeHeadbuttTree: ; 8c80a
-	farcall ClearSpriteAnims
+	callba ClearSpriteAnims
 	ld de, CutGrassGFX
 	ld hl, VTiles1
 	lb bc, BANK(CutGrassGFX), 4
@@ -37,7 +37,7 @@ ShakeHeadbuttTree: ; 8c80a
 	ld [hl], $84
 	ld a, 36 * 4
 	ld [wCurrSpriteOAMAddr], a
-	farcall DoNextFrameForAllSprites
+	callba DoNextFrameForAllSprites
 	call HideHeadbuttTree
 	ld a, $20
 	ld [wcf64], a
@@ -52,7 +52,7 @@ ShakeHeadbuttTree: ; 8c80a
 	dec [hl]
 	ld a, 36 * 4
 	ld [wCurrSpriteOAMAddr], a
-	farcall DoNextFrameForAllSprites
+	callba DoNextFrameForAllSprites
 	call DelayFrame
 	jr .loop
 
@@ -61,7 +61,7 @@ ShakeHeadbuttTree: ; 8c80a
 	call WaitBGMap
 	xor a
 	ld [hBGMapMode], a
-	farcall ClearSpriteAnims
+	callba ClearSpriteAnims
 	ld hl, Sprites + 36 * 4
 	ld bc, SpritesEnd - (Sprites + 36 * 4)
 	xor a
@@ -129,7 +129,7 @@ OWCutAnimation: ; 8c940
 	jr nz, .finish
 	ld a, 36 * 4
 	ld [wCurrSpriteOAMAddr], a
-	farcall DoNextFrameForAllSprites
+	callba DoNextFrameForAllSprites
 	call OWCutJumptable
 	call DelayFrame
 	jr .loop
@@ -139,7 +139,7 @@ OWCutAnimation: ; 8c940
 ; 8c96d
 
 .LoadCutGFX: ; 8c96d
-	farcall ClearSpriteAnims ; pointless to farcall
+	callba ClearSpriteAnims ; pointless to callba
 	ld de, CutGrassGFX
 	ld hl, VTiles1
 	lb bc, BANK(CutGrassGFX), 4
@@ -343,7 +343,7 @@ FlyFromAnim: ; 8caed
 	jr nz, .exit
 	ld a, 0 * 4
 	ld [wCurrSpriteOAMAddr], a
-	farcall DoNextFrameForAllSprites
+	callba DoNextFrameForAllSprites
 	call FlyFunction_FrameTimer
 	call DelayFrame
 	jr .loop
@@ -381,7 +381,7 @@ FlyToAnim: ; 8cb33
 	jr nz, .exit
 	ld a, 0 * 4
 	ld [wCurrSpriteOAMAddr], a
-	farcall DoNextFrameForAllSprites
+	callba DoNextFrameForAllSprites
 	call FlyFunction_FrameTimer
 	call DelayFrame
 	jr .loop
@@ -411,7 +411,7 @@ FlyToAnim: ; 8cb33
 	ret
 
 FlyFunction_InitGFX: ; 8cb9b (23:4b9b)
-	farcall ClearSpriteAnims
+	callba ClearSpriteAnims
 	ld de, CutGrassGFX
 	ld hl, VTiles1 tile $00
 	lb bc, BANK(CutGrassGFX), 4
@@ -424,7 +424,7 @@ FlyFunction_InitGFX: ; 8cb9b (23:4b9b)
 	ld a, [hl]
 	ld [wd265], a
 	ld e, $84
-	farcall FlyFunction_GetMonIcon
+	callba FlyFunction_GetMonIcon
 	xor a
 	ld [wJumptableIndex], a
 	ret

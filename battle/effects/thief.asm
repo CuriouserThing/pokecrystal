@@ -23,7 +23,7 @@ BattleCommand_Thief: ; 37492
 
 	ld [wd265], a
 	ld d, a
-	farcall ItemIsMail
+	callba ItemIsMail
 	ret c
 
 	ld a, [EffectFailed]
@@ -71,7 +71,7 @@ BattleCommand_Thief: ; 37492
 
 	ld [wd265], a
 	ld d, a
-	farcall ItemIsMail
+	callba ItemIsMail
 	ret c
 
 	ld a, [EffectFailed]

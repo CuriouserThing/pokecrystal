@@ -21,7 +21,7 @@ SpecialPokeSeer: ; 4f0bc
 	call JoyWaitAorB
 
 	ld b, $6
-	farcall SelectMonFromParty
+	callba SelectMonFromParty
 	jr c, .cancel
 
 	ld a, [CurPartySpecies]
@@ -240,7 +240,7 @@ GetCaughtLocation: ; 4f20a
 	cp $7e
 	jr z, .fail
 	ld e, a
-	farcall GetLandmarkName
+	callba GetLandmarkName
 	ld hl, StringBuffer1
 	ld de, wSeerCaughtLocation
 	ld bc, 17

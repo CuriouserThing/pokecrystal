@@ -6838,7 +6838,7 @@ Unknown_117356: ; 117356
 SECTION "Mobile Stadium", ROMX, BANK[$45]
 
 Special_GiveOddEgg: ; 117656
-	farcall GiveOddEgg
+	callba GiveOddEgg
 	ret
 
 ; 11765d
@@ -6898,9 +6898,9 @@ Function117699: ; 117699 (45:7699)
 	call ByteFill
 	call ClearBGPalettes
 	call ClearSprites
-	farcall Function171c87
-	farcall ReloadMapPart
-	farcall ClearSpriteAnims
+	callba Function171c87
+	callba ReloadMapPart
+	callba ClearSpriteAnims
 	ret
 
 Function1176ee: ; 1176ee (45:76ee)
@@ -6910,12 +6910,12 @@ Function1176ee: ; 1176ee (45:76ee)
 	bit 7, a
 	jr nz, .quit
 	call Function117719
-	farcall PlaySpriteAnimations
-	farcall ReloadMapPart
+	callba PlaySpriteAnimations
+	callba ReloadMapPart
 	jr .loop
 
 .quit
-	farcall ClearSpriteAnims
+	callba ClearSpriteAnims
 	call ClearBGPalettes
 	call ClearScreen
 	call ClearSprites
@@ -6945,7 +6945,7 @@ Jumptable_117728: ; 117728 (45:7728)
 
 
 Function117738: ; 117738 (45:7738)
-	farcall Function171ccd
+	callba Function171ccd
 	depixel 6, 3
 	ld a, $1d
 	call _InitSpriteAnimStruct
@@ -7004,7 +7004,7 @@ Function117764: ; 117764 (45:7764)
 	ret
 
 Function117764_select: ; 1177a5 (45:77a5)
-	farcall Function171cf0
+	callba Function171cf0
 	ret
 
 Function117764_start: ; 1177ac (45:77ac)
@@ -7176,7 +7176,7 @@ Function1178aa: ; 1178aa (45:78aa)
 	call LoadMenuDataHeader
 	call MenuBox
 	call MenuBoxCoord2Tile
-	farcall ReloadMapPart
+	callba ReloadMapPart
 	hlcoord 16, 8
 	ld de, YessNoString_1179c5
 	call PlaceString
@@ -7278,7 +7278,7 @@ Function117984: ; 117984 (45:7984)
 	call LoadMenuDataHeader
 	call MenuBox
 	call MenuBoxCoord2Tile
-	farcall ReloadMapPart
+	callba ReloadMapPart
 	hlcoord 1, 14
 	ld de, NotAPokemonPasswordString
 	call PlaceString
@@ -7379,8 +7379,8 @@ Function117a94: ; 0x117a94
 	ld [wcf66], a
 	call ClearBGPalettes
 	call ClearSprites
-	farcall Function172e78
-	farcall HDMATransferAttrMapAndTileMapToWRAMBank3
+	callba Function172e78
+	callba HDMATransferAttrMapAndTileMapToWRAMBank3
 	ret
 
 ; 0x117ab4
@@ -7388,9 +7388,9 @@ Function117a94: ; 0x117a94
 Function117ab4: ; 0x117ab4
 	call ClearBGPalettes
 	call ClearSprites
-	farcall Function172e78
-	farcall Function172eb9
-	farcall ReloadMapPart
+	callba Function172e78
+	callba Function172eb9
+	callba ReloadMapPart
 	ret
 
 ; 0x117acd
@@ -7401,7 +7401,7 @@ Function117acd: ; 0x117acd
 	bit 7, a
 	jr nz, .asm_117ae2
 	call Function117ae9
-	farcall HDMATransferAttrMapAndTileMapToWRAMBank3
+	callba HDMATransferAttrMapAndTileMapToWRAMBank3
 	jr Function117acd
 
 .asm_117ae2
@@ -7431,7 +7431,7 @@ Function117ae9: ; 0x117ae9
 	dw Function117c4a
 
 Function117b06:
-	farcall Function172eb9
+	callba Function172eb9
 	ld a, $10
 	ld [wcf64], a
 	jp MobileStudium_JumptableIncrement
@@ -7508,13 +7508,13 @@ Function117b4f:
 	jr nz, .b_button
 	call ExitMenu
 	call ExitMenu
-	farcall ReloadMapPart
+	callba ReloadMapPart
 	jp MobileStudium_JumptableIncrement
 
 .b_button
 	call ExitMenu
 	call ExitMenu
-	farcall ReloadMapPart
+	callba ReloadMapPart
 	ld a, $80
 	ld [wJumptableIndex], a
 	ret
@@ -7523,7 +7523,7 @@ Function117bb6:
 	call Function117c89
 	ld a, $1
 	ld [hBGMapMode], a
-	farcall Function118284
+	callba Function118284
 	call ClearSprites
 	ld a, [wc300]
 	and a
@@ -7533,7 +7533,7 @@ Function117bb6:
 .asm_117bd0
 	ld a, $2
 	ld [wc303], a
-	farcall Function17f555
+	callba Function17f555
 	ld a, $80
 	ld [wJumptableIndex], a
 	ret
@@ -7580,7 +7580,7 @@ Function117bb6:
 .asm_117c20
 	pop af
 	ld [rSVBK], a
-	farcall Function172eb9
+	callba Function172eb9
 	ld a, [rSVBK]
 	push af
 	ld a, $3
@@ -7601,7 +7601,7 @@ Function117c4a:
 	call LoadMenuDataHeader
 	call MenuBox
 	call MenuBoxCoord2Tile
-	farcall ReloadMapPart
+	callba ReloadMapPart
 	ld hl, MobileStadiumSuccessText
 	call PrintText
 	ld a, [rSVBK]

@@ -1,5 +1,5 @@
 _ResetClock: ; 4d3b1
-	farcall BlankScreen
+	callba BlankScreen
 	ld b, SCGB_DIPLOMA
 	call GetSGBLayout
 	call LoadStandardFont
@@ -255,7 +255,7 @@ ClockResetPassword: ; 4d41e
 	ret
 
 _DeleteSaveData: ; 4d54c
-	farcall BlankScreen
+	callba BlankScreen
 	ld b, SCGB_DIPLOMA
 	call GetSGBLayout
 	call LoadStandardFont
@@ -271,7 +271,7 @@ _DeleteSaveData: ; 4d54c
 	ld a, [wMenuCursorY]
 	cp $1
 	ret z
-	farcall EmptyAllSRAMBanks
+	callba EmptyAllSRAMBanks
 	ret
 
 .Text_ClearAllSaveData: ; 0x4d580

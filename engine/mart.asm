@@ -268,7 +268,7 @@ GetMartItemPrice: ; 15be5
 ; Return the price of item a in BCD at hl and in tiles at StringBuffer1.
 	push hl
 	ld [CurItem], a
-	farcall GetItemPrice
+	callba GetItemPrice
 	pop hl
 
 GetMartPrice: ; 15bf0
@@ -368,7 +368,7 @@ BargainShopData: ; 15c51
 
 BuyMenu: ; 15c62
 	call FadeToMenu
-	farcall BlankScreen
+	callba BlankScreen
 	xor a
 	ld [wd045 + 1], a
 	ld a, 1
@@ -467,7 +467,7 @@ GetMartDialogGroup: ; 15ca3
 
 
 BuyMenuLoop: ; 15cef
-	farcall PlaceMoneyTopRight
+	callba PlaceMoneyTopRight
 	call UpdateSprites
 	ld hl, MenuDataHeader_Buy
 	call CopyMenuDataHeader
@@ -543,7 +543,7 @@ StandardMartAskPurchaseQuantity:
 	ld [wItemQuantityBuffer], a
 	ld a, MARTTEXT_HOW_MANY
 	call LoadBuyMenuText
-	farcall SelectQuantityToBuy
+	callba SelectQuantityToBuy
 	call ExitMenu
 	ret
 ; 15d97
@@ -603,7 +603,7 @@ RooftopSaleAskPurchaseQuantity:
 	call .GetSalePrice
 	ld a, 99
 	ld [wItemQuantityBuffer], a
-	farcall RooftopSale_SelectQuantityToBuy
+	callba RooftopSale_SelectQuantityToBuy
 	call ExitMenu
 	ret
 ; 15df9
@@ -806,9 +806,9 @@ Text_Pharmacist_ComeAgain: ; 0x15eae
 
 SellMenu: ; 15eb3
 	call DisableSpriteUpdates
-	farcall DepositSellInitPackBuffers
+	callba DepositSellInitPackBuffers
 .loop
-	farcall DepositSellPack
+	callba DepositSellPack
 	ld a, [wcf66]
 	and a
 	jp z, .quit
@@ -836,7 +836,7 @@ SellMenu: ; 15eb3
 
 
 .TryToSellItem: ; 15ee0
-	farcall CheckItemMenu
+	callba CheckItemMenu
 	ld a, [wItemAttributeParamBuffer]
 	ld hl, .dw
 	rst JumpTable
@@ -859,7 +859,7 @@ SellMenu: ; 15eb3
 
 
 .try_sell ; 15efd
-	farcall _CheckTossableItem
+	callba _CheckTossableItem
 	ld a, [wItemAttributeParamBuffer]
 	and a
 	jr z, .okay_to_sell
@@ -871,8 +871,8 @@ SellMenu: ; 15eb3
 .okay_to_sell
 	ld hl, Text_Mart_SellHowMany
 	call PrintText
-	farcall PlaceMoneyAtTopLeftOfTextbox
-	farcall SelectQuantityToSell
+	callba PlaceMoneyAtTopLeftOfTextbox
+	callba SelectQuantityToSell
 	call ExitMenu
 	jr c, .declined
 	hlcoord 1, 14
@@ -895,7 +895,7 @@ SellMenu: ; 15eb3
 	ld hl, Text_Mart_SoldForAmount
 	call PrintTextBoxText
 	call PlayTransactionSound
-	farcall PlaceMoneyBottomLeft
+	callba PlaceMoneyBottomLeft
 	call JoyWaitAorB
 
 .declined

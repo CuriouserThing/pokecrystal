@@ -85,14 +85,14 @@ ReanchorBGMap_NoOAMUpdate:: ; 6454
 	ld a, VBGMap1 / $100
 	call .LoadBGMapAddrIntoHRAM
 	call _OpenAndCloseMenu_HDMATransferTileMapAndAttrMap
-	farcall LoadOW_BGPal7
-	farcall ApplyPals
+	callba LoadOW_BGPal7
+	callba ApplyPals
 	ld a, $1
 	ld [hCGBPalUpdate], a
 	xor a
 	ld [hBGMapMode], a
 	ld [hWY], a
-	farcall HDMATransfer_FillBGMap0WithTile60 ; no need to farcall
+	callba HDMATransfer_FillBGMap0WithTile60 ; no need to callba
 	ld a, VBGMap0 / $100
 	call .LoadBGMapAddrIntoHRAM
 	xor a
@@ -290,7 +290,7 @@ GetBreedMon1LevelGrowth: ; e698
 	ld de, TempMon
 	ld bc, BOXMON_STRUCT_LENGTH
 	call CopyBytes
-	farcall CalcLevel
+	callba CalcLevel
 	ld a, [wBreedMon1Level]
 	ld b, a
 	ld a, d
@@ -304,7 +304,7 @@ GetBreedMon2LevelGrowth: ; e6b3
 	ld de, TempMon
 	ld bc, BOXMON_STRUCT_LENGTH
 	call CopyBytes
-	farcall CalcLevel
+	callba CalcLevel
 	ld a, [wBreedMon2Level]
 	ld b, a
 	ld a, d
@@ -318,8 +318,8 @@ BugContest_SetCaughtContestMon: ; e6ce
 	and a
 	jr z, .firstcatch
 	ld [wd265], a
-	farcall DisplayAlreadyCaughtText
-	farcall DisplayCaughtContestMonStats
+	callba DisplayAlreadyCaughtText
+	callba DisplayCaughtContestMonStats
 	lb bc, 14, 7
 	call PlaceYesNoBox
 	ret c
@@ -409,7 +409,7 @@ Special_GiveParkBalls: ; 135db
 	ld [wContestMon], a
 	ld a, 20
 	ld [wParkBallsRemaining], a
-	farcall StartBugContestTimer
+	callba StartBugContestTimer
 	ret
 
 BugCatchingContestBattleScript:: ; 0x135eb
@@ -662,7 +662,7 @@ UpdateItemDescription: ; 0x244c3
 	cp -1
 	ret z
 	decoord 1, 14
-	farcall PrintItemDescription
+	callba PrintItemDescription
 	ret
 
 INCLUDE "engine/pokepic.asm"
@@ -754,7 +754,7 @@ PlaceMenuItemQuantity: ; 0x24ac3
 	push de
 	ld a, [MenuSelection]
 	ld [CurItem], a
-	farcall _CheckTossableItem
+	callba _CheckTossableItem
 	ld a, [wItemAttributeParamBuffer]
 	pop hl
 	and a
@@ -1040,7 +1040,7 @@ LevelUpHappinessMod: ; 2709e
 	ld c, HAPPINESS_GAINLEVELATHOME
 
 .ok
-	farcall ChangeHappiness
+	callba ChangeHappiness
 	ret
 
 INCLUDE "trainers/dvs.asm"
@@ -1051,14 +1051,14 @@ _ReturnToBattle_UseBall: ; 2715c
 	ld a, [BattleType]
 	cp BATTLETYPE_TUTORIAL
 	jr z, .gettutorialbackpic
-	farcall GetMonBackpic
+	callba GetMonBackpic
 	jr .continue
 
 .gettutorialbackpic
-	farcall GetTrainerBackpic
+	callba GetTrainerBackpic
 .continue
-	farcall GetMonFrontpic
-	farcall _LoadBattleFontsHPBar
+	callba GetMonFrontpic
+	callba _LoadBattleFontsHPBar
 	call GetMemSGBLayout
 	call CloseWindow
 	call LoadStandardMenuDataHeader
@@ -1084,7 +1084,7 @@ ConsumeHeldItem: ; 27192
 	push af
 	ld a, [de]
 	ld b, a
-	farcall GetItemHeldEffect
+	callba GetItemHeldEffect
 	ld hl, .ConsumableEffects
 .loop
 	ld a, [hli]
@@ -1367,7 +1367,7 @@ ShowLinkBattleParticipants: ; 2ee18
 	and a
 	ret z
 
-	farcall _ShowLinkBattleParticipants
+	callba _ShowLinkBattleParticipants
 	ld c, 150
 	call DelayFrames
 	call ClearTileMap
@@ -1396,7 +1396,7 @@ FindFirstAliveMonAndStartBattle: ; 2ee2f
 	ld a, [hl]
 	ld [BattleMonLevel], a
 	predef Predef_StartBattle
-	farcall _LoadBattleFontsHPBar
+	callba _LoadBattleFontsHPBar
 	ld a, 1
 	ld [hBGMapMode], a
 	call ClearSprites
@@ -1433,7 +1433,7 @@ PlayBattleMusic: ; 2ee6c
 	and a
 	jr nz, .trainermusic
 
-	farcall RegionCheck
+	callba RegionCheck
 	ld a, e
 	and a
 	jr nz, .kantowild
@@ -1464,11 +1464,11 @@ PlayBattleMusic: ; 2ee6c
 	jr z, .done
 
 	ld de, MUSIC_KANTO_GYM_LEADER_BATTLE
-	farcall IsKantoGymLeader
+	callba IsKantoGymLeader
 	jr c, .done
 
 	ld de, MUSIC_JOHTO_GYM_LEADER_BATTLE
-	farcall IsJohtoGymLeader
+	callba IsJohtoGymLeader
 	jr c, .done
 
 	ld de, MUSIC_RIVAL_BATTLE
@@ -1489,7 +1489,7 @@ PlayBattleMusic: ; 2ee6c
 	and a
 	jr nz, .johtotrainer
 
-	farcall RegionCheck
+	callba RegionCheck
 	ld a, e
 	and a
 	jr nz, .kantotrainer
@@ -1549,7 +1549,7 @@ ClearBattleRAM: ; 2ef18
 	xor a
 	call ByteFill
 
-	farcall ResetEnemyStatLevels
+	callba ResetEnemyStatLevels
 
 	call ClearWindowData
 
@@ -1983,12 +1983,12 @@ Special_MoveTutor: ; 4925b
 	ld [wPutativeTMHMMove], a
 	call GetMoveName
 	call CopyName1
-	farcall ChooseMonToLearnTMHM
+	callba ChooseMonToLearnTMHM
 	jr c, .cancel
 	jr .enter_loop
 
 .loop
-	farcall ChooseMonToLearnTMHM_NoRefresh
+	callba ChooseMonToLearnTMHM_NoRefresh
 	jr c, .cancel
 .enter_loop
 	call CheckCanLearnMoveTutorMove
@@ -2046,7 +2046,7 @@ CheckCanLearnMoveTutorMove: ; 492b9
 	jr .didnt_learn
 
 .can_learn
-	farcall KnowsMove
+	callba KnowsMove
 	jr c, .didnt_learn
 
 	predef LearnMove
@@ -2055,7 +2055,7 @@ CheckCanLearnMoveTutorMove: ; 492b9
 	jr z, .didnt_learn
 
 	ld c, HAPPINESS_LEARNMOVE
-	farcall ChangeHappiness
+	callba ChangeHappiness
 	jr .learned
 
 .didnt_learn
@@ -2502,10 +2502,10 @@ LinkMonStatsScreen: ; 4d319
 	call ClearScreen
 	call ClearBGPalettes
 	call MaxVolume
-	farcall LoadTradeScreenBorder
-	farcall Link_WaitBGMap
-	farcall InitTradeSpeciesList
-	farcall SetTradeRoomBGPals
+	callba LoadTradeScreenBorder
+	callba Link_WaitBGMap
+	callba InitTradeSpeciesList
+	callba SetTradeRoomBGPals
 	call WaitBGMap2
 	ret
 
@@ -2677,7 +2677,7 @@ AnimateTrademonFrontpic: ; 4d81e
 	ld a, [wOTTrademonSpecies]
 	call IsAPokemon
 	ret c
-	farcall ShowOTTrademonStats
+	callba ShowOTTrademonStats
 	ld a, [wOTTrademonSpecies]
 	ld [CurPartySpecies], a
 	ld a, [wOTTrademonDVs]
@@ -2688,7 +2688,7 @@ AnimateTrademonFrontpic: ; 4d81e
 	call GetSGBLayout
 	ld a, %11100100 ; 3,2,1,0
 	call DmgToCgbBGPals
-	farcall TradeAnim_ShowGetmonFrontpic
+	callba TradeAnim_ShowGetmonFrontpic
 	ld a, [wOTTrademonSpecies]
 	ld [CurPartySpecies], a
 	hlcoord 7, 2
@@ -2990,7 +2990,7 @@ CheckPartyFullAfterContest: ; 4d9e5
 	xor a
 	ld [MonType], a
 	ld de, wMonOrItemNameBuffer
-	farcall InitNickname
+	callba InitNickname
 
 .Party_SkipNickname:
 	ld a, [PartyCount]
@@ -3041,7 +3041,7 @@ CheckPartyFullAfterContest: ; 4d9e5
 	ld de, wBufferMonOT
 	ld bc, NAME_LENGTH
 	call CopyBytes
-	farcall InsertPokemonIntoBox
+	callba InsertPokemonIntoBox
 	ld a, [CurPartySpecies]
 	ld [wd265], a
 	call GetPokemonName
@@ -3051,7 +3051,7 @@ CheckPartyFullAfterContest: ; 4d9e5
 	ld a, BOXMON
 	ld [MonType], a
 	ld de, wMonOrItemNameBuffer
-	farcall InitNickname
+	callba InitNickname
 	ld hl, wMonOrItemNameBuffer
 
 .Box_SkipNickname:
@@ -3230,7 +3230,7 @@ CatchTutorial:: ; 4e554
 	ld hl, .AutoInput
 	ld a, BANK(.AutoInput)
 	call StartAutoInput
-	farcall StartBattle
+	callba StartBattle
 	call StopAutoInput
 	pop af
 
@@ -3460,7 +3460,7 @@ Mobile_PrintOpponentBattleMessage: ; 4ea0a
 
 	ld bc, wMobileOpponentBattleMessage
 	decoord 1, 14
-	farcall PrintEZChatBattleMessage
+	callba PrintEZChatBattleMessage
 
 	pop af
 	ld [rSVBK], a
@@ -3522,7 +3522,7 @@ CopyPkmnToTempMon: ; 5084a
 	cp OTPARTYMON
 	jr z, .copywholestruct
 	ld bc, BOXMON_STRUCT_LENGTH
-	farcall CopyBoxmonToTempMon
+	callba CopyBoxmonToTempMon
 	jr .done
 
 .copywholestruct
@@ -4002,7 +4002,7 @@ ListMovePP: ; 50c50
 	push af
 	ld [hl], b
 	push hl
-	farcall GetMaxPPOfMove
+	callba GetMaxPPOfMove
 	pop hl
 	pop af
 	ld [hl], a
@@ -5071,7 +5071,7 @@ LoadPoisonBGPals: ; cbcdd
 	call DmgToCgbBGPals
 	ld c, 4
 	call DelayFrames
-	farcall _UpdateTimePals
+	callba _UpdateTimePals
 	ret
 
 .cgb
@@ -5095,7 +5095,7 @@ LoadPoisonBGPals: ; cbcdd
 	ld [hCGBPalUpdate], a
 	ld c, 4
 	call DelayFrames
-	farcall _UpdateTimePals
+	callba _UpdateTimePals
 	ret
 
 TheEndGFX:: ; cbd2e
@@ -5479,13 +5479,13 @@ INCLUDE "text/phone/extra3.asm"
 SECTION "bank5E", ROMX, BANK[$5E]
 
 _UpdateBattleHUDs:
-	farcall DrawPlayerHUD
+	callba DrawPlayerHUD
 	ld hl, PlayerHPPal
 	call SetHPPal
-	farcall DrawEnemyHUD
+	callba DrawEnemyHUD
 	ld hl, EnemyHPPal
 	call SetHPPal
-	farcall FinishBattleAnim
+	callba FinishBattleAnim
 	ret
 
 INCLUDE "misc/mobile_5f.asm"

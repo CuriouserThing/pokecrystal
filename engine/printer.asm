@@ -68,7 +68,7 @@ PrintDexEntry: ; 8442c
 	call Printer_StartTransmission
 	ld a, $10
 	ld [wcbfa], a
-	farcall PrintPage1
+	callba PrintPage1
 	call ClearTileMap
 	ld a, %11100100
 	call DmgToCgbBGPals
@@ -94,7 +94,7 @@ PrintDexEntry: ; 8442c
 	call Printer_StartTransmission
 	ld a, $3
 	ld [wcbfa], a
-	farcall PrintPage2
+	callba PrintPage2
 	call Printer_ResetJoypadRegisters
 	ld a, 4
 	ld [wPrinterQueueLength], a
@@ -235,7 +235,7 @@ PrintUnownStamp: ; 84560
 	xor a
 	ld [hBGMapMode], a
 	call LoadTileMapToTempTileMap
-	farcall PlaceUnownPrinterFrontpic
+	callba PlaceUnownPrinterFrontpic
 	ld a, $0 ; to be loaded to wcbfa
 	call Printer_PrepareTileMapForPrint
 	call Call_LoadTempTileMapToTileMap
@@ -341,7 +341,7 @@ PrintPartymon: ; 8461a
 
 	xor a
 	ld [hBGMapMode], a
-	farcall PrintPartyMonPage1
+	callba PrintPartyMonPage1
 	ld a, $10 ; to be loaded to wcbfa
 	call Printer_PrepareTileMapForPrint
 
@@ -362,7 +362,7 @@ PrintPartymon: ; 8461a
 
 	xor a
 	ld [hBGMapMode], a
-	farcall PrintPartyMonPage2
+	callba PrintPartyMonPage2
 	ld a, $3 ; to be loaded to wcbfa
 	call Printer_PrepareTileMapForPrint
 
@@ -391,7 +391,7 @@ _PrintDiploma: ; 84688
 	ld a, [wPrinterQueueLength]
 	push af
 
-	farcall PlaceDiplomaOnScreen
+	callba PlaceDiplomaOnScreen
 
 	xor a
 	ld [hPrinter], a
@@ -425,7 +425,7 @@ _PrintDiploma: ; 84688
 	xor a
 	ld [hBGMapMode], a
 
-	farcall PrintDiplomaPage2
+	callba PrintDiplomaPage2
 
 	ld a, $3 ; to be loaded to wcbfa
 	call Printer_PrepareTileMapForPrint
@@ -861,7 +861,7 @@ Printer_GetMonGender: ; 8498a (21:498a)
 	ld [CurPartyMon], a
 	ld a, TEMPMON
 	ld [MonType], a
-	farcall GetGender
+	callba GetGender
 	ld a, " "
 	jr c, .got_gender
 	ld a, "♂"

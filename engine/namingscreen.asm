@@ -103,7 +103,7 @@ NamingScreen: ; 116c1
 	inc de
 	hlcoord 5, 4
 	call PlaceString
-	farcall GetGender
+	callba GetGender
 	jr c, .genderless
 	ld a, "♂"
 	jr nz, .place_gender
@@ -124,7 +124,7 @@ NamingScreen: ; 116c1
 ; 1178d
 
 .Player: ; 1178d (4:578d)
-	farcall GetPlayerIcon
+	callba GetPlayerIcon
 	call .LoadSprite
 	hlcoord 5, 2
 	ld de, .PlayerNameString
@@ -352,14 +352,14 @@ NamingScreenJoypadLoop: ; 11915
 	bit 7, a
 	jr nz, .quit
 	call .RunJumptable
-	farcall PlaySpriteAnimationsAndDelayFrame
+	callba PlaySpriteAnimationsAndDelayFrame
 	call .UpdateStringEntry
 	call DelayFrame
 	and a
 	ret
 
 .quit
-	farcall ClearSpriteAnims
+	callba ClearSpriteAnims
 	call ClearSprites
 	xor a
 	ld [hSCX], a
@@ -900,7 +900,7 @@ NamingScreen_GetLastCharacter: ; 11c11 (4:5c11)
 
 LoadNamingScreenGFX: ; 11c51
 	call ClearSprites
-	farcall ClearSpriteAnims
+	callba ClearSpriteAnims
 	call LoadStandardFont
 	call LoadFontsExtra
 
@@ -1125,14 +1125,14 @@ INCBIN "gfx/icon/mail2.2bpp"
 	bit 7, a
 	jr nz, .exit_mail
 	call .DoJumptable
-	farcall PlaySpriteAnimationsAndDelayFrame
+	callba PlaySpriteAnimationsAndDelayFrame
 	call .Update
 	call DelayFrame
 	and a
 	ret
 
 .exit_mail
-	farcall ClearSpriteAnims
+	callba ClearSpriteAnims
 	call ClearSprites
 	xor a
 	ld [hSCX], a
